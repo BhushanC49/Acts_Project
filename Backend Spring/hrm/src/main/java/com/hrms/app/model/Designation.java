@@ -1,14 +1,31 @@
 package com.hrms.app.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+//to generate getter and setters 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "designations")
+@ToString
 public class Designation {
 
 	// primary key
 	@Id
 	private String desig_id;
 	private String desig_title;
-	private String company_id;
+	// Reference to Company (one-to-many)
+	@DBRef
+	@Field("company_id")
+	private Company company;
 	private String desig_level;
 	private String Record_status;
 }
