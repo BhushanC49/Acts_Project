@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Project {
 	// primary key
 	@Id
-	private String Project_id;
+	private String project_id;
 	// Reference to Company (one-to-many)
 	@DBRef
 	@Field("company_id")
@@ -28,5 +28,5 @@ public class Project {
 	private String project_title;
 	private LocalDate start_date;
 	private LocalDate end_Date;
-	private String Record_status;
+	private String record_status;
 }

@@ -17,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor 
 @ToString 
 @Document(collection = "salary_structure")
-public class EmpSalaryStru {
+public class EmpSalaryStructure {
 	@Id 
 	private Integer salId;  
 	@DBRef 

@@ -39,7 +39,7 @@ public class Employee {
 	private Designation desig; 
 	private String email; 
 	private String contactNo; 
-	//private boolean noticePeriod; 
+	private int noticePeriod; 
 	private LocalDate lastWorkingDay;
 	private String empStatus; 
 	private String empAccesRole; 

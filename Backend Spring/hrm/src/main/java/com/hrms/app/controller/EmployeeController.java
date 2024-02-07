@@ -17,7 +17,7 @@ import com.hrms.app.service.IEmployeeService;
 import jakarta.validation.Valid;
 
 @RestController 
-@RequestMapping("/Employee")
+@RequestMapping("/employee")
 @CrossOrigin(origins = "")
 public class EmployeeController {
 	
