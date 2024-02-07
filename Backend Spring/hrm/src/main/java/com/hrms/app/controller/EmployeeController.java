@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.hrms.app.request.EmployeeRequest;
+import com.hrms.app.response.ApiResponse;
 import com.hrms.app.service.IEmployeeService;
 
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ public class EmployeeController {
 	{
 		try {
 			//calling EmpService method for adding employee 
-			return new ResponseEntity<>(empService.addEmployee(empReq),HttpStatus.OK);
+			return new ResponseEntity<>(empService.addEmployee(empReq),HttpStatus.CREATED);
 		}
 		catch(RuntimeException e)
 		{
@@ -38,8 +39,10 @@ public class EmployeeController {
 			//return err mesg wrapped in DTO : ApiResp
 			return  ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
-					.body(e.getMessage());
+					.body(new ApiResponse(e.getMessage()));
 		}
-	}
+	} 
+	
+	
 	
 }

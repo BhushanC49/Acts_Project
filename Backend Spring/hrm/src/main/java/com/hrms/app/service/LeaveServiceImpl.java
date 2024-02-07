@@ -37,8 +37,8 @@ public class LeaveServiceImpl implements ILeaveService {
 
 	@Override
 	public ApiResponse deleteLeave(String leaveid) {
-		leaveRepository.delete(leaveid);
-		return new ApiResponse("Leave Details of emp with ID " + Leave.getLeaveId() + " deleted....");
+		leaveRepository.deleteById(leaveid);
+		return new ApiResponse("Leave Details of emp with ID " + leaveid + " deleted....");
 
 	}
 

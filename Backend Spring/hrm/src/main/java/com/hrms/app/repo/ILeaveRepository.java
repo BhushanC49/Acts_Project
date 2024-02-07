@@ -12,10 +12,10 @@ public interface ILeaveRepository extends MongoRepository<Leave, String>{
 	
 
 	// Add leave for an employee
-    LeaveDto save(LeaveRequest leave);
+    //LeaveDto save(LeaveRequest leave);
 
     // Delete leave for an employee
-    void delete(String leaveid);
+    //void delete(String leaveid);
     
     @Query("SELECT   empId.leaveBalance from Leave l where l.empId = :empId ")
     int getLeaveBalance(@Param("empId") String empId);
