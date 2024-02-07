@@ -17,9 +17,9 @@ import lombok.ToString;
 public class Company {
 	// primary key
 	@Id
-	private String company_id;
-	private String company_name;
-	private String company_contact;
-	private String company_email;
-	private String Record_status;
+	private String companyId;
+	private String companyName;
+	private String companyContact;
+	private String companyEmail;
+	private String recordStatus;
 }
