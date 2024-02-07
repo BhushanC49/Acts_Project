@@ -284,6 +284,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Apply Leave',
+        to: '/apply-leave',
+      },
+      {
+        component: CNavItem,
         name: 'Error 404',
         to: '/404',
       },

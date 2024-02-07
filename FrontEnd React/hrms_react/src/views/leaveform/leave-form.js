@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import LeaveService from '../../services/leave.api'
 
 function LeaveForm() {
   // State variables
