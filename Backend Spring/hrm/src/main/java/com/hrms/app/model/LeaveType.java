@@ -11,11 +11,11 @@ import lombok.Data;
 public class LeaveType {
 
     @Id
-    private String leavetype_id;
+    private String leavetypeId;
 
-    private String leave_type;
+    private String leaveType;
 
-    private int max_leaves;
+    private int maxLeaves;
 
     
 }
