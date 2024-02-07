@@ -19,12 +19,12 @@ import lombok.ToString;
 public class Department {
 	//primary key 
 	@Id
-	 private String dept_id;
-	 private String dept_name;
+	 private String deptId;
+	 private String deptName;
 	// Reference to Company (one-to-many)
 	 @DBRef
 	 @Field("company_id")
 	 private Company company;
-	 private String depthead_empid;
-	 private String Record_status;
+	 private String deptHeadEmpId;
+	 private String recordStatus;
 }
