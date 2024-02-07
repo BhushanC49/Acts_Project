@@ -19,7 +19,7 @@ public class EmpSalaryStruContoller {
 	
 	@Autowired 
 	private IEmpSalaryStruService salService; 
-	
+	//create employee salary structure method 
 	@PostMapping
 	public ResponseEntity<?> createEmpSalaryStru(@RequestBody EmpSalaryStruRequest salReq)
 	{
