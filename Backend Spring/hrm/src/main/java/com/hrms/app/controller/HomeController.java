@@ -25,7 +25,7 @@ public class HomeController {
 		try {
 
 			// if user is present then give response as Employee_dto else throw unauthorized
-			// status of resp entity
+			// status of resp entity 
 			EmployeeDto authenticatedUser = employeeService.authenticateUser(loginReq);
 			if (authenticatedUser != null) {
 				return ResponseEntity.ok(authenticatedUser);

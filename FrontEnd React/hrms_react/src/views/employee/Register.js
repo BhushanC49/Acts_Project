@@ -8,19 +8,17 @@ import {
   CForm,
   CFormInput,
   CInputGroup,
-  CInputGroupText,
   CRow,
   CFormSelect,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import DepartmentService from '../../../services/Department.api'
-import EmployeeService from '../../../services/Employee.api'
+import DepartmentService from '../../services/Department.api'
+import EmployeeService from '../../services/Employee.api'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [formdetails, setformdetails] = useState({
-    id: '',
     fname: '',
     mname: '',
     lname: '',
@@ -29,7 +27,6 @@ const Register = () => {
     contactNo: '',
     Dept: '',
     email: '',
-    uname: '',
     pass: '',
     cpass: '',
   })
@@ -66,12 +63,11 @@ const Register = () => {
             <CCard className="mx-4" style={{ width: '100%' }}>
               <CCardBody className="p-4">
                 <CForm onSubmit={handleSubmit}>
-                  <h1>Register Employee</h1>
+                  <h1>Add Employee</h1>
                   <p className="text-medium-emphasis">Create your account</p>
                   <CRow className="mb-3">
                     <CCol>
                       <CInputGroup>
-                        <CInputGroupText>@</CInputGroupText>
                         <CFormInput
                           placeholder="First Name"
                           autoComplete="first name"
@@ -79,12 +75,12 @@ const Register = () => {
                           name="fname"
                           value={formdetails.fname}
                           onChange={handleInputChange}
+                          required
                         />
                       </CInputGroup>
                     </CCol>
                     <CCol>
                       <CInputGroup>
-                        <CInputGroupText>@</CInputGroupText>
                         <CFormInput
                           placeholder="Middle Name"
                           autoComplete="middle name"
@@ -97,7 +93,6 @@ const Register = () => {
                     </CCol>
                     <CCol>
                       <CInputGroup>
-                        <CInputGroupText>@</CInputGroupText>
                         <CFormInput
                           placeholder="Last Name"
                           autoComplete="last name"
@@ -105,12 +100,12 @@ const Register = () => {
                           name="lname"
                           value={formdetails.lname}
                           onChange={handleInputChange}
+                          required
                         />
                       </CInputGroup>
                     </CCol>
                   </CRow>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
                     <CFormInput
                       placeholder="Gender"
                       autoComplete="gender"
@@ -121,7 +116,6 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
                     <CFormInput
                       type="date"
                       placeholder="dob"
@@ -133,7 +127,6 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
                     <CFormInput
                       type="number"
                       placeholder="Contact No"
@@ -145,7 +138,6 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
                     <CFormSelect
                       aria-label="Default select example"
                       id="Dept"
@@ -162,7 +154,6 @@ const Register = () => {
                     </CFormSelect>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
                     <CFormInput
                       placeholder="Email"
                       autoComplete="email"
@@ -173,22 +164,6 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput
-                      placeholder="Username"
-                      autoComplete="username"
-                      id="uname"
-                      name="uname"
-                      value={formdetails.uname}
-                      onChange={handleInputChange}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
                     <CFormInput
                       type="password"
                       placeholder="Password"
@@ -200,9 +175,6 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
                     <CFormInput
                       type="password"
                       placeholder="Confirm password"
@@ -214,7 +186,7 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Rigester employee</CButton>
+                    <CButton color="success">Add employee</CButton>
                   </div>
                 </CForm>
               </CCardBody>
