@@ -20,13 +20,13 @@ import lombok.ToString;
 public class Project {
 	// primary key
 	@Id
-	private String project_id;
+	private String projectId;
 	// Reference to Company (one-to-many)
 	@DBRef
 	@Field("company_id")
 	private Company company;
-	private String project_title;
-	private LocalDate start_date;
-	private LocalDate end_Date;
-	private String record_status;
+	private String projectTitle;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private String recordStatus;
 }

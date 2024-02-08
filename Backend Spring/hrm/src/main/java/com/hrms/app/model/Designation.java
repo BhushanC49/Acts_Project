@@ -20,12 +20,12 @@ public class Designation {
 
 	// primary key
 	@Id
-	private String desig_id;
-	private String desig_title;
+	private String desiginationId;
+	private String desiginationTitle;
 	// Reference to Company (one-to-many)
 	@DBRef
 	@Field("company_id")
 	private Company company;
-	private String desig_level;
-	private String Record_status;
+	private String desiginationLevel;
+	private String recordStatus;
 }
