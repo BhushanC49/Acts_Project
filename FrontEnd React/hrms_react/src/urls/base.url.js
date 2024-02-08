@@ -1,3 +1,3 @@
 export class BaseUrl {
-  url = 'http://localhost:8080'
+  static url = 'http://localhost:7070'
 }

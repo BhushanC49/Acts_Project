@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import com.hrms.app.request.LoginRequest;
 import com.hrms.app.response.EmployeeDto;
@@ -11,12 +12,15 @@ import com.hrms.app.service.EmployeeServiceImpl;
 
 import jakarta.validation.Valid;
 
+
+@RestController 
+
 public class HomeController {
 
 	@Autowired
 	private EmployeeServiceImpl employeeService;
 
-	@PostMapping
+	@PostMapping("/login")
 	public ResponseEntity<?> authenticateLogin(@RequestBody @Valid LoginRequest loginReq) {
 		try {
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.hrms.app.model.Employee;
 import com.hrms.app.repo.IEmployeeRepository;
@@ -82,6 +83,9 @@ public class EmployeeServiceImpl {
 			return null;
 		}
 
+	} 
+	public List<EmployeeDto> getEmployeeByDept(@PathVariable String deptId){
+		return null;
 	}
 
 }
