@@ -1,5 +1,7 @@
 package com.hrms.app.model;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,4 +24,7 @@ public class Company {
 	private String companyContact;
 	private String companyEmail;
 	private String recordStatus;
+	private boolean isActive;
+	private LocalDateTime createdOn;
+	private LocalDateTime updatedOn;
 }
