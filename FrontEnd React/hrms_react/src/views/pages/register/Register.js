@@ -63,44 +63,52 @@ const Register = () => {
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={9} lg={7} xl={6}>
-            <CCard className="mx-4">
+            <CCard className="mx-4" style={{ width: '100%' }}>
               <CCardBody className="p-4">
                 <CForm onSubmit={handleSubmit}>
                   <h1>Register Employee</h1>
                   <p className="text-medium-emphasis">Create your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput
-                      placeholder="First Name"
-                      autoComplete="first name"
-                      id="fname"
-                      name="fname"
-                      value={formdetails.fname}
-                      onChange={handleInputChange}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput
-                      placeholder="Middle Name"
-                      autoComplete="middle name"
-                      id="mname"
-                      name="mname"
-                      value={formdetails.mname}
-                      onChange={handleInputChange}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput
-                      placeholder="Last Name"
-                      autoComplete="last name"
-                      id="lname"
-                      name="lname"
-                      value={formdetails.lname}
-                      onChange={handleInputChange}
-                    />
-                  </CInputGroup>
+                  <CRow className="mb-3">
+                    <CCol>
+                      <CInputGroup>
+                        <CInputGroupText>@</CInputGroupText>
+                        <CFormInput
+                          placeholder="First Name"
+                          autoComplete="first name"
+                          id="fname"
+                          name="fname"
+                          value={formdetails.fname}
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CCol>
+                    <CCol>
+                      <CInputGroup>
+                        <CInputGroupText>@</CInputGroupText>
+                        <CFormInput
+                          placeholder="Middle Name"
+                          autoComplete="middle name"
+                          id="mname"
+                          name="mname"
+                          value={formdetails.mname}
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CCol>
+                    <CCol>
+                      <CInputGroup>
+                        <CInputGroupText>@</CInputGroupText>
+                        <CFormInput
+                          placeholder="Last Name"
+                          autoComplete="last name"
+                          id="lname"
+                          name="lname"
+                          value={formdetails.lname}
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CCol>
+                  </CRow>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
                     <CFormInput
@@ -117,7 +125,7 @@ const Register = () => {
                     <CFormInput
                       type="date"
                       placeholder="dob"
-                      autoComplete="date"
+                      autoComplete="dob"
                       id="dob"
                       name="dob"
                       value={formdetails.dob}
@@ -206,7 +214,7 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
+                    <CButton color="success">Rigester employee</CButton>
                   </div>
                 </CForm>
               </CCardBody>
