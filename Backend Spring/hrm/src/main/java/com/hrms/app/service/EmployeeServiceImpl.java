@@ -1,6 +1,7 @@
 package com.hrms.app.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -9,10 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
 import com.hrms.app.model.Employee;
 import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.request.EmployeeRequest;
+import com.hrms.app.request.LoginRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.EmployeeDto;
 
@@ -67,13 +68,20 @@ public class EmployeeServiceImpl {
 		// Creates a PageRequest(imple class of Pageable : i/f for pagination)
 		// based upon page no n size
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		// fetches the Page of Emps --> getContent() --> List<Emp> 
-		List<Employee> empList = empRepo.findAll(pageable).getContent(); 
-		return empList.
-				stream()
-				.map(emp -> mapper.map(emp, EmployeeDto.class))
-				.collect(Collectors.toList());
-	} 
-	
-	
+		// fetches the Page of Emps --> getContent() --> List<Emp>
+		List<Employee> empList = empRepo.findAll(pageable).getContent();
+		return empList.stream().map(emp -> mapper.map(emp, EmployeeDto.class)).collect(Collectors.toList());
+	}
+
+	public EmployeeDto authenticateUser(LoginRequest loginReq) {
+		Optional<Employee> optEmp = empRepo.findByUsernameAndPassword(loginReq.getUsername(), loginReq.getPassword());
+		if (optEmp.isPresent()) {
+			Employee e = optEmp.get();
+			return mapper.map(e, EmployeeDto.class);
+		} else {
+			return null;
+		}
+
+	}
+
 }

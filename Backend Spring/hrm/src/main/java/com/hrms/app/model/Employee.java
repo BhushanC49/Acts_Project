@@ -45,7 +45,7 @@ public class Employee {
 	private String empAccesRole; 
 	private int leaveBalance; 
 	private String manager;
-	private String userName;
+	private String username;
 	private String password;
 	private LocalDateTime createdOn;
 	private LocalDateTime updatedOn; 
