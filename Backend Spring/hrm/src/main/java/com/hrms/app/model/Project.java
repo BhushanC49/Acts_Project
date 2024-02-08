@@ -1,6 +1,8 @@
 package com.hrms.app.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,4 +31,8 @@ public class Project {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String recordStatus;
+	private boolean isActive;
+	private LocalDateTime createdOn;
+	private LocalDateTime updatedOn;
+	
 }

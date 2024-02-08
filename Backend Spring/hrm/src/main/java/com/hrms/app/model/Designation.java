@@ -1,5 +1,7 @@
 package com.hrms.app.model;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,4 +30,7 @@ public class Designation {
 	private Company company;
 	private String desiginationLevel;
 	private String recordStatus;
+	private boolean isActive;
+	private LocalDateTime createdOn;
+	private LocalDateTime updatedOn;
 }

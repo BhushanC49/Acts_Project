@@ -15,7 +15,6 @@ import com.hrms.app.repo.ILeaveRepository;
 import com.hrms.app.repo.ILeaveTypeRepository;
 import com.hrms.app.request.LeaveRequest;
 import com.hrms.app.response.ApiResponse;
-import com.hrms.app.response.EmployeeDto;
 import com.hrms.app.response.LeaveDto;
 import com.hrms.app.response.LeaveTypeDto;
 
