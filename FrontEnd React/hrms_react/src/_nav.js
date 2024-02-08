@@ -284,6 +284,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Employee List',
+        to: '/employee-list',
+      },
+      {
+        component: CNavItem,
         name: 'Apply Leave',
         to: '/apply-leave',
       },
