@@ -11,7 +11,7 @@ import com.hrms.app.response.EmpSalaryStruDto;
 
 
 @Service
-public class EmpSalrayStruServiceImpl implements IEmpSalaryStruService {
+public class EmpSalrayStruServiceImpl {
 	
 	@Autowired 
 	IEmpSalaryStruReository salRepo; 
@@ -20,7 +20,6 @@ public class EmpSalrayStruServiceImpl implements IEmpSalaryStruService {
 	ModelMapper mapper;
 	
 	
-	@Override
 	public EmpSalaryStruDto addEmpSalaryStru(EmpSalaryStruRequest salaryReq) {
 		
 		EmpSalaryStructure empSalStru=mapper.map(salaryReq, EmpSalaryStructure.class); 
