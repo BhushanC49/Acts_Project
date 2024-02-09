@@ -1,5 +1,7 @@
 package com.hrms.app.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,8 @@ public class AttendanceController {
 	public ResponseEntity<?> addAttendance(@PathVariable String empId, @Valid AttendanceRequest attendance) {
 		try {
 			// calling LeaveService method for adding leave in db
-			return new ResponseEntity<>(attendanceService.markAttendance(attendance), HttpStatus.OK);
+			LocalDate dt= attendance.getDate();
+			return new ResponseEntity<>(attendanceService.markAttendance(dt,empId), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			System.out.println("err in controller " + e);
 			// return err mesg wrapped in DTO : ApiResp
