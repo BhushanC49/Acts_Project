@@ -33,7 +33,14 @@ function LeaveForm() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Perform form submission logic (e.g., send data to backend)
+    // send data to backend
+    LeaveService.insertLeave(formData)
+      .then((res) => {
+        alert(`Your leave-form has been submitted!`)
+      })
+      .catch((err) => {
+        alert(`An error occurred while submitting your request: ${err}`)
+      })
     console.log('Form submitted:', formData)
   }
 

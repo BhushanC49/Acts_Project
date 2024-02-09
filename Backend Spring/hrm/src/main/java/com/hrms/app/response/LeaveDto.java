@@ -8,17 +8,17 @@ import lombok.Data;
 
 @Data
 public class LeaveDto {
-	
+
 	private String leaveId;
-	
-    private LeaveType leaveTypeId;
-    
-    private LocalDate leaveStartOn;
-    
-    private LocalDate leaveEndOn;
-    
-    private int numberOfDays;
-    
-    private String leaveStatus;
+
+	private LeaveType leaveTypeId;
+
+	private LocalDate leaveStartOn;
+
+	private LocalDate leaveEndOn;
+
+//    private int numberOfDays;
+
+	private String leaveStatus;
 
 }
