@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.hrms.app.model.Department;
 
-public interface IDepartmentRepositary extends MongoRepository<Department,String>{
+public interface IDepartmentRepository extends MongoRepository<Department,String>{
 	
 	public List<Department> findBydeptName(String deptname);
 	public List<Department> findBydeptId(String deptid);
