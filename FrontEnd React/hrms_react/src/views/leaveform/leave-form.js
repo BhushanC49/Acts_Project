@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import LeaveService from '../../services/leave.api'
+import '../../scss/leaveform.css'
 
 function LeaveForm() {
   // State variables
   const [leaveTypes, setLeaveTypes] = useState([])
   const [formData, setFormData] = useState({
+    employeeId: '', // New field for employee ID
     leaveType: '',
     startDate: '',
     endDate: '',
@@ -34,7 +36,7 @@ function LeaveForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // send data to backend
-    LeaveService.insertLeave(formData)
+    LeaveService.insertLeave(formData, formData.employeeId)
       .then((res) => {
         alert(`Your leave-form has been submitted!`)
       })
@@ -45,9 +47,20 @@ function LeaveForm() {
   }
 
   return (
-    <div className="container">
-      <h2 className="text-center mb-4">Leave Form</h2>
+    <div className="leave-form-container">
+      <h2 className="form-title">Leave Form</h2>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="employeeId">Employee ID</label>
+          <input
+            type="text"
+            className="form-control"
+            id="employeeId"
+            name="employeeId"
+            value={formData.employeeId}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="leaveType">Leave Type</label>
           <select

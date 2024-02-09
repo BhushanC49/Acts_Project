@@ -24,41 +24,34 @@ import com.hrms.app.service.LeaveServiceImpl;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/leaves")
+@RequestMapping("/leave")
 public class LeaveController {
-	
+
 	@Autowired
 	private LeaveServiceImpl leaveService;
-	
-	@PostMapping
-	public ResponseEntity<?> addLeaveDetails(@RequestBody @Valid LeaveRequest leaveReq )
-	{
+
+	@PostMapping("/{leaveId}")
+	public ResponseEntity<?> addLeaveDetails(@PathVariable String empId, @RequestBody @Valid LeaveRequest leaveReq) {
 		try {
-			//calling LeaveService method for adding leave in db 
-			return new ResponseEntity<>(leaveService.addLeave(leaveReq),HttpStatus.OK);
-		}
-		catch(RuntimeException e)
-		{
-			System.out.println("err in controller "+e);
-			//return err mesg wrapped in DTO : ApiResp
-			return  ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body(e.getMessage());
+			// calling LeaveService method for adding leave in db
+			return new ResponseEntity<>(leaveService.addLeave(empId,leaveReq), HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println("Error in controller: " + e);
+			// return error message wrapped in DTO: ApiResp
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
-	
+
 	@DeleteMapping("/{leaveId}")
-	public ResponseEntity<?> deleteLeave(@PathVariable String leaveId){
+	public ResponseEntity<?> deleteLeave(@PathVariable String leaveId) {
 		System.out.println("in delete emp " + leaveId);
 		return ResponseEntity.ok(leaveService.deleteLeave(leaveId));
 	}
-	
-	//get all leave types from LeaveType Repo
-	 @GetMapping("/leave-types")
-	    public ResponseEntity<List<LeaveTypeDto>> getAllLeaveTypes() {
-	        List<LeaveTypeDto> leaveTypes = leaveService.getLeaveType();
-	        return new ResponseEntity<>(leaveTypes, HttpStatus.OK);
-	    }
+
+	// get all leave types from LeaveType Repo
+	@GetMapping("/leave-types")
+	public ResponseEntity<List<LeaveTypeDto>> getAllLeaveTypes() {
+		List<LeaveTypeDto> leaveTypes = leaveService.getLeaveType();
+		return new ResponseEntity<>(leaveTypes, HttpStatus.OK);
+	}
 }
-	
-	

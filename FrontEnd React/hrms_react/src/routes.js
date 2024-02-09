@@ -57,11 +57,13 @@ const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm')
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
+const applyOnDuty = React.lazy(() => import('./views/attendance/onDuty-form'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/attendance', name: 'Attendance', component: attendance },
-  { path: '/employees', name: 'Employee List', component: employeeList },
+  { path: '/attendance/onduty', name: 'Apply On Duty', element: applyOnDuty },
+  { path: '/attendance', name: 'Attendance', element: attendance },
+  { path: '/employees', name: 'Employee List', element: employeeList },
   { path: '/register', name: 'Add Employee', element: Register },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },

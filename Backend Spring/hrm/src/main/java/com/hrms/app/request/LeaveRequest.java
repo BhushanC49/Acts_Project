@@ -11,8 +11,6 @@ import lombok.Setter;
 @Data
 public class LeaveRequest {
 
-	private String empId;
-
 	@NotBlank
 	private String leaveTypeId;
 
@@ -26,7 +24,6 @@ public class LeaveRequest {
 //	 private int numberOfDays;
 
 	@NotBlank(message = "Please Enter Comment !")
-
 	private String leaveComment;
 
 	// private String leaveStatus;

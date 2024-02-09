@@ -1,5 +1,5 @@
 import { BaseUrl } from './base.url'
 export class LeaveUrl extends BaseUrl {
-  static baseLeaveUrl = `${BaseUrl.url}/Leave`
-  static getLeaveUrl = `${BaseUrl.url}/Leave/`
+  static baseLeaveUrl = `${BaseUrl.url}/leave`
+  static getLeaveUrl = `${BaseUrl.url}/leave/`
 }

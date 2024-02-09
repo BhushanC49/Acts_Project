@@ -3,12 +3,12 @@ import { ProjectUrl } from '../urls/project.url'
 
 export const addProject = async (projectData) => {
   try {
-    const response = await axios.post(ProjectUrl.createProjectUrl(), projectData);
+    const response = await axios.post(ProjectUrl.createProjectUrl(), projectData)
     return response.data
   } catch (error) {
     throw error.response.data
   }
-};
+}
 
 export const getAllProjects = async () => {
   try {
@@ -17,7 +17,7 @@ export const getAllProjects = async () => {
   } catch (error) {
     throw error.response.data
   }
-};
+}
 
 export const searchProjectByName = async (projectName) => {
   try {

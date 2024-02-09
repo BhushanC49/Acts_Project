@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import EmployeeApiService from '../../services/Employee.api'
-
+import '../../scss/employeelist.css'
 function EmployeeList() {
   const [employees, setEmployees] = useState([])
 
@@ -14,7 +14,7 @@ function EmployeeList() {
   return (
     <div>
       <h2>Employee List</h2>
-      <table>
+      <table className="employee-table">
         <thead>
           <tr>
             <th>ID</th>
