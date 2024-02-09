@@ -1,5 +1,7 @@
 package com.hrms.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +11,9 @@ import com.hrms.app.request.ProjectRequest;
 import com.hrms.app.response.ProjectDTO;
 import com.hrms.app.service.ProjectServiceImpl;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/projects")
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
     @Autowired
@@ -24,11 +25,11 @@ public class ProjectController {
         return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable String projectId) {
-        ProjectDTO projectDTO = projectService.getProjectById(projectId);
-        return ResponseEntity.ok(projectDTO);
-    }
+//    @GetMapping("/{projectId}")
+//    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable String projectId) {
+//        ProjectDTO projectDTO = projectService.getProjectById(projectId);
+//        return ResponseEntity.ok(projectDTO);
+//    }
 
     @GetMapping("/all")
     public ResponseEntity<List<ProjectDTO>> getAllProjects() {

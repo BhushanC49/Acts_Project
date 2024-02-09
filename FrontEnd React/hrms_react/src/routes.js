@@ -54,6 +54,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 //Leave Form
 
 const leaveForm = React.lazy(() => import('./views/leaveform/leave-form'))
+const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -102,6 +103,7 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/apply-leave', name: 'leave-form', element: leaveForm },
+  { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
 ]
 
 export default routes
