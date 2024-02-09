@@ -13,23 +13,23 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //to generate getter and setters 
-@Data  
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "departments") 
+@Document(collection = "departments")
 @ToString
 public class Department {
-	//primary key 
+	// primary key
 	@Id
-	 private String deptId;
-	 private String deptName;
+	private String deptId;
+	private String deptName;
 	// Reference to Company (one-to-many)
-	 @DBRef
-	 @Field("company_id")
-	 private Company company;
-	 private String deptHeadEmpId;
-	 private String recordStatus;
-	 private boolean isActive;
-		private LocalDateTime createdOn;
-		private LocalDateTime updatedOn;
+	@DBRef
+	@Field("company_id")
+	private Company company;
+	private String deptHeadEmpId;
+	private String recordStatus;
+	private boolean isActive;
+	private LocalDateTime createdOn;
+	private LocalDateTime updatedOn;
 }
