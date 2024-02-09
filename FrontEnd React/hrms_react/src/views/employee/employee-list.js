@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { fetchEmployees } from './employeeService' 
+import EmployeeApiService from '../../services/Employee.api'
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([])
 
   useEffect(() => {
-    // Fetch data from the server when the component mounts 
-    fetchEmployees()
+    // Fetch data from the server when the component mounts
+    EmployeeApiService.fetchEmployees()
       .then((data) => setEmployees(data))
       .catch((error) => console.error('Error setting employees:', error))
   }, [])

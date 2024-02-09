@@ -53,7 +53,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 //Forms Of Hrms
 
 const leaveForm = React.lazy(() => import('./views/leaveform/leave-form'))
-const employeeList = React.lazy(() => import('./views/employee/employeelist'))
+const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
 
