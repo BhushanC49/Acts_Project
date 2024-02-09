@@ -1,5 +1,3 @@
-// OnDutyForm.js
-
 import React, { useState } from 'react'
 import '../../scss/onDuty.css' // Import the CSS file
 
@@ -44,40 +42,48 @@ const OnDutyForm = () => {
 
   return (
     <div className="form-box">
-      <h1>Apply for On Duty</h1>
+      <h1 className="form-title">Apply for On Duty</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="fromDate">From Date:</label>
-        <br />
-        <input
-          type="date"
-          id="fromDate"
-          value={fromDate}
-          onChange={(e) => setFromDate(e.target.value)}
-        />
-        <br />
+        <div className="form-group">
+          <label htmlFor="fromDate">From Date:</label>
+          <input
+            type="date"
+            id="fromDate"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="toDate">To Date:</label>
-        <br />
-        <input type="date" id="toDate" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-        <br />
+        <div className="form-group">
+          <label htmlFor="toDate">To Date:</label>
+          <input
+            type="date"
+            id="toDate"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="dutyType">On Duty Type:</label>
-        <br />
-        <select id="dutyType" value={dutyType} onChange={(e) => setDutyType(e.target.value)}>
-          <option value="">Select Type</option>
-          <option value="Access Card Issue">Access Card Issue</option>
-          <option value="Overseas Travel">Overseas Travel</option>
-          <option value="Permission">Permission</option>
-        </select>
-        <br />
+        <div className="form-group">
+          <label htmlFor="dutyType">On Duty Type:</label>
+          <select id="dutyType" value={dutyType} onChange={(e) => setDutyType(e.target.value)}>
+            <option value="">Select Type</option>
+            <option value="Access Card Issue">Access Card Issue</option>
+            <option value="Overseas Travel">Overseas Travel</option>
+            <option value="Permission">Permission</option>
+          </select>
+        </div>
 
-        <label htmlFor="comment">Comment:</label>
-        <br />
-        <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-        <br />
+        <div className="form-group">
+          <label htmlFor="comment">Comment:</label>
+          <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)} />
+        </div>
 
-        <button type="submit">Submit</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
+
+        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   )

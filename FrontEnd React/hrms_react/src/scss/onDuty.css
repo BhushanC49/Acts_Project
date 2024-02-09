@@ -1,53 +1,65 @@
+/* onDuty.css */
+
+/* Form Box */
 .form-box {
-  /* Add styles for the form box container */
-  margin: 20px;
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-box h1 {
-  /* Add styles for the heading */
+/* Form Title */
+.form-title {
   text-align: center;
+  margin-bottom: 20px;
   color: #333;
 }
 
-.form-box label {
-  /* Add styles for the labels */
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
   display: block;
-  margin-bottom: 5px;
   font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
 }
 
-.form-box input,
-.form-box select,
-.form-box textarea {
-  /* Add styles for the input, select, and textarea elements */
+/* Input and Textarea */
+input[type='date'],
+select,
+textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.form-box button {
-  /* Add styles for the submit button */
+/* Submit Button */
+.submit-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.form-box button:hover {
-  /* Add styles for button hover state */
+.submit-button:hover {
   background-color: #0056b3;
 }
 
-.form-box p {
-  /* Add styles for the error message */
-  color: red;
+/* Error Message */
+.error-message {
+  color: #ff0000;
   margin-top: 10px;
 }
