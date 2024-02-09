@@ -18,11 +18,10 @@ import lombok.ToString;
 @Setter 
 @ToString
 public class EmployeeRequest {
-	@NotBlank(message = "Id can not be blank")
-	private String empId; 
+	
 	@NotBlank(message = "First Name can not be blank")
 	private String firstName; 
-	private String MiddleName; 
+	private String middleName; 
 	private String lastName; 
 	private String gender;
 	private LocalDate dob; 
@@ -32,9 +31,8 @@ public class EmployeeRequest {
 	@Email
 	private String email;  
 	private String contactNo; 
-	@NotBlank(message = "username can not be blank")
-	private String userName; 
-	@NotBlank(message = "password can not be blank")
+	//@NotBlank(message = "username can not be blank")
+	private String dept;
 	private String password;  
 	@NotBlank(message = "confirm password field can not be blank")
 	private String confirmPassword;

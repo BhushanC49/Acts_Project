@@ -6,6 +6,7 @@ class DepartmentApiService {
     //made async because http methods are asynchronous  in nature
     try {
       const url = DepartmentUrl.baseDepartmentUrl
+      console.log(url)
       const response = await axios.get(url)
       return response.data // return the response data
     } catch (error) {

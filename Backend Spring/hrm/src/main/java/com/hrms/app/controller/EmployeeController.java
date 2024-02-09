@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController 
 @RequestMapping("/employee")
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
 	
 	//service layer dependency injection(DI) 
@@ -39,7 +39,8 @@ public class EmployeeController {
 	public ResponseEntity<?> addEmpDetails(@RequestBody @Valid EmployeeRequest empReq )
 	{
 		try {
-			//calling EmpService method for adding employee 
+			//calling EmpService method for adding employee  
+			System.out.println(empReq);
 			return new ResponseEntity<>(empService.addEmployee(empReq),HttpStatus.CREATED);
 		}
 		catch(Exception e)

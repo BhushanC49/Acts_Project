@@ -19,26 +19,26 @@ import EmployeeService from '../../services/Employee.api'
 const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [formdetails, setformdetails] = useState({
-    fname: '',
-    mname: '',
-    lname: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
     gender: '',
     dob: '',
     contactNo: '',
-    Dept: '',
+    dept: '',
     email: '',
-    pass: '',
-    cpass: '',
+    password: '',
+    confirmPassword: '',
   })
 
   useEffect(() => {
-    DepartmentService.getDepartmentList()
-      .then((response) => {
-        setDepartment(response.data)
-      })
-      .catch((error) => {
-        console.error('Error fetching departments:', error)
-      })
+    // DepartmentService.getDepartmentList()
+    //   .then((response) => {
+    //     setDepartment(response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching departments:', error)
+    //   })
   }, [])
 
   const handleInputChange = (e) => {
@@ -52,6 +52,12 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     EmployeeService.addEmployee(formdetails)
+      .then((responseData) => {
+        console.log('Employee added successfully:', responseData)
+      })
+      .catch((error) => {
+        console.error('Error adding employee:', error.message)
+      })
     console.log('Form submitted:', formdetails)
   }
 
@@ -71,9 +77,9 @@ const Register = () => {
                         <CFormInput
                           placeholder="First Name"
                           autoComplete="first name"
-                          id="fname"
-                          name="fname"
-                          value={formdetails.fname}
+                          id="firstName"
+                          name="firstName"
+                          value={formdetails.firstName}
                           onChange={handleInputChange}
                           required
                         />
@@ -84,9 +90,9 @@ const Register = () => {
                         <CFormInput
                           placeholder="Middle Name"
                           autoComplete="middle name"
-                          id="mname"
-                          name="mname"
-                          value={formdetails.mname}
+                          id="middleName"
+                          name="middleName"
+                          value={formdetails.middleName}
                           onChange={handleInputChange}
                         />
                       </CInputGroup>
@@ -96,9 +102,9 @@ const Register = () => {
                         <CFormInput
                           placeholder="Last Name"
                           autoComplete="last name"
-                          id="lname"
-                          name="lname"
-                          value={formdetails.lname}
+                          id="lastName"
+                          name="lastName"
+                          value={formdetails.lastName}
                           onChange={handleInputChange}
                           required
                         />
@@ -107,7 +113,7 @@ const Register = () => {
                   </CRow>
                   <CInputGroup className="mb-3">
                     <CFormInput
-                      placeholder="Gender"
+                      placeholder="gender"
                       autoComplete="gender"
                       id="gender"
                       name="gender"
@@ -140,9 +146,9 @@ const Register = () => {
                   <CInputGroup className="mb-3">
                     <CFormSelect
                       aria-label="Default select example"
-                      id="Dept"
-                      name="Dept"
-                      value={formdetails.Dept}
+                      id="dept"
+                      name="dept"
+                      value={formdetails.dept}
                       onChange={handleInputChange}
                     >
                       <option value="">Select Department</option>
@@ -155,7 +161,7 @@ const Register = () => {
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CFormInput
-                      placeholder="Email"
+                      placeholder="email"
                       autoComplete="email"
                       id="email"
                       name="email"
@@ -166,11 +172,11 @@ const Register = () => {
                   <CInputGroup className="mb-3">
                     <CFormInput
                       type="password"
-                      placeholder="Password"
+                      placeholder="password"
                       autoComplete="new-password"
-                      id="pass"
-                      name="pass"
-                      value={formdetails.pass}
+                      id="password"
+                      name="password"
+                      value={formdetails.password}
                       onChange={handleInputChange}
                     />
                   </CInputGroup>
@@ -179,14 +185,16 @@ const Register = () => {
                       type="password"
                       placeholder="Confirm password"
                       autoComplete="new-password"
-                      id="cpass"
-                      name="cpass"
-                      value={formdetails.cpass}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      value={formdetails.confirmPassword}
                       onChange={handleInputChange}
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Add employee</CButton>
+                    <CButton type="submit" color="success">
+                      Add employee
+                    </CButton>
                   </div>
                 </CForm>
               </CCardBody>

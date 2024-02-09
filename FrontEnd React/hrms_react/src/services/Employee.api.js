@@ -5,6 +5,7 @@ class EmployeeApiService {
   async addEmployee(employee) {
     try {
       const url = EmployeeUrl.baseEmployeeUrl
+      console.log(url)
       const response = await axios.post(url, employee)
       return response.data // return the response data
     } catch (error) {
