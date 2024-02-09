@@ -4,10 +4,9 @@ import { AuthenticateUrl } from '../urls/authenticate.url'
 export class AuthenticateApiService {
   static async login(username, password) {
     //made async because http methods are asynchronous  in nature
+    const url = AuthenticateUrl.loginUrl
+    console.log(url)
     try {
-      console.log(url)
-      const url = AuthenticateUrl.loginUrl
-
       const response = await axios.post(url, {
         username: username,
         password: password,

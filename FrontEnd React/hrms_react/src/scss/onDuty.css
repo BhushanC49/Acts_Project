@@ -1,6 +1,7 @@
 .form-box {
-  /* Add styles for the form box container */
-  margin: 20px;
+  /* Add styles for the form box container */ 
+  width: 50%;
+  margin: 0px 305px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -50,4 +51,4 @@
   /* Add styles for the error message */
   color: red;
   margin-top: 10px;
-}
+} 

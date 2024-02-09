@@ -1,16 +1,16 @@
 import { BaseUrl } from '../urls/base.url'
 export class ProjectUrl extends BaseUrl {
-  static baseProjectUrl = `${BaseUrl.url}/api/projects`;
+  static baseProjectUrl = `${BaseUrl.url}/api/projects`
 
   static createProjectUrl() {
-    return `${ProjectUrl.baseProjectUrl}/create`;
+    return `${ProjectUrl.baseProjectUrl}/create`
   }
 
   static getAllProjectsUrl() {
-    return `${ProjectUrl.baseProjectUrl}/all`;
+    return `${ProjectUrl.baseProjectUrl}/all`
   }
 
   static searchProjectByNameUrl(projectName) {
-    return `${ProjectUrl.baseProjectUrl}/search?name=${projectName}`;
+    return `${ProjectUrl.baseProjectUrl}/search?name=${projectName}`
   }
 }

@@ -75,14 +75,14 @@ public class EmployeeServiceImpl {
 	}
 
 	public EmployeeDto authenticateUser(LoginRequest loginReq) {
-		Optional<Employee> optEmp = empRepo.findByUsernameAndPassword(loginReq.getUsername(), loginReq.getPassword());
-		if (optEmp.isPresent()) {
-			Employee e = optEmp.get();
-			return mapper.map(e, EmployeeDto.class);
-		} else {
-			return null;
-		}
-
+		Employee emp = empRepo.findByUsernameAndPassword(loginReq.getUsername(), loginReq.getPassword()).orElse(null);
+//		if (optEmp.isPresent()) {
+//			Employee e = optEmp.get();
+//			return mapper.map(e, EmployeeDto.class);
+//		} else {
+//			return null;
+//		}
+		return mapper.map(emp, EmployeeDto.class);
 	} 
 	public List<EmployeeDto> getEmployeeByDept(@PathVariable String deptId){
 		return null;

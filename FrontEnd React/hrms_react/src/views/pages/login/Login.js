@@ -27,7 +27,7 @@ const Login = () => {
       setError('Please fill all the fields')
       return
     }
-
+    console.log(username + password)
     AuthenticateApiService.login(username, password)
       .then((result) => {
         // Handle successful login
