@@ -281,7 +281,12 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Employee List',
-        to: '/employee-list',
+        to: '/employees',
+      },
+      {
+        component: CNavItem,
+        name: 'Attendance Punch-In',
+        to: '/attendance',
       },
     ],
   },
