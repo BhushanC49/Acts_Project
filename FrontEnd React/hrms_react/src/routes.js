@@ -3,7 +3,6 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-const Register = React.lazy(() => import('./views/employee/Register'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -51,12 +50,17 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
-//Leave Form
+//Forms Of Hrms
 
 const leaveForm = React.lazy(() => import('./views/leaveform/leave-form'))
+const employeeList = React.lazy(() => import('./views/employee/employeelist'))
+const Register = React.lazy(() => import('./views/employee/Register'))
+const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/attendance', name: 'Attendance', component: attendance },
+  { path: '/employees', name: 'Employee List', component: employeeList },
   { path: '/register', name: 'Add Employee', element: Register },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
