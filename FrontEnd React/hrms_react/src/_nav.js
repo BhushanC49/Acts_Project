@@ -319,11 +319,16 @@ const _nav = [
     name: 'Department',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
     items: [
-      // {
-      //   component: CNavItem,
-      //   name: 'Add Employee',
-      //   to: '/register',
-      // },
+      {
+        component: CNavItem,
+        name: 'Add Department',
+        to: '/registerDept',
+      },
+      {
+        component: CNavItem,
+        name: 'View all Departments',
+        to: '/departmentList',
+      },
     ],
   },
   {

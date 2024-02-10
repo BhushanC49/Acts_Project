@@ -58,6 +58,7 @@ const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
 const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
+const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -65,6 +66,7 @@ const routes = [
   { path: '/attendance', name: 'Attendance', element: attendance },
   { path: '/employees', name: 'Employee List', element: employeeList },
   { path: '/register', name: 'Add Employee', element: Register },
+  { path: '/registerDept', name: 'Add Department', element: addDepartment },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
