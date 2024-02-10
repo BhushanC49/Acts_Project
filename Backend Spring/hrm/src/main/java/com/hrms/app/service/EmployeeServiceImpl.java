@@ -1,5 +1,6 @@
 package com.hrms.app.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.hrms.app.model.Employee;
@@ -30,7 +32,10 @@ public class EmployeeServiceImpl {
 		// validate password and confirm password
 		if (empReq.getConfirmPassword().equals(empReq.getPassword())) {
 			// convert EmployeeRequest object to Employee
-			Employee emp = mapper.map(empReq, Employee.class);
+			Employee emp = mapper.map(empReq, Employee.class); 
+			emp.setUsername(emp.getEmail()); 
+			emp.setCreatedOn(LocalDateTime.now());
+			emp.setUpdatedOn(LocalDateTime.now()); 
 			// save emp object in database
 			empRepo.save(emp);
 			System.out.println("Employee addes with id: " + emp.getEmpId());
@@ -84,8 +89,13 @@ public class EmployeeServiceImpl {
 //		}
 		return mapper.map(emp, EmployeeDto.class);
 	} 
-	public List<EmployeeDto> getEmployeeByDept(@PathVariable String deptId){
-		return null;
+//	public List<EmployeeDto> getEmployeeByDept(@PathVariable String deptId){
+//		return null;
+//	}
+	 
+	public List<EmployeeDto> getAllMangers(){
+		List<Employee> empList = empRepo.findByDesig("Manager"); 
+		return empList.stream().map(emp -> mapper.map(emp, EmployeeDto.class)).collect(Collectors.toList());
 	}
-
+	
 }

@@ -82,5 +82,10 @@ public class EmployeeController {
 		System.out.println("in delete employee method "); 
 		
 		return ResponseEntity.ok(empService.removeEmployee(empId));
+	} 
+	
+	@GetMapping("/manager")
+	public ResponseEntity<?> getAllManagers(){
+		return ResponseEntity.ok(empService.getAllMangers());
 	}
 }

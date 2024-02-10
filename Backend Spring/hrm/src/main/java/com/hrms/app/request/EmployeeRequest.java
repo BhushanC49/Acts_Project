@@ -27,12 +27,13 @@ public class EmployeeRequest {
 	private LocalDate dob; 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate joiningDate; 
-	private Designation desig;
+	private String desig;
 	@Email
 	private String email;  
 	private String contactNo; 
 	//@NotBlank(message = "username can not be blank")
 	private String dept;
+	private String manager;
 	private String password;  
 	@NotBlank(message = "confirm password field can not be blank")
 	private String confirmPassword;

@@ -15,7 +15,20 @@ class EmployeeApiService {
 
   async fetchEmployees() {
     try {
-      const url = EmployeeUrl
+      const url = EmployeeUrl.baseEmployeeUrl
+      let pageNumber = 1
+      let pageSize = 20
+      const response = await axios.get(url, pageNumber, pageSize)
+      return response.data
+    } catch (error) {
+      console.error('Error fetching employees', error)
+      throw error
+    }
+  }
+
+  async fetchManagers() {
+    try {
+      const url = EmployeeUrl.getAllMangersUrl
       const response = await axios.get(url)
       return response.data
     } catch (error) {
