@@ -78,17 +78,17 @@ const RegisterDept = () => {
                         </CInputGroupText>
                         <CFormInput
                           placeholder="Department Name"
-                          autoComplete="departmentName"
+                          //autoComplete="departmentName"
                           id="departmentName"
                           name="departmentName"
-                          value={formdetails.deptName}
+                          value={formdetails.departmentName}
                           onChange={handleInputChange}
                           required
                         />
                       </CInputGroup>
                     </CCol>
-                  {/* </CRow>
-                  <CRow className="mb-3"> */}
+                  </CRow>
+                  <CRow className="mb-3"> 
                     <CCol md={6}>
                       <CInputGroup className="mb-3">
                         <CInputGroupText id="basic-addon1">Dept Head Id</CInputGroupText>                        <CFormInput
