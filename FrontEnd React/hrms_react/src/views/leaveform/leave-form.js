@@ -7,10 +7,10 @@ function LeaveForm() {
   const [leaveTypes, setLeaveTypes] = useState([])
   const [formData, setFormData] = useState({
     employeeId: '', // New field for employee ID
-    leaveType: '',
-    startDate: '',
-    endDate: '',
-    comment: '',
+    leaveTypeId: '',
+    leaveStartOn: '',
+    leaveEndOn: '',
+    leaveComment: '',
   })
 
   // Fetch leave types from mock database
@@ -26,6 +26,8 @@ function LeaveForm() {
 
   // Handle form input change
   const handleInputChange = (e) => {
+    console.log('e.target.name: ', e.target.name)
+    console.log('e.target.value: ', e.target.value)
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -66,8 +68,8 @@ function LeaveForm() {
           <select
             className="form-control"
             id="leaveType"
-            name="leaveType"
-            value={formData.leaveType}
+            name="leaveTypeId"
+            value={formData.leaveTypeId}
             onChange={handleInputChange}
           >
             <option value="">Select Leave Type</option>
@@ -84,8 +86,8 @@ function LeaveForm() {
             type="date"
             className="form-control"
             id="startDate"
-            name="startDate"
-            value={formData.startDate}
+            name="leaveStartOn"
+            value={formData.leaveStartOn}
             onChange={handleInputChange}
           />
         </div>
@@ -95,8 +97,8 @@ function LeaveForm() {
             type="date"
             className="form-control"
             id="endDate"
-            name="endDate"
-            value={formData.endDate}
+            name="leaveEndOn"
+            value={formData.leaveEndOn}
             onChange={handleInputChange}
           />
         </div>
@@ -105,9 +107,9 @@ function LeaveForm() {
           <textarea
             className="form-control"
             id="comment"
-            name="comment"
+            name="leaveComment"
             rows="3"
-            value={formData.comment}
+            value={formData.leaveComment}
             onChange={handleInputChange}
           ></textarea>
         </div>

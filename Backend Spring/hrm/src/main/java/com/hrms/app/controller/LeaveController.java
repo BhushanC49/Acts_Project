@@ -32,7 +32,7 @@ public class LeaveController {
 	@Autowired
 	private LeaveServiceImpl leaveService;
 
-	@PostMapping("/{leaveId}")
+	@PostMapping("/{empId}")
 	public ResponseEntity<?> addLeaveDetails(@PathVariable String empId, @RequestBody @Valid LeaveRequest leaveReq) {
 		try {
 			// calling LeaveService method for adding leave in db
