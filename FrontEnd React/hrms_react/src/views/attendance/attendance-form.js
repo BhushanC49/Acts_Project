@@ -42,6 +42,8 @@ export default function AttendanceForm() {
       <h1 className="form-title">Mark Attendance</h1>
       <div className="form-content">
         <p className="current-date"> Today&rsquo;s Date: {currentDate}</p>
+        <p className="current-date">Todays Date: {currentDate}</p>
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="employeeId">Employee ID: &nbsp;</label>

@@ -15,10 +15,10 @@ const LeaveService = {
     }
   },
 
-  insertLeave: async (leaveId, date) => {
+  insertLeave: async (leaveId, leave) => {
     try {
       console.log('in service add')
-      const response = await axios.post(`${leaveUrl}/${leaveId}`, date)
+      const response = await axios.post(`${leaveUrl}/${leaveId}`, leave)
       return response.data
     } catch (error) {
       console.error('Error inserting leave:', error)

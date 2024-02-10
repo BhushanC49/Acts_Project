@@ -37,13 +37,24 @@ public class LeaveServiceImpl {
 	public LeaveDto addLeave(String empId, LeaveRequest leaveReq) {
 		try {
 			// convert LeaveRequest to Leave
-			Leave leave = mapper.map(leaveReq, Leave.class);
+			// Leave leave = mapper.map(leaveReq, Leave.class);
+			Leave leave = new Leave();
 			Optional<Employee> o = empRepo.findById(empId);
 			if (o.isPresent()) {
 				Employee employee = o.get();
 				leave.setEmpId(employee);
+
 			}
 			// save leave object in database before mapping to dto
+			Optional<LeaveType> leavetype = leaveTypeRepository.findById(leaveReq.getLeaveTypeId());
+			if (leavetype.isPresent()) {
+				LeaveType lt = leavetype.get();
+				leave.setLeaveTypeId(lt);
+			}
+			leave.setLeaveComment(leaveReq.getLeaveComment());
+			leave.setLeaveStartOn(leaveReq.getLeaveStartOn());
+			leave.setLeaveEndOn(leaveReq.getLeaveEndOn());
+
 			leaveRepository.save(leave);
 
 			// return by mapping to dto

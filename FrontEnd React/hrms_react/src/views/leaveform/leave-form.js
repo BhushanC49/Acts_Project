@@ -36,7 +36,7 @@ function LeaveForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // send data to backend
-    LeaveService.insertLeave(formData, formData.employeeId)
+    LeaveService.insertLeave(formData.employeeId, formData)
       .then((res) => {
         alert(`Your leave-form has been submitted!`)
       })

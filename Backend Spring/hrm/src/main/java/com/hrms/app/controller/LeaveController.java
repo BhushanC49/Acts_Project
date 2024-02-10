@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/leave")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LeaveController {
 
 	@Autowired
@@ -34,7 +36,7 @@ public class LeaveController {
 	public ResponseEntity<?> addLeaveDetails(@PathVariable String empId, @RequestBody @Valid LeaveRequest leaveReq) {
 		try {
 			// calling LeaveService method for adding leave in db
-			return new ResponseEntity<>(leaveService.addLeave(empId,leaveReq), HttpStatus.OK);
+			return new ResponseEntity<>(leaveService.addLeave(empId, leaveReq), HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("Error in controller: " + e);
 			// return error message wrapped in DTO: ApiResp

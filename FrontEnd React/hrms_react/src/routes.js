@@ -57,7 +57,7 @@ const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm')
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
-const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
+const applyOnDuty = React.lazy(() => import('./views/attendance/onDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 
 const routes = [
@@ -110,7 +110,7 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/apply-leave', name: 'leave-form', element: leaveForm },
+  { path: '/leave', name: 'leave-form', element: leaveForm },
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
 ]
 

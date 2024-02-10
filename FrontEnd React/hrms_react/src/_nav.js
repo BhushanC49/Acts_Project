@@ -298,7 +298,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Apply Leave',
-        to: '/apply-leave',
+        to: '/leave',
       },
     ],
   },
