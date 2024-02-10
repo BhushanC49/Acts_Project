@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import LeaveService from '../../services/leave.api'
 import '../../scss/attendanceform.css'
+import AttendanceService from 'src/services/attendance.api'
 
 export default function AttendanceForm() {
   const [currentDate, setCurrentDate] = useState('')
@@ -10,9 +10,9 @@ export default function AttendanceForm() {
     e.preventDefault()
     // Send data to backend
 
-    LeaveService.insertLeave(employeeId, currentDate)
+    AttendanceService.markAttendance(employeeId, currentDate)
       .then((res) => {
-        alert(`Your leave-form has been submitted!`)
+        alert(`Your Attendance Is marked Successfully!`)
       })
       .catch((err) => {
         alert(`An error occurred while submitting your request: ${err}`)
@@ -42,8 +42,6 @@ export default function AttendanceForm() {
       <h1 className="form-title">Mark Attendance</h1>
       <div className="form-content">
         <p className="current-date"> Today&rsquo;s Date: {currentDate}</p>
-        <p className="current-date">Todays Date: {currentDate}</p>
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="employeeId">Employee ID: &nbsp;</label>
