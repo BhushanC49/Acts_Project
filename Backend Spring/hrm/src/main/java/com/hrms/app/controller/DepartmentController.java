@@ -45,11 +45,12 @@ public class DepartmentController {
 		return ResponseEntity.ok(deptService.getDepartment(deptId));
 	}
 
-	/*
-	 * @GetMapping public ResponseEntity<?> getAllDepartmentPaginated(){
-	 * 
-	 * }
-	 */
+	
+	  @GetMapping 
+	  public ResponseEntity<?> getAllDepartment(){
+		  return ResponseEntity.ok(deptService.getAllDepartments());
+	  }
+	 
 
 	@PutMapping("/{deptId}")
 	public ResponseEntity<?> updateDepartmentEntity(@PathVariable String deptId,

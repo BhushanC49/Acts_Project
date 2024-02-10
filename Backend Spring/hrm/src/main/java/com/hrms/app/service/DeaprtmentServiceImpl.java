@@ -1,8 +1,15 @@
 package com.hrms.app.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import com.hrms.app.model.Department;
 import com.hrms.app.repo.IDepartmentRepository;
 import com.hrms.app.request.DepartmentRequest;
@@ -22,7 +29,10 @@ public class DeaprtmentServiceImpl {
 
 		// convert DepartmentRequest object to Department
 		Department dept = mapper.map(deptReq, Department.class);
-		// save dept object in database
+		// save dept object in database 
+		dept.setActive(true);
+		dept.setCreatedOn(LocalDateTime.now()); 
+		dept.setUpdatedOn(LocalDateTime.now());
 		deptRepo.save(dept);
 		System.out.println("Department added with id: " + dept.getDeptId());
 		return mapper.map(dept, DepartmentDto.class);
@@ -48,10 +58,14 @@ public class DeaprtmentServiceImpl {
 		return mapper.map(dept, DepartmentDto.class);
 	}
 
-	/*
-	 * public List<DepartmentDot> getAllDepartments(){
-	 * 
-	 * }
-	 */
+	  @GetMapping
+	  public List<DepartmentDto> getAllDepartments(){
+		  List<Department> depts= deptRepo.findAll();
+		  return depts.
+				  stream()
+				  .map(dept->mapper.map(dept,DepartmentDto.class))
+				  .collect(Collectors.toList());
+	  }
+	 
 }
 
