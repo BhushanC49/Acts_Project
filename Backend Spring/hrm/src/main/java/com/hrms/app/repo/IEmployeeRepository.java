@@ -9,6 +9,6 @@ import com.hrms.app.model.Employee;
 
 public interface IEmployeeRepository extends MongoRepository<Employee, String> {
 
-	public Optional<Employee> findByUsernameAndPassword(String username, String password);
+	public Optional<Employee> findByUserNameAndPassword(String username, String password);
 	public List<Employee> findByDesig(String designation);
 }

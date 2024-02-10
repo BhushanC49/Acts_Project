@@ -86,6 +86,8 @@ public class EmployeeController {
 	
 	@GetMapping("/manager")
 	public ResponseEntity<?> getAllManagers(){
-		return ResponseEntity.ok(empService.getAllMangers());
+		List<EmployeeDto> empDtolist=empService.getAllMangers(); 
+		System.out.println(empDtolist);
+		return ResponseEntity.ok(empDtolist);
 	}
 }

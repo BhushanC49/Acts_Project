@@ -20,7 +20,7 @@ public class EmployeeDto {
 	private String gender;
 	private LocalDate dob; 
 	private LocalDate joiningDate; 
-	private Designation desig; 
+	private String desig; 
 	private String email; 
 	private String contactNo; 
 	private String userName;

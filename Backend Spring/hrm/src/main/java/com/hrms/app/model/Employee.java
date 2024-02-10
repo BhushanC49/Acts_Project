@@ -36,7 +36,7 @@ public class Employee {
     // Reference to Project (many-to-many)
     @DBRef
     private List<Project> projects;
-	private Designation desig; 
+	private String desig; 
 	private String email; 
 	private String contactNo; 
 	private int noticePeriod; 
@@ -45,7 +45,7 @@ public class Employee {
 	private String empAccesRole; 
 	private int leaveBalance; 
 	private String manager;
-	private String username;
+	private String userName;
 	private String password;
 	private LocalDateTime createdOn;
 	private LocalDateTime updatedOn; 

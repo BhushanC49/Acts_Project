@@ -44,14 +44,15 @@ const Register = () => {
     //   .catch((error) => {
     //     console.error('Error fetching departments:', error)
     //   })
-    // EmployeeService.fetchManagers()
-    //   .then((response) => {
-    //     setMangers(response.data)
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching mangers:', error)
-    //   })
-  }, [])
+    EmployeeService.fetchManagers()
+      .then((response) => {
+        console.log(response.data + 'in fetchManger')
+        setMangers([...response.data])
+      })
+      .catch((error) => {
+        console.error('Error fetching mangers:', error)
+      })
+  }, [mangers])
 
   const handleInputChange = (e) => {
     setformdetails({
@@ -236,7 +237,7 @@ const Register = () => {
                     <CCol md={6}>
                       <CInputGroup className="mb-3">
                         <CInputGroupText id="basic-addon1">
-                          Manger&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          Manager&nbsp;&nbsp;&nbsp;&nbsp;
                         </CInputGroupText>
                         <CFormSelect
                           aria-label="Default select example"
@@ -245,10 +246,15 @@ const Register = () => {
                           value={formdetails.manager}
                           onChange={handleInputChange}
                         >
-                          <option value="">Select Manger</option>
-                          {mangers.map((mangers) => (
-                            <option key={mangers.empId} value={mangers.empId}>
-                              {mangers.firstName + ' ' + mangers.lastName + mangers.desig}
+                          <option value="">Select Manager</option>
+                          {mangers.map((manager) => (
+                            <option key={manager.empId} value={manager.empId}>
+                              {manager.firstName +
+                                ' ' +
+                                manager.lastName +
+                                ' (' +
+                                manager.desig +
+                                ')'}
                             </option>
                           ))}
                         </CFormSelect>

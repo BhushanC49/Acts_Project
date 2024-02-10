@@ -2,7 +2,6 @@ package com.hrms.app.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import com.hrms.app.model.Employee;
 import com.hrms.app.repo.IEmployeeRepository;
@@ -33,7 +31,7 @@ public class EmployeeServiceImpl {
 		if (empReq.getConfirmPassword().equals(empReq.getPassword())) {
 			// convert EmployeeRequest object to Employee
 			Employee emp = mapper.map(empReq, Employee.class); 
-			emp.setUsername(emp.getEmail()); 
+			emp.setUserName(emp.getEmail()); 
 			emp.setCreatedOn(LocalDateTime.now());
 			emp.setUpdatedOn(LocalDateTime.now()); 
 			// save emp object in database
@@ -80,7 +78,8 @@ public class EmployeeServiceImpl {
 	}
 
 	public EmployeeDto authenticateUser(LoginRequest loginReq) {
-		Employee emp = empRepo.findByUsernameAndPassword(loginReq.getUsername(), loginReq.getPassword()).orElse(null);
+		Employee emp = empRepo.findByUserNameAndPassword(loginReq.getUsername(), loginReq.getPassword()).orElse(null);
+		System.out.println(emp);
 //		if (optEmp.isPresent()) {
 //			Employee e = optEmp.get();
 //			return mapper.map(e, EmployeeDto.class);
@@ -95,6 +94,7 @@ public class EmployeeServiceImpl {
 	 
 	public List<EmployeeDto> getAllMangers(){
 		List<Employee> empList = empRepo.findByDesig("Manager"); 
+		System.out.println(empList);
 		return empList.stream().map(emp -> mapper.map(emp, EmployeeDto.class)).collect(Collectors.toList());
 	}
 	
