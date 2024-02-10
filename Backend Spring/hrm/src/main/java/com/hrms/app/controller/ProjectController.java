@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.hrms.app.model.Company;
+import com.hrms.app.repo.IcompanyRepository;
 import com.hrms.app.request.ProjectRequest;
 import com.hrms.app.response.ProjectDTO;
 import com.hrms.app.service.ProjectServiceImpl;
@@ -16,30 +18,34 @@ import com.hrms.app.service.ProjectServiceImpl;
 @CrossOrigin(origins = "*")
 public class ProjectController {
 
-    @Autowired
-    private ProjectServiceImpl projectService;
+	@Autowired
+	private ProjectServiceImpl projectService;
 
-    @PostMapping("/create")
-    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectRequest request) {
-        ProjectDTO projectDTO = projectService.createProject(request);
-        return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
-    }
+	@Autowired
+	private IcompanyRepository companyRepo;
 
-//    @GetMapping("/{projectId}")
-//    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable String projectId) {
-//        ProjectDTO projectDTO = projectService.getProjectById(projectId);
-//        return ResponseEntity.ok(projectDTO);
-//    }
+	@PostMapping("/create")
+	public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectRequest request) {
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ProjectDTO>> getAllProjects() {
-        List<ProjectDTO> projects = projectService.getAllProjects();
-        return ResponseEntity.ok(projects);
-    }
+		if (request.getCompanyName() == null) {
+			// Handle case where company with given name is not found
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
-    @GetMapping("/search")
-    public ResponseEntity<List<ProjectDTO>> searchProjects(@RequestParam(name = "projectName") String projectName) {
-        List<ProjectDTO> projects = projectService.getProjectsByName(projectName);
-        return ResponseEntity.ok(projects);
-    }
+		ProjectDTO projectDTO = projectService.createProject(request);
+
+		return new ResponseEntity<>(projectDTO, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<ProjectDTO>> getAllProjects() {
+		List<ProjectDTO> projects = projectService.getAllProjects();
+		return ResponseEntity.ok(projects);
+	}
+
+	@GetMapping("/search")
+	public ResponseEntity<List<ProjectDTO>> searchProjects(@RequestParam(name = "projectName") String projectName) {
+		List<ProjectDTO> projects = projectService.getProjectsByName(projectName);
+		return ResponseEntity.ok(projects);
+	}
 }

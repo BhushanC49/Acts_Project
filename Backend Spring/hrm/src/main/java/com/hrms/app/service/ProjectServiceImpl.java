@@ -1,20 +1,22 @@
 package com.hrms.app.service;
 
    
-   import org.modelmapper.ModelMapper;
-   import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+   import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hrms.app.mapper.CustomModelMapper;
+import com.hrms.app.model.Company;
 import com.hrms.app.model.Project;
 import com.hrms.app.repo.IProjectRepository;
+import com.hrms.app.repo.IcompanyRepository;
 import com.hrms.app.request.ProjectRequest;
 import com.hrms.app.response.ProjectDTO;
-
-import java.time.LocalDateTime;
-import java.util.List;
-   import java.util.Optional;
-   import java.util.stream.Collectors;
 
    @Service
    public class ProjectServiceImpl{
@@ -23,31 +25,38 @@ import java.util.List;
        private IProjectRepository projectRepository;
 
        @Autowired
-       private ModelMapper modelMapper;
+       private CustomModelMapper modelMapper;
+       
+       @Autowired
+       private IcompanyRepository companyRepo;
 
        public ProjectDTO createProject(ProjectRequest request) {
            // Map request to entity
-           Project project = modelMapper.map(request, Project.class);
+           Project project = modelMapper.mapProjectRequestToEntity(request);
            
+           project.setCompany(companyRepo.findByCompanyName(request.getCompanyName()));
            // Set isActive to true (assuming it should be true for new projects)
            project.setActive(true);
            
            // Set createdOn timestamp
            project.setCreatedOn(LocalDateTime.now());
            
+           
+    
            // Save project to database
            project = projectRepository.save(project);
            
+          
            // Map entity to DTO
-           return modelMapper.map(project, ProjectDTO.class);
+           return modelMapper.mapProjectToDTO(project);
        }
 
        public ProjectDTO getProjectById(String projectId) {
            // Find project by ID
-           Optional<Project> optionalProject = projectRepository.findById(projectId);
-           if (optionalProject.isPresent()) {
+           Project project = projectRepository.findById(projectId).orElseThrow();
+           if (project !=null) {
                // Map entity to DTO
-               return modelMapper.map(optionalProject.get(), ProjectDTO.class);
+               return modelMapper.mapProjectToDTO(project);
            } else {
                // Handle case where project with given ID is not found
                throw new RuntimeException("Project not found with ID: " + projectId);
@@ -60,7 +69,7 @@ import java.util.List;
            
            // Map list of entities to list of DTOs
            return projects.stream()
-                   .map(project -> modelMapper.map(project, ProjectDTO.class))
+                   .map(project -> modelMapper.mapProjectToDTO(project))
                    .collect(Collectors.toList());
        }
 
@@ -70,7 +79,7 @@ import java.util.List;
            
            // Map list of entities to list of DTOs
            return projects.stream()
-                   .map(project -> modelMapper.map(project, ProjectDTO.class))
+                   .map(project -> modelMapper.mapProjectToDTO(project))
                    .collect(Collectors.toList());
        }
    }

@@ -1,15 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { CompanyUrl } from '../../urls/company.url'
 import { addProject } from '../../services/project.api'
 import '../../scss/project.css'
+
 const ProjectForm = () => {
   const [companyName, setCompanyName] = useState('')
   const [projectName, setProjectName] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [companies, setCompanies] = useState([])
+
+  useEffect(() => {
+    // Fetch companies from API
+    const fetchCompanies = async () => {
+      try {
+        // Fetch companies from API
+        const response = await fetch(CompanyUrl.getAllCompanyUrl())
+        if (response.ok) {
+          const data = await response.json()
+          // Update state with fetched companies
+          setCompanies(data)
+        } else {
+          console.error('Failed to fetch companies')
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching companies:', error)
+      }
+    }
+
+    fetchCompanies()
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const projectData = { companyName, projectName, startDate, endDate }
+    const projectData = { companyName, projectName }
     try {
       await addProject(projectData)
       console.log('Project added successfully')
@@ -24,13 +46,19 @@ const ProjectForm = () => {
       <h2>Add Project</h2>
       <div className="form-group">
         <label htmlFor="companyName">Company Name:</label>
-        <input
-          type="text"
+        <select
           id="companyName"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
           required
-        />
+        >
+          <option value="">Select Company</option>
+          {companies.map((company) => (
+            <option key={company.companyId} value={company.companyName}>
+              {company.companyName}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="form-group">
         <label htmlFor="projectName">Project Name:</label>
@@ -39,26 +67,6 @@ const ProjectForm = () => {
           id="projectName"
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="startDate">Start Date:</label>
-        <input
-          type="date"
-          id="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="endDate">End Date:</label>
-        <input
-          type="date"
-          id="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
           required
         />
       </div>
