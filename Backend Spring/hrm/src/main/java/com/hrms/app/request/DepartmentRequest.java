@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.hrms.app.model.Company;
 import jakarta.validation.constraints.NotBlank;
-
+import lombok.Data;
+@Data
 public class DepartmentRequest {
 	
 	@NotBlank(message = "Name can not be blank")

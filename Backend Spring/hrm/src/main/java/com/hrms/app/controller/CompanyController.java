@@ -21,10 +21,9 @@ public class CompanyController {
 	@Autowired
 	private CompanyServiceImpl companyService;
 	//Need to change (MAke Dto Request)
-	 @GetMapping("/all")
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.getAllCompanies();
-        return ResponseEntity.ok(companies);
+	 @GetMapping
+    public ResponseEntity<?> getAllCompanies() { 
+        return ResponseEntity.ok(companyService.getAllCompanies());
     }
 	
 }

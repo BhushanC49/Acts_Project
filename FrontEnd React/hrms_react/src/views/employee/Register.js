@@ -16,10 +16,12 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
+import DesiginationApiService from '../../services/Designation.api'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [mangers, setMangers] = useState([])
+  const [designation, setdesignation] = useState([])
   const [formdetails, setformdetails] = useState({
     firstName: '',
     middleName: '',
@@ -37,13 +39,22 @@ const Register = () => {
   })
 
   useEffect(() => {
-    // DepartmentService.getDepartmentList()
-    //   .then((response) => {
-    //     setDepartment(response.data)
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching departments:', error)
-    //   })
+    DepartmentService.getDepartmentList()
+      .then((data) => {
+        console.log(data)
+        setDepartment([...data])
+      })
+      .catch((error) => {
+        console.error('Error fetching departments:', error)
+      })
+    DesiginationApiService.getDesignationList()
+      .then((data) => {
+        console.log(data)
+        setdesignation([...data])
+      })
+      .catch((error) => {
+        console.error('Error fetching departments:', error)
+      })
     EmployeeService.fetchManagers()
       .then((list) => {
         console.log(list + 'in fetchManger')
@@ -229,8 +240,8 @@ const Register = () => {
                         >
                           <option value="">Select Department</option>
                           {departmet.map((departmet) => (
-                            <option key={departmet.deptId} value={departmet.deptName}>
-                              {departmet.name}
+                            <option key={departmet.deptId} value={departmet.deptId}>
+                              {departmet.deptName}
                             </option>
                           ))}
                         </CFormSelect>
@@ -299,14 +310,20 @@ const Register = () => {
                     <CCol md={6}>
                       <CInputGroup className="mb-3">
                         <CInputGroupText id="basic-addon1">Designation&nbsp;</CInputGroupText>
-                        <CFormInput
-                          placeholder="Designation"
-                          autoComplete="Designation"
+                        <CFormSelect
+                          aria-label="Default select example"
                           id="desig"
                           name="desig"
                           value={formdetails.desig}
                           onChange={handleInputChange}
-                        />
+                        >
+                          <option value="">Select Designation</option>
+                          {designation.map((designation, index) => (
+                            <option key={index} value={designation}>
+                              {designation}
+                            </option>
+                          ))}
+                        </CFormSelect>
                       </CInputGroup>
                     </CCol>
                   </CRow>

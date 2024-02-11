@@ -13,5 +13,17 @@ class DepartmentApiService {
       throw new Error('department fetching failed. Please try again.')
     }
   }
+
+  async addDepartment(department) {
+    //made async because http methods are asynchronous  in nature
+    try {
+      const url = DepartmentUrl.baseDepartmentUrl
+      console.log(url)
+      const response = await axios.post(url, department)
+      return response.data // return the response data
+    } catch (error) {
+      throw new Error('department fetching failed. Please try again.')
+    }
+  }
 }
 export default new DepartmentApiService()

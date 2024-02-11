@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/department")
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:3000")
 public class DepartmentController {
 
 	// service layer dependency injection(DI)
@@ -30,7 +30,8 @@ public class DepartmentController {
 	@PostMapping
 	public ResponseEntity<?> addDeptDetails(@RequestBody @Valid DepartmentRequest deptReq) {
 		try {
-			// calling DeptService method for adding Department
+			// calling DeptService method for adding Department 
+			System.out.println(deptReq);
 			return new ResponseEntity<>(deptService.addDepartment(deptReq), HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println("Error in controller " + e);

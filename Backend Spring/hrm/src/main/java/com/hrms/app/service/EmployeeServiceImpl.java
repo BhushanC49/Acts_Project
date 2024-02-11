@@ -11,7 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hrms.app.custome_exception.ApiException;
+import com.hrms.app.custome_exception.ResourceNotFoundException;
+import com.hrms.app.model.Department;
 import com.hrms.app.model.Employee;
+import com.hrms.app.repo.IDepartmentRepository;
 import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.request.LoginRequest;
@@ -22,6 +25,9 @@ import com.hrms.app.response.EmployeeDto;
 public class EmployeeServiceImpl {
 	@Autowired
 	private IEmployeeRepository empRepo;
+	
+	@Autowired
+	private IDepartmentRepository deptRepo;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -29,8 +35,10 @@ public class EmployeeServiceImpl {
 	public EmployeeDto addEmployee(EmployeeRequest empReq) {
 		// validate password and confirm password
 		if (empReq.getConfirmPassword().equals(empReq.getPassword())) {
-			// convert EmployeeRequest object to Employee
-			Employee emp = mapper.map(empReq, Employee.class); 
+			// convert EmployeeRequest object to Employee 
+			Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
+			Employee emp = mapper.map(empReq, Employee.class);  
+			emp.setDept(dept);
 			emp.setUserName(emp.getEmail()); 
 			emp.setCreatedOn(LocalDateTime.now());
 			emp.setUpdatedOn(LocalDateTime.now()); 

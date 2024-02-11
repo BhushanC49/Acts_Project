@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.hrms.app.model.Company;
 import com.hrms.app.model.Department;
 import com.hrms.app.repo.IDepartmentRepository;
+import com.hrms.app.repo.IcompanyRepository;
 import com.hrms.app.request.DepartmentRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.DepartmentDto;
@@ -23,12 +25,19 @@ public class DeaprtmentServiceImpl {
 	private IDepartmentRepository deptRepo;
 
 	@Autowired
-	private ModelMapper mapper;
+	private ModelMapper mapper; 
+	
+	@Autowired 
+	private IcompanyRepository compRepo;
 
 	public DepartmentDto addDepartment(DepartmentRequest deptReq) {
 
+		//fetch company and then convert 
+		Company comp=compRepo.findByCompanyName(deptReq.getCompanyId());
+		
 		// convert DepartmentRequest object to Department
-		Department dept = mapper.map(deptReq, Department.class);
+		Department dept = mapper.map(deptReq, Department.class); 
+		dept.setCompany(comp);
 		// save dept object in database 
 		dept.setActive(true);
 		dept.setCreatedOn(LocalDateTime.now()); 

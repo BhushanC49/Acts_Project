@@ -2,7 +2,7 @@ package com.hrms.app.response;
 
 import java.time.LocalDate;
 
-import com.hrms.app.model.Designation;
+import com.hrms.app.model.DesignationTest;
 
 import lombok.Getter;
 import lombok.Setter;

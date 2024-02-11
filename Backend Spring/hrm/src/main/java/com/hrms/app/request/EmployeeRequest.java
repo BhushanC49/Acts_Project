@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.hrms.app.model.Designation;
+import com.hrms.app.model.DesignationTest;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,7 +31,7 @@ public class EmployeeRequest {
 	@Email
 	private String email;  
 	private String contactNo; 
-	//@NotBlank(message = "username can not be blank")
+	@NotBlank(message = "department can not be blank")
 	private String dept;
 	private String manager;
 	private String password;  

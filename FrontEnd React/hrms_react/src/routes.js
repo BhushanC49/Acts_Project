@@ -57,7 +57,7 @@ const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm')
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
-const applyOnDuty = React.lazy(() => import('./views/attendance/onDuty-form'))
+const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 
 const routes = [
