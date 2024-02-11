@@ -2,6 +2,6 @@
 import { BaseUrl } from './base.url'
 
 export class EmployeeUrl extends BaseUrl {
-  static baseEmployeeUrl = `${BaseUrl.url}/employee`
-  static getAllMangersUrl = `${BaseUrl.url}/employee/manager`
+  static baseEmployeeUrl = `${this.baseUrl}/employee`
+  static getAllMangersUrl = `${this.baseEmployeeUrl}/manager`
 }

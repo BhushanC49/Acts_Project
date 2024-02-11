@@ -1,4 +1,4 @@
 // base.url.js
 export class BaseUrl {
-  static url = 'http://localhost:7171'
+  static baseUrl = process.env.REACT_APP_API_SERVER_BASE_URL
 }

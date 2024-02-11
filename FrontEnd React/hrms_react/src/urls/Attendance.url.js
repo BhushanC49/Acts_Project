@@ -1,5 +1,5 @@
 import { BaseUrl } from './base.url'
 export class AttendanceUrl extends BaseUrl {
-  static baseAttendanceUrl = `${BaseUrl.url}/attendance/`
-  static getAttendanceUrl = `${BaseUrl.url}/attendance/`
+  static baseAttendanceUrl = `${this.baseUrl}/attendance/`
+  static getAttendanceUrl = `${this.baseUrl}/attendance/`
 }
