@@ -63,7 +63,7 @@ const addDepartment = React.lazy(() => import('./views/Department/Register-dept'
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  //{ path: '/attendance/onduty', name: 'Apply On Duty', element: applyOnDuty },
+  { path: '/onduty', name: 'Apply On Duty', element: applyOnDuty },
   { path: '/attendance', name: 'Attendance', element: attendance },
   { path: '/employees', name: 'Employee List', element: employeeList },
   { path: '/register', name: 'Add Employee', element: Register },

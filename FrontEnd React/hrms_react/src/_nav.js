@@ -344,7 +344,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Apply On Duty',
-        to: '/attendance/onduty',
+        to: '/onduty',
       },
     ],
   },

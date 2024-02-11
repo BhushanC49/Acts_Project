@@ -1,13 +1,13 @@
-import axios from 'axios'
+import HttpClientService from './http-client.service'
 import { LeaveUrl } from 'src/urls/Leave.url'
 
 const leaveUrl = LeaveUrl.baseLeaveUrl
-const getUrl = LeaveUrl.getLeaveUrl
+const getUrl = LeaveUrl.getLeaveTypeUrl
 
 const LeaveService = {
   fetchLeaveTypes: async () => {
     try {
-      const response = await axios.get(getUrl)
+      const response = await HttpClientService.get(getUrl)
       return response.data
     } catch (error) {
       console.error('Error fetching leave types:', error)
@@ -18,7 +18,7 @@ const LeaveService = {
   insertLeave: async (leaveId, leave) => {
     try {
       console.log('in service add')
-      const response = await axios.post(`${leaveUrl}/${leaveId}`, leave)
+      const response = await HttpClientService.post(`${leaveUrl}/${leaveId}`, leave)
       return response.data
     } catch (error) {
       console.error('Error inserting leave:', error)
