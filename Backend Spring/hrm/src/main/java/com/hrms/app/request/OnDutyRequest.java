@@ -11,7 +11,7 @@ import lombok.Data;
 public class OnDutyRequest {
 
 	@NotBlank
-	private String empId;
+	private String employeeId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fromDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

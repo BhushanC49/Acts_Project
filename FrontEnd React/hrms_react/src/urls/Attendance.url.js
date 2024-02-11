@@ -1,5 +1,4 @@
-import { BaseUrl } from './base.url'
-export class AttendanceUrl extends BaseUrl {
-  static baseAttendanceUrl = `${this.baseUrl}/attendance/`
-  static getAttendanceUrl = `${this.baseUrl}/attendance/`
+export class AttendanceUrl {
+  static baseAttendanceUrl = `attendance/`
+  static getAttendanceUrl = `attendance/`
 }

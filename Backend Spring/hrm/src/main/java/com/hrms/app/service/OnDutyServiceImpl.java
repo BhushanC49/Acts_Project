@@ -28,7 +28,7 @@ public class OnDutyServiceImpl {
 
 	public ApiResponse markOnDuty(OnDutyRequest onDutyReq) {
 
-		List<Optional<Attendance>> attendanceList = attendanceRepository.findByEmpidAndDateBetween(onDutyReq.getEmpId(),
+		List<Optional<Attendance>> attendanceList = attendanceRepository.findByEmpidAndDateBetween(onDutyReq.getEmployeeId(),
 				onDutyReq.getFromDate(), onDutyReq.getToDate());
 
 		for (Optional<Attendance> attendanceOpt : attendanceList) {// iterate through optional list
