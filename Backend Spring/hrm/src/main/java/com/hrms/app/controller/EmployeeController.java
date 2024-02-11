@@ -38,19 +38,9 @@ public class EmployeeController {
 	@PostMapping
 	public ResponseEntity<?> addEmpDetails(@RequestBody @Valid EmployeeRequest empReq )
 	{
-		try {
 			//calling EmpService method for adding employee  
 			System.out.println(empReq);
 			return new ResponseEntity<>(empService.addEmployee(empReq),HttpStatus.CREATED);
-		}
-		catch(Exception e)
-		{
-			System.out.println("err in controller "+e);
-			//return err mesg wrapped in DTO : ApiResp
-			return  ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body(new ApiResponse(e.getMessage()));
-		}
 	} 
 	@GetMapping("/{empId}")
 	public ResponseEntity<?> getEmployee(@PathVariable String empId){
