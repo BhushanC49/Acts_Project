@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { EmployeeUrl } from '../urls/Employee.url'
+import HttpClientService from './http-client.service'
 
 class EmployeeApiService {
   async addEmployee(employee) {
     try {
       const url = EmployeeUrl.baseEmployeeUrl
       console.log(url)
-      const response = await axios.post(url, employee)
+      const response = await HttpClientService.post(url, employee)
       return response.data // return the response data
     } catch (error) {
       throw new Error('Employee registration failed. Please try again.')
@@ -18,7 +19,7 @@ class EmployeeApiService {
       const url = EmployeeUrl.baseEmployeeUrl
       let pageNumber = 1
       let pageSize = 20
-      const response = await axios.get(url, pageNumber, pageSize)
+      const response = await HttpClientService.get(url, pageNumber, pageSize)
       return response.data
     } catch (error) {
       console.error('Error fetching employees', error)

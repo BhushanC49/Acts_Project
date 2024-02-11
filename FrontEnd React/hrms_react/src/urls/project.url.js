@@ -1,6 +1,6 @@
 import { BaseUrl } from '../urls/base.url'
 export class ProjectUrl extends BaseUrl {
-  static baseProjectUrl = `${BaseUrl.url}/api/projects`
+  static baseProjectUrl = `${this.baseUrl}/api/projects`
 
   static createProjectUrl() {
     return `${ProjectUrl.baseProjectUrl}/create`
