@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.hrms.app.custome_exception.ApiException;
 import com.hrms.app.model.Employee;
 import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.request.EmployeeRequest;
@@ -41,7 +41,7 @@ public class EmployeeServiceImpl {
 
 			return mapper.map(emp, EmployeeDto.class);
 		} else {
-			throw new RuntimeException("password doesnot match please re-enter password");
+			throw new ApiException("password doesnot match please re-enter password");
 		}
 
 	}
