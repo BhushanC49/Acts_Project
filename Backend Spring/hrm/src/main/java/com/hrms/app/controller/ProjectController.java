@@ -15,7 +15,6 @@ import com.hrms.app.service.ProjectServiceImpl;
 
 @RestController
 @RequestMapping("/api/projects")
-@CrossOrigin(origins = "*")
 public class ProjectController {
 
 	@Autowired

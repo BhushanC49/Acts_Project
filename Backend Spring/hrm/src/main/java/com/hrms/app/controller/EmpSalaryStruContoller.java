@@ -15,7 +15,7 @@ import com.hrms.app.service.EmpSalrayStruServiceImpl;
 
 @RestController 
 @RequestMapping("/salaryStru")
-@CrossOrigin(origins = "")
+
 public class EmpSalaryStruContoller {
 	
 	@Autowired 

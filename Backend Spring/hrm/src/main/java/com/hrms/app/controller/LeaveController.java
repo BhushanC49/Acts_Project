@@ -26,7 +26,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/leave")
-@CrossOrigin(origins = "http://localhost:3000")
 public class LeaveController {
 
 	@Autowired

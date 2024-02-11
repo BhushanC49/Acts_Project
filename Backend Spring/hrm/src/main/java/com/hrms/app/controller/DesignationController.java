@@ -12,7 +12,7 @@ import com.hrms.app.model.Designation;
 
 @RestController 
 @RequestMapping("/designation")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class DesignationController {
 	
 	@GetMapping

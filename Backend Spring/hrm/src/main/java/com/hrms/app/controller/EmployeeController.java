@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController 
 @RequestMapping("/employee")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class EmployeeController {
 	
 	//service layer dependency injection(DI) 

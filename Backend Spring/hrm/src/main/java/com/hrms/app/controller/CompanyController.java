@@ -15,7 +15,7 @@ import com.hrms.app.service.CompanyServiceImpl;
 
 @RestController
 @RequestMapping("/api/companies")
-@CrossOrigin
+
 public class CompanyController {
 	
 	@Autowired

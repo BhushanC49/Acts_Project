@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/department")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class DepartmentController {
 
 	// service layer dependency injection(DI)
