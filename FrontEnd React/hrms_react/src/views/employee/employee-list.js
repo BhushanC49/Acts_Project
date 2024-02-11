@@ -5,10 +5,10 @@ function EmployeeList() {
   const [employees, setEmployees] = useState([])
 
   useEffect(() => {
-    // Fetch data from the server when the component mounts
-    // EmployeeApiService.fetchEmployees()
-    //   .then((data) => setEmployees(data))
-    //   .catch((error) => console.error('Error setting employees:', error))
+    //Fetch data from the server when the component mounts
+    EmployeeApiService.fetchEmployees()
+      .then((data) => setEmployees(data))
+      .catch((error) => console.error('Error setting employees:', error))
   }, [])
 
   return (
@@ -27,11 +27,11 @@ function EmployeeList() {
         </thead>
         <tbody>
           {employees.map((employee) => (
-            <tr key={employee.id}>
-              <td>{employee.id}</td>
+            <tr key={employee.empId}>
+              <td>{employee.empId}</td>
               <td>{employee.firstname}</td>
               <td>{employee.lastname}</td>
-              <td>{employee.dept.deptName}</td>
+              <td>{employee?.dept?.deptName}</td>
               <td>{employee.leaveBalance}</td>
               <td>{employee.email}</td>
             </tr>

@@ -45,14 +45,14 @@ const Register = () => {
     //     console.error('Error fetching departments:', error)
     //   })
     EmployeeService.fetchManagers()
-      .then((response) => {
-        console.log(response.data + 'in fetchManger')
-        setMangers([...response.data])
+      .then((list) => {
+        console.log(list + 'in fetchManger')
+        setMangers([...list])
       })
       .catch((error) => {
         console.error('Error fetching mangers:', error)
       })
-  }, [mangers])
+  }, [])
 
   const handleInputChange = (e) => {
     setformdetails({

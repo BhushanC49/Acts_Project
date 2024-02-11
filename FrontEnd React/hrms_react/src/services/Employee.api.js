@@ -30,6 +30,7 @@ class EmployeeApiService {
     try {
       const url = EmployeeUrl.getAllMangersUrl
       const response = await axios.get(url)
+      console.log(response)
       return response.data
     } catch (error) {
       console.error('Error fetching employees', error)
