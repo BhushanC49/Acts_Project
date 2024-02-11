@@ -15,7 +15,7 @@ public class EmployeeDto {
 	
 	private String empId; 
 	private String firstName; 
-	private String MiddleName; 
+	private String middleName; 
 	private String lastName; 
 	private String gender;
 	private LocalDate dob; 
@@ -25,5 +25,7 @@ public class EmployeeDto {
 	private String contactNo; 
 	private String userName;
 	private String empStatus; 
-	private String empAccesRole; 
+	private String empAccesRole;
+	private String dept;
+	private int leaveBalance;
 }

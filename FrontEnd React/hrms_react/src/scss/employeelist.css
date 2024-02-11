@@ -2,6 +2,14 @@
     width: 100%;
     border-collapse: collapse;
   }
+
+  .employee-list-heading {
+    color: #333; /* Example color */
+    font-size: 24px; /* Example font size */
+    font-weight: bold; /* Example font weight */
+    margin-bottom: 20px; /* Example margin bottom */
+    text-align: center; /* Align text to center */
+  }
   
   .employee-table th,
   .employee-table td {

@@ -13,7 +13,7 @@ function EmployeeList() {
 
   return (
     <div>
-      <h2>Employee List</h2>
+      <h2 className="employee-list-heading">Employee List</h2>
       <table className="employee-table">
         <thead>
           <tr>
@@ -29,9 +29,9 @@ function EmployeeList() {
           {employees.map((employee) => (
             <tr key={employee.empId}>
               <td>{employee.empId}</td>
-              <td>{employee.firstname}</td>
-              <td>{employee.lastname}</td>
-              <td>{employee?.dept?.deptName}</td>
+              <td>{employee.firstName}</td>
+              <td>{employee.lastName}</td>
+              <td>{employee?.dept}</td>
               <td>{employee.leaveBalance}</td>
               <td>{employee.email}</td>
             </tr>

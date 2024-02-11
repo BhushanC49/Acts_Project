@@ -67,9 +67,11 @@ const Register = () => {
     EmployeeService.addEmployee(formdetails)
       .then((responseData) => {
         console.log('Employee added successfully:', responseData)
+        alert(`Employee Added Successfully!`)
       })
       .catch((error) => {
         console.error('Error adding employee:', error.message)
+        alert(`Oops! Error in Adding Employee`)
       })
     console.log('Form submitted:', formdetails)
   }

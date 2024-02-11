@@ -34,6 +34,7 @@ public class EmployeeServiceImpl {
 			emp.setUserName(emp.getEmail()); 
 			emp.setCreatedOn(LocalDateTime.now());
 			emp.setUpdatedOn(LocalDateTime.now()); 
+			emp.setLeaveBalance(24);
 			// save emp object in database
 			empRepo.save(emp);
 			System.out.println("Employee addes with id: " + emp.getEmpId());

@@ -60,7 +60,7 @@ public class EmployeeController {
 	
 	@GetMapping
 	public ResponseEntity<?> getAllEmployeesPaginated(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "3", required = false) int pageSize){
+			@RequestParam(defaultValue = "10", required = false) int pageSize){
 		System.out.println("in get all employees " +pageNumber + "page size "+pageSize); 
 		List<EmployeeDto> list=empService.getAllEmployees(pageNumber, pageSize); 
 		if(list.isEmpty())
