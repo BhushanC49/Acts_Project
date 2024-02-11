@@ -362,6 +362,18 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: 'Event',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Event',
+        to: '/Add-event',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [

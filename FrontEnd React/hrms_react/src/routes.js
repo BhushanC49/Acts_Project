@@ -54,6 +54,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const leaveForm = React.lazy(() => import('./views/leaveform/leave-form'))
 const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm'))
+const AddEventForm = React.lazy(() => import('./views/event/AddEventForm'))
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
@@ -112,6 +113,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/leave', name: 'leave-form', element: leaveForm },
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
+  { path: '/Add-event', name: 'Event-form', element: AddEventForm }
 ]
 
 export default routes
