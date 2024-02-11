@@ -10,11 +10,9 @@ import lombok.Setter;
 
 @Data
 public class LeaveRequest {
-	
-	
+
 	private String employeeId;
 
-	@NotBlank
 	private String leaveTypeId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
