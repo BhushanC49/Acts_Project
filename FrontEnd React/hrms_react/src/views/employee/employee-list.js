@@ -31,7 +31,7 @@ function EmployeeList() {
               <td>{employee.empId}</td>
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
-              <td>{employee?.dept?.deptName}</td>
+              <td>{employee?.dept}</td>
               <td>{employee.leaveBalance}</td>
               <td>{employee.email}</td>
             </tr>

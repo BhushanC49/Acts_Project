@@ -83,7 +83,17 @@ public class EmployeeServiceImpl {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		// fetches the Page of Emps --> getContent() --> List<Emp>
 		List<Employee> empList = empRepo.findAll(pageable).getContent();
-		return empList.stream().map(emp -> mapper.map(emp, EmployeeDto.class)).collect(Collectors.toList());
+		return empList.stream().
+				map(
+						(Employee emp) -> 
+						{
+							//Department dept=emp.getDept();
+							EmployeeDto empDto=mapper.map(emp, EmployeeDto.class); 
+							//empDto.setDept(dept.getDeptName());
+							return empDto;
+						}
+					)
+				.collect(Collectors.toList());
 	}
 
 	public EmployeeDto authenticateUser(LoginRequest loginReq) {
