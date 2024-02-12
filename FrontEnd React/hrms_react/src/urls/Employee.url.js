@@ -1,4 +1,4 @@
 export class EmployeeUrl {
   static baseEmployeeUrl = `employee`
-  static getAllMangersUrl = `manager`
+  static getAllMangersUrl = `employee/manager`
 }

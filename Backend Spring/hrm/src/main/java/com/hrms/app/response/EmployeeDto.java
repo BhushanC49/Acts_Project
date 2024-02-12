@@ -2,6 +2,7 @@ package com.hrms.app.response;
 
 import java.time.LocalDate;
 
+import com.hrms.app.model.Department;
 import com.hrms.app.model.DesignationTest;
 
 import lombok.Getter;
@@ -26,6 +27,6 @@ public class EmployeeDto {
 	private String userName;
 	private String empStatus; 
 	private String empAccesRole;
-	private String dept;
+	private Department dept;
 	private int leaveBalance;
 }
