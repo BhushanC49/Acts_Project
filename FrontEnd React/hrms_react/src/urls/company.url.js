@@ -1,4 +1,3 @@
-import { BaseUrl } from './base.url'
-export class CompanyUrl extends BaseUrl {
-  static baseCompanyUrl = `${BaseUrl.url}/api/companies`
+export class CompanyUrl {
+  static baseCompanyUrl = `api/companies`
 }

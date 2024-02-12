@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { EmployeeUrl } from '../urls/Employee.url'
 import HttpClientService from './http-client.service'
 
@@ -30,7 +29,7 @@ class EmployeeApiService {
   async fetchManagers() {
     try {
       const url = EmployeeUrl.getAllMangersUrl
-      const response = await axios.get(url)
+      const response = await HttpClientService.get(url)
       console.log(response)
       return response.data
     } catch (error) {

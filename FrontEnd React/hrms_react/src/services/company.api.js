@@ -1,4 +1,4 @@
-import axios from 'axios'
+import HttpClientService from './http-client.service'
 import { CompanyUrl } from '../urls/company.url'
 
 class CompanyApiService {
@@ -7,7 +7,7 @@ class CompanyApiService {
     try {
       const url = CompanyUrl.baseCompanyUrl
       console.log(url)
-      const response = await axios.get(url)
+      const response = await HttpClientService.get(url)
       return response.data // Return the response data
     } catch (error) {
       throw new Error('Companies fetching failed. Please try again.')
