@@ -15,6 +15,17 @@ const LeaveService = {
     }
   },
 
+  approveLeave: async (leaveId) => {
+    try {
+      console.log('in approve leave service')
+      const response = await HttpClientService.put(`${leaveUrl}/${leaveId}`)
+      return response.data
+    } catch (error) {
+      console.error('Error in approving leave', error)
+      throw error
+    }
+  },
+
   insertLeave: async (leaveId, leave) => {
     try {
       console.log('in service add')
@@ -22,6 +33,17 @@ const LeaveService = {
       return response.data
     } catch (error) {
       console.error('Error inserting leave:', error)
+      throw error
+    }
+  },
+
+  fetchLeaves: async (managerId) => {
+    try {
+      console.log('in fetchLeaves')
+      const response = await HttpClientService.get(`${leaveUrl}/${managerId}`)
+      return response.data
+    } catch (error) {
+      console.error('error in fetching leaves', error)
       throw error
     }
   },

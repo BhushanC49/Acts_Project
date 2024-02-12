@@ -26,7 +26,7 @@ public class Leave {
 
 	// private int numberOfDays;
 
-	// private String leaveStatus;
+	private boolean leaveStatus;
 
 	private String leaveComment;
 

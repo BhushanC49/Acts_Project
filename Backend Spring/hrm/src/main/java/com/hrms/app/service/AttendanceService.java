@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hrms.app.custome_exception.ResourceNotFoundException;
 import com.hrms.app.model.Attendance;
 import com.hrms.app.model.Employee;
 import com.hrms.app.repo.IAttendanceRepository;
@@ -27,17 +28,22 @@ public class AttendanceService {
 	private IAttendanceRepository attendanceRepo;
 
 	public ApiResponse markAttendance(LocalDate date, String empId) {
-		Optional<Employee> e = empRepo.findById(empId);
-		if (e.isPresent()) {
-			Employee employee = e.get();
-			Attendance attendance = new Attendance();
-			attendance.setEmpid(employee);
-			attendance.setDate(date);
-			attendance.setPresent(true); 
-			attendanceRepo.save(attendance);
-			return new ApiResponse("Attendance Marked");
-		} else {
-			return new ApiResponse("Employee not found with ID: " + empId);
+		try {
+			Optional<Employee> e = empRepo.findById(empId);
+			if (e.isPresent()) {
+				Employee employee = e.get();
+				Attendance attendance = new Attendance();
+				attendance.setEmpid(employee);
+				attendance.setDate(date);
+				attendance.setPresent(true);
+				attendanceRepo.save(attendance);
+				return new ApiResponse("Attendance Marked");
+			} else {
+				return new ApiResponse("Employee not found with ID: " + empId);
+			}
+		} catch (Exception e) {
+
+			return new ApiResponse("Error marking attendance: " + e.getMessage());
 		}
 	}
 
