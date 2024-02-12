@@ -31,7 +31,7 @@ public class LeaveController {
 	@Autowired
 	private LeaveServiceImpl leaveService;
 
-	@PutMapping("/{leaveId}")
+	@PutMapping("/leave-approval/{leaveId}")
 	public ResponseEntity<String> approveLeave(@PathVariable String leaveId) {
 		try {
 			leaveService.approveLeave(leaveId);

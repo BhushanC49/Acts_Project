@@ -64,7 +64,7 @@ const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/leave-approval', name: 'Leave Approval', element: leaveApproval },
+  { path: '/leave/leave-approval', name: 'Leave Approval', element: leaveApproval },
   { path: '/onduty', name: 'Apply On Duty', element: applyOnDuty },
   { path: '/attendance', name: 'Attendance', element: attendance },
   { path: '/employees', name: 'Employee List', element: employeeList },

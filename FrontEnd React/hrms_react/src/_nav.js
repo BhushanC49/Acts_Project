@@ -303,7 +303,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Leave Approval For Manager',
-        to: '/leave-approval',
+        to: '/leave/leave-approval',
       },
     ],
   },
