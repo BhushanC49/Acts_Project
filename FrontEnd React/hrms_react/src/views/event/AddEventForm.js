@@ -12,10 +12,10 @@ const AddEventForm = () => {
     venue: '',
     bannerUrl: '',
     category: '',
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setEventData({
       ...eventData,
       [name]: value,
@@ -31,7 +31,7 @@ const AddEventForm = () => {
     } catch (error) {
       console.error('Failed to add event:', error)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

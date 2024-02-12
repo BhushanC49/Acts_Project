@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CompanyUrl } from '../../urls/company.url'
 import { addProject } from '../../services/project.api'
+import CompanyApiService from '../../services/company.api'
 import '../../scss/project.css'
 
 const ProjectForm = () => {
@@ -9,24 +10,31 @@ const ProjectForm = () => {
   const [companies, setCompanies] = useState([])
 
   useEffect(() => {
-    // Fetch companies from API
-    const fetchCompanies = async () => {
-      try {
-        // Fetch companies from API
-        const response = await fetch(CompanyUrl.getAllCompanyUrl())
-        if (response.ok) {
-          const data = await response.json()
-          // Update state with fetched companies
-          setCompanies(data)
-        } else {
-          console.error('Failed to fetch companies')
-        }
-      } catch (error) {
-        console.error('An error occurred while fetching companies:', error)
-      }
-    }
-
-    fetchCompanies()
+    // // Fetch companies from API
+    // const fetchCompanies = async () => {
+    //   try {
+    //     // Fetch companies from API
+    //     const response = await fetch(CompanyUrl.getAllCompanyUrl())
+    //     if (response.ok) {
+    //       const data = await response.json()
+    //       // Update state with fetched companies
+    //       setCompanies(data)
+    //     } else {
+    //       console.error('Failed to fetch companies')
+    //     }
+    //   } catch (error) {
+    //     console.error('An error occurred while fetching companies:', error)
+    //   }
+    // }
+    // fetchCompanies()
+    CompanyApiService.getCompaniesList()
+      .then((data) => {
+        console.log(data)
+        setCompanies([...data])
+      })
+      .catch((error) => {
+        console.error('Error fetching companies:', error)
+      })
   }, [])
 
   const handleSubmit = async (e) => {

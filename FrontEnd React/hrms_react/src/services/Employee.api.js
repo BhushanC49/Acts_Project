@@ -33,7 +33,7 @@ class EmployeeApiService {
       console.log(response)
       return response.data
     } catch (error) {
-      console.error('Error fetching employees', error)
+      console.error('Error fetching managers', error)
       throw error
     }
   }
