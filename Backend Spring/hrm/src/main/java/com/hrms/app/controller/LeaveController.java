@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +30,25 @@ public class LeaveController {
 
 	@Autowired
 	private LeaveServiceImpl leaveService;
+
+	@PutMapping("/{leaveId}")
+	public ResponseEntity<String> approveLeave(@PathVariable String leaveId) {
+		try {
+			leaveService.approveLeave(leaveId);
+			return ResponseEntity.ok("Leave approved successfully");
+		} catch (Exception e) {
+			// Handle any errors and return an error response
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error approving leave: " + e.getMessage());
+		}
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Leave>> getLeaveByManagerId(){
+		
+		return null;
+		
+	}
 
 	@PostMapping("/{empId}")
 	public ResponseEntity<?> addLeaveDetails(@PathVariable String empId, @RequestBody @Valid LeaveRequest leaveReq) {

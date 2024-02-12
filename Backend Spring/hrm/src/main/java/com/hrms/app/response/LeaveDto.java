@@ -8,10 +8,13 @@ import lombok.Data;
 
 @Data
 public class LeaveDto {
+	private String firstName;
+	
+	private String lastName;
 
 	private String leaveId;
 
-	private LeaveType leaveTypeId;
+	private String leaveType;
 
 	private LocalDate leaveStartOn;
 

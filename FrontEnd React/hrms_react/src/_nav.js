@@ -300,6 +300,11 @@ const _nav = [
         name: 'Apply Leave',
         to: '/leave',
       },
+      {
+        component: CNavItem,
+        name: 'Leave Approval For Manager',
+        to: '/leave-approval',
+      },
     ],
   },
   {

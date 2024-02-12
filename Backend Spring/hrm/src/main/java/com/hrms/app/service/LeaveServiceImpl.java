@@ -1,5 +1,7 @@
 package com.hrms.app.service;
 
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hrms.app.custome_exception.ApiException;
+import com.hrms.app.custome_exception.ResourceNotFoundException;
 import com.hrms.app.model.Employee;
 import com.hrms.app.model.Leave;
 import com.hrms.app.model.LeaveType;
@@ -34,6 +38,52 @@ public class LeaveServiceImpl {
 	@Autowired
 	private ILeaveTypeRepository leaveTypeRepository;
 
+	public ApiResponse approveLeave(String leaveId) {
+		try {
+			Optional<Leave> leave = leaveRepository.findById(leaveId);
+			if (leave.isPresent()) {
+				Leave l = leave.get();
+				l.setLeaveStatus(true);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error occurred while approving leave: " + e.getMessage());
+			throw new ApiException("Error occurred while approving leave. Please try again later.");
+		}
+		return new ApiResponse("Leave approved of employeeId : " + leaveId);
+	}
+
+	public List<LeaveTypeDto> getLeaveType() {
+		List<LeaveType> leaveTypes = leaveTypeRepository.findAll();
+
+		// Map each LeaveType entity to LeaveTypeDto using ModelMapper
+		List<LeaveTypeDto> leaveTypeDtos = leaveTypes.stream()
+				.map(leaveType -> mapper.map(leaveType, LeaveTypeDto.class)).collect(Collectors.toList());
+		return leaveTypeDtos;
+
+	}
+
+	public List<LeaveDto> getLeavesList(String managerId) {
+		List<LeaveDto> leaveList = new ArrayList<LeaveDto>();
+		try {
+			List<Employee> empList = empRepo.findByManager(managerId);// get employee by his respective manager
+			for (Employee employee : empList) {
+				String empId = employee.getEmpId();// get empId of that particular employee
+				Optional<Employee> l = leaveRepository.findByEmpId(empId);
+				if (l.isPresent()) {// then fetch leave based on employee id and map them to dto and add to the list
+									// and return
+					LeaveDto leaveDto = mapper.map(l, LeaveDto.class);
+					leaveList.add(leaveDto);
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception in fetching leave list !");
+			throw new ResourceNotFoundException("Exception in fetching leave list !");
+		}
+		return leaveList;
+	}
+
 	public LeaveDto addLeave(String empId, LeaveRequest leaveReq) {
 		try {
 			// convert LeaveRequest to Leave
@@ -54,7 +104,7 @@ public class LeaveServiceImpl {
 			leave.setLeaveComment(leaveReq.getLeaveComment());
 			leave.setLeaveStartOn(leaveReq.getLeaveStartOn());
 			leave.setLeaveEndOn(leaveReq.getLeaveEndOn());
-
+			leave.setLeaveStatus(false);
 			leaveRepository.save(leave);
 
 			// return by mapping to dto
@@ -62,18 +112,8 @@ public class LeaveServiceImpl {
 		} catch (Exception e) {
 			// Handle the exception
 			System.out.println("Error occurred while adding leave: " + e.getMessage());
-			throw new RuntimeException("Error occurred while adding leave. Please try again later.");
+			throw new ApiException("Error occurred while adding leave. Please try again later.");
 		}
-	}
-
-	public List<LeaveTypeDto> getLeaveType() {
-		List<LeaveType> leaveTypes = leaveTypeRepository.findAll();
-
-		// Map each LeaveType entity to LeaveTypeDto using ModelMapper
-		List<LeaveTypeDto> leaveTypeDtos = leaveTypes.stream()
-				.map(leaveType -> mapper.map(leaveType, LeaveTypeDto.class)).collect(Collectors.toList());
-		return leaveTypeDtos;
-
 	}
 
 	public ApiResponse deleteLeave(String leaveid) {

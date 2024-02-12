@@ -11,19 +11,10 @@ import com.hrms.app.model.Leave;
 import com.hrms.app.request.LeaveRequest;
 import com.hrms.app.response.LeaveDto;
 
-public interface ILeaveRepository extends MongoRepository<Leave, String>{
+public interface ILeaveRepository extends MongoRepository<Leave, String> {
+
+	Optional<Employee> findByEmpId(String empId);
 	
 
-	// Add leave for an employee
-    //LeaveDto save(LeaveRequest leave);
-
-    // Delete leave for an employee
-    //void delete(String leaveid);
-    
-    //@Query("SELECT   empId.leaveBalance from Leave l where l.empId = :empId ")
-    //int getLeaveBalance(@Param("empId") String empId);
-
-	
-	 Optional<Employee> findByEmpId(String empId);
 
 }
