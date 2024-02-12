@@ -1,9 +1,9 @@
-import axios from 'axios'
+import HttpClientService from './http-client.service'
 import { ProjectUrl } from '../urls/project.url'
 
 export const addProject = async (projectData) => {
   try {
-    const response = await axios.post(ProjectUrl.createProjectUrl(), projectData)
+    const response = await HttpClientService.post(ProjectUrl.createProjectUrl(), projectData)
     return response.data
   } catch (error) {
     throw error.response.data
@@ -12,7 +12,7 @@ export const addProject = async (projectData) => {
 
 export const getAllProjects = async () => {
   try {
-    const response = await axios.get(ProjectUrl.getAllProjectsUrl())
+    const response = await HttpClientService.get(ProjectUrl.getAllProjectsUrl())
     return response.data
   } catch (error) {
     throw error.response.data
@@ -21,7 +21,7 @@ export const getAllProjects = async () => {
 
 export const searchProjectByName = async (projectName) => {
   try {
-    const response = await axios.get(ProjectUrl.searchProjectByNameUrl(projectName))
+    const response = await HttpClientService.get(ProjectUrl.searchProjectByNameUrl(projectName))
     return response.data
   } catch (error) {
     throw error.response.data

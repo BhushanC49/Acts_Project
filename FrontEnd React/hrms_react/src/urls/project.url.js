@@ -1,6 +1,5 @@
-import { BaseUrl } from '../urls/base.url'
-export class ProjectUrl extends BaseUrl {
-  static baseProjectUrl = `${this.baseUrl}/api/projects`
+export class ProjectUrl {
+  static baseProjectUrl = `api/projects`
 
   static createProjectUrl() {
     return `${ProjectUrl.baseProjectUrl}/create`

@@ -113,7 +113,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/leave', name: 'leave-form', element: leaveForm },
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
-  { path: '/Add-event', name: 'Event-form', element: AddEventForm }
+  { path: '/Add-event', name: 'Event-form', element: AddEventForm },
 ]
 
 export default routes
