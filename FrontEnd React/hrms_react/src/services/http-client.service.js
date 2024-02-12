@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { StorageService } from './storage.service'
 
-const httpClient = (token = null) => {
+const httpClient = () => {
   const defaultOptions = {
     baseURL: process.env.REACT_APP_API_SERVER_BASE_URL,
     method: 'get',
@@ -14,6 +14,7 @@ const httpClient = (token = null) => {
   const axiosInstance = axios.create(defaultOptions)
   // Set the AUTH token for any request
   axiosInstance.interceptors.request.use(function (config) {
+    const token = StorageService.get('token')
     config.headers.Authorization = token ? `Bearer ${token}` : ''
     return config
   })
@@ -42,5 +43,5 @@ const httpClient = (token = null) => {
   }
 }
 
-const HttpClientService = httpClient(StorageService.get('token'))
+const HttpClientService = httpClient()
 export default HttpClientService
