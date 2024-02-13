@@ -1,28 +1,91 @@
 package com.hrms.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hrms.app.custome_exception.ApiException;
+import com.hrms.app.custome_exception.ResourceNotFoundException;
 import com.hrms.app.model.Attendance;
+import com.hrms.app.model.Employee;
 import com.hrms.app.model.OnDuty;
 import com.hrms.app.repo.IAttendanceRepository;
+import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.repo.IOnDutyRepository;
 import com.hrms.app.request.OnDutyRequest;
 import com.hrms.app.response.ApiResponse;
+
+import com.hrms.app.response.OnDutyDto;
 
 @Service
 public class OnDutyServiceImpl {
 
 	@Autowired
-	private IAttendanceRepository attendanceRepository;
+	private IEmployeeRepository empRepo;
+
+	@Autowired
+	private ModelMapper mapper;
+
+	@Autowired
+	private IAttendanceRepository attendanceRepo;
 
 	@Autowired
 	private IOnDutyRepository onDutyRepo;
 
-	public ApiResponse markOnDuty(OnDutyRequest onDutyReq) {
+	public List<OnDutyDto> getOnDutyList(String managerId) {
+		List<OnDutyDto> dtoList = new ArrayList<OnDutyDto>();
+		try {
+			List<Employee> empList = empRepo.findByManager(managerId);// get employee by his respective manager
+			for (Employee employee : empList) {
+				String empId = employee.getEmpId();// get empId of that particular employee
+				Optional<Employee> l = onDutyRepo.findByEmpId(empId);
+				if (l.isPresent()) {// then fetch onDuty based on employee id and map them to dto and add to the
+									// list
+									// and return
+					OnDutyDto leaveDto = mapper.map(l, OnDutyDto.class);
+					dtoList.add(leaveDto);
+
+				}
+			}
+		} catch (Exception e) {
+
+			throw new ResourceNotFoundException("Exception in fetching onDuty list !");
+		}
+		return dtoList;
+	}
+
+	public ApiResponse markOnDuty(String onDutyId) {
+		try {
+			Optional<OnDuty> onDuty = onDutyRepo.findById(onDutyId);
+			if (onDuty.isPresent()) {
+				OnDuty o = onDuty.get();
+				o.setAccepted(true);
+				onDutyRepo.save(o);// check if it updates only the accepted true value
+				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(o.getEmpId(),
+						o.getFromDate(), o.getToDate());
+
+				for (Optional<Attendance> attendanceOpt : attendanceList) {// iterate through optional list
+					attendanceOpt.ifPresent(attendance -> {
+						attendance.setPresent(true); // Set isPresent to true
+						attendanceRepo.save(attendance); // Save the updated Attendance object
+
+					});
+				}
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new ApiException("Error in marking onDuty attendance ");
+		}
+		return new ApiResponse("Attendance marked for On Duty Form");
+	}
+
+	public ApiResponse recordOnDuty(OnDutyRequest onDutyReq) {
 
 //		List<Optional<Attendance>> attendanceList = attendanceRepository
 //				.findByEmpidAndDateBetween(onDutyReq.getEmployeeId(), onDutyReq.getFromDate(), onDutyReq.getToDate());
@@ -43,7 +106,7 @@ public class OnDutyServiceImpl {
 		onduty.setAccepted(false);
 		onDutyRepo.save(onduty);
 
-		return new ApiResponse("Attendance marked for on-duty period");
+		return new ApiResponse("On-Duty form recorded!");
 	}
 
 }

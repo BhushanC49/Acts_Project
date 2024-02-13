@@ -43,11 +43,15 @@ public class LeaveController {
 		}
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Leave>> getLeaveByManagerId(){
-		
-		return null;
-		
+	@GetMapping("/{managerId}")
+	public ResponseEntity<?> getLeaveByManagerId(@PathVariable String managerId) {
+		try {
+			List<LeaveDto> leaveList = leaveService.getLeavesList(managerId);
+			return new ResponseEntity<>(leaveList, HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
 	}
 
 	@PostMapping("/{empId}")

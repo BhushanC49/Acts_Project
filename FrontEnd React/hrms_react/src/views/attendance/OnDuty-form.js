@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../../scss/onDuty.css' // Import the CSS file
 import OnDutyApiService from 'src/services/onduty.api' // Import your API service
+import { CToast, CToastBody, CToastHeader } from '@coreui/react'
 
 const OnDutyForm = () => {
   const [error, setError] = useState('')
@@ -11,6 +12,17 @@ const OnDutyForm = () => {
     onDutyType: '',
     comment: '',
   })
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>Invalid or Incomplete Credentials.</CToastBody>
+    </CToast>
+  )
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -26,6 +38,7 @@ const OnDutyForm = () => {
     // Validation
     if (!formData.fromDate || !formData.toDate || !formData.onDutyType || !formData.employeeId) {
       setError('All fields are required.')
+      addToast(invalidToast)
       return
     }
 
@@ -35,11 +48,13 @@ const OnDutyForm = () => {
 
     if (selectedFromDate > today) {
       setError('From Date cannot be after today.')
+      addToast(invalidToast)
       return
     }
 
     if (selectedToDate < selectedFromDate) {
       setError('To Date cannot be before From Date.')
+      addToast(invalidToast)
       return
     }
 
@@ -51,6 +66,7 @@ const OnDutyForm = () => {
       })
       .catch((error) => {
         console.error('Error sending OnDutyRequest:', error)
+        addToast(invalidToast)
         // Handle error response here
       })
   }

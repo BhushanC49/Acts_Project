@@ -16,6 +16,7 @@ public class OnDutyRequest {
 	private LocalDate fromDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate toDate;
+	@NotBlank
 	private String onDutyType;
 	private String comment;
 
