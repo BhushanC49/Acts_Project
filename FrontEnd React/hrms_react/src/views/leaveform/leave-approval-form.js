@@ -14,7 +14,7 @@ const LeaveApproval = () => {
 
   const fetchLeaveData = () => {
     // Call your API service to fetch leave data with managerId as a parameter
-    
+
     LeaveService.fetchLeaves(managerId)
       .then((data) => {
         setLeaveData(data)

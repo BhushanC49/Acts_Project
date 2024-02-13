@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.EmployeeDto;
 import com.hrms.app.service.EmployeeServiceImpl;
-
+import com.hrms.app.utils.AuthUtils;
 
 import jakarta.validation.Valid;
 
@@ -34,14 +36,17 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeServiceImpl empService;  
 	
+	@Autowired
+	private AuthUtils authUtils;
+	
 	//endpoint for adding new employee details
 	@PostMapping
-	public ResponseEntity<?> addEmpDetails(@RequestBody @Valid EmployeeRequest empReq )
-	{
+	public ResponseEntity<?> addEmpDetails(@RequestBody @Valid EmployeeRequest empReq ){
 			//calling EmpService method for adding employee  
 			System.out.println(empReq);
 			return new ResponseEntity<>(empService.addEmployee(empReq),HttpStatus.CREATED);
-	} 
+	}
+
 	@GetMapping("/{empId}")
 	public ResponseEntity<?> getEmployee(@PathVariable String empId){
 		//call service method for fetching an employee info 
@@ -51,10 +56,10 @@ public class EmployeeController {
 	@GetMapping
 	public ResponseEntity<?> getAllEmployeesPaginated(@RequestParam(defaultValue = "0", required = false) int pageNumber,
 			@RequestParam(defaultValue = "10", required = false) int pageSize){
-		System.out.println("in get all employees " +pageNumber + "page size "+pageSize); 
+//		JwtClaimsSet u = (JwtClaimsSet)authUtils.getUsername();
+		System.out.println("LoggedInUserName" +authUtils.getUsername()); 
 		List<EmployeeDto> list=empService.getAllEmployees(pageNumber, pageSize); 
-		if(list.isEmpty())
-		{
+		if(list.isEmpty()){
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} 
 		return ResponseEntity.ok(list);
