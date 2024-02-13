@@ -62,9 +62,11 @@ const attendance = React.lazy(() => import('./views/attendance/attendance-form')
 const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-form'))
+const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/onduty/onduty-list', name: 'Onduty Approval', element: onDutyList },
   { path: '/leave/leave-approval', name: 'Leave Approval', element: leaveApproval },
   { path: '/onduty', name: 'Apply On Duty', element: applyOnDuty },
   { path: '/attendance', name: 'Attendance', element: attendance },
@@ -118,7 +120,6 @@ const routes = [
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
   { path: '/Add-event', name: 'Event-form', element: AddEventForm },
   { path: '/All-event', name: 'Event-form', element: EventListPage },
-
 ]
 
 export default routes

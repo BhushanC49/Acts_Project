@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class OnDutyDto {
 	
+	private String onDutyId;
 	private String employeeId;
 	private LocalDate fromDate;
 	private LocalDate toDate;

@@ -40,7 +40,7 @@ public class OnDutyController {
 		}
 	}
 
-	@GetMapping("/{managerId}")
+	@GetMapping("/onduty-list/{managerId}")
 	public ResponseEntity<?> getOnDutyList(@PathVariable String managerId) {
 		try {
 			List<OnDutyDto> onDutyDtoList = onDutyService.getOnDutyList(managerId);
@@ -52,7 +52,7 @@ public class OnDutyController {
 		}
 	}
 
-	@PutMapping("/{onDutyId")
+	@PutMapping("/{onDutyId}")
 	public ResponseEntity<ApiResponse> markOnDuty(@PathVariable String onDutyId) {
 		try {
 			ApiResponse response = onDutyService.markOnDuty(onDutyId);

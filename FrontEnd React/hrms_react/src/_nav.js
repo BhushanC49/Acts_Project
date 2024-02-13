@@ -351,6 +351,11 @@ const _nav = [
         name: 'Apply On Duty',
         to: '/onduty',
       },
+      {
+        component: CNavItem,
+        name: 'OnDuty Approval',
+        to: '/onduty/onduty-list',
+      },
     ],
   },
   {

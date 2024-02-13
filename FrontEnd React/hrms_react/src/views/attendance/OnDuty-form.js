@@ -59,7 +59,7 @@ const OnDutyForm = () => {
     }
 
     // Send data to the service
-    OnDutyApiService.markOnDuty(formData)
+    OnDutyApiService.insertOnDuty(formData)
       .then((response) => {
         console.log('Response from service:', response)
         // Handle success response here
