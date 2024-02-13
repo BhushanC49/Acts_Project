@@ -118,7 +118,6 @@ const routes = [
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
   { path: '/Add-event', name: 'Event-form', element: AddEventForm },
   { path: '/All-event', name: 'Event-form', element: EventListPage },
-
 ]
 
 export default routes
