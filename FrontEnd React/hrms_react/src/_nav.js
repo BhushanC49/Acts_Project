@@ -280,6 +280,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Update Employee',
+        to: '/update-employee',
+      },
+      {
+        component: CNavItem,
         name: 'Employee List',
         to: '/employees',
       },

@@ -26,6 +26,17 @@ class EmployeeApiService {
     }
   }
 
+  async getSingleEmployees(empid) {
+    try {
+      const url = EmployeeUrl.baseEmployeeUrl + '/empid'
+      const response = await HttpClientService.get(url)
+      return response.data
+    } catch (error) {
+      console.error('Error fetching employee', error)
+      throw error
+    }
+  }
+
   async fetchManagers() {
     try {
       const url = EmployeeUrl.getAllMangersUrl
