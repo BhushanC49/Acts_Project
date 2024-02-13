@@ -6,5 +6,5 @@ public enum Designation {
 	Manager,
 	CEO,
 	Trainee,
-	EMployee
+	Employee
 }

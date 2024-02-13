@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Document("onduty")
 public class OnDuty {
-	
+
 	@Id
 	private String onDutyId;
 	private String empId;
@@ -18,4 +18,5 @@ public class OnDuty {
 	private LocalDate toDate;
 	private String onDutyType;
 	private String comment;
+	private boolean isAccepted;
 }
