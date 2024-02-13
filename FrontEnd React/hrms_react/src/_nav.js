@@ -375,6 +375,11 @@ const _nav = [
         name: 'Add Event',
         to: '/Add-event',
       },
+      {
+        component: CNavItem,
+        name: 'View All Events',
+        to: '/All-event',
+      },
     ],
   },
   {

@@ -1,4 +1,4 @@
-import { EventUrl } from './urls/event.url';
+import { EventUrl } from '../urls/Event.url';
 import HttpClientService from './http-client.service';
 
 export class EventApiService {
@@ -12,4 +12,15 @@ export class EventApiService {
       throw error;
     }
   }
+
+  static async getAllEvents() {
+    try {
+      const eventsWithImages = await HttpClientService.get(EventUrl.listEventUrl);
+      return eventsWithImages;
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      throw error;
+    }
+  }
 }
+

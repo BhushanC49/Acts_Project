@@ -12,15 +12,12 @@ import java.time.LocalTime;
 public class Event {
     @Id
     private String id;
-    
-    private String companyId;
     private String title;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalTime eventTime;
+    private LocalTime time;
     private String venue;
-    private String bannerUrl;
     private String category;
-    private boolean recordStatus;
+    private String bannerId; // Field to store the ID of the associated image in GridFS
 }

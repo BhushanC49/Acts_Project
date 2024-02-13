@@ -7,6 +7,8 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Data
 public class EventRequest {
     private String companyId;
@@ -16,7 +18,7 @@ public class EventRequest {
     private LocalDate endDate;
     private LocalTime eventTime;
     private String venue;
-    private String bannerUrl;
+    private MultipartFile bannerFile;
     private String category;
     private boolean recordStatus;
 }
