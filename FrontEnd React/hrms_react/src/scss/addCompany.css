@@ -1,0 +1,37 @@
+.add-company-form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+  
+  .add-company-form h2 {
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .add-company-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #5627e3;
+    outline: none;
+  }
+  
+  .add-company-form button {
+    background-color: #3454ca;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .add-company-form button:hover {
+    background-color: #45a049;
+  }

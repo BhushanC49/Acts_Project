@@ -12,6 +12,8 @@ import lombok.ToString;
 @ToString
 public class CompanyRequest {
 	
+	private String companyId;
+	
 	@NotBlank(message = "Company Name can not be blank")
 	private String companyName;
 	
