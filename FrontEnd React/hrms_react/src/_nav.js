@@ -394,6 +394,24 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: 'Holidays',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Holiday',
+        to: '/addHoliday',
+      },
+      {
+        component: CNavItem,
+        name: 'View all Holidays',
+        to: '/getHolidays',
+      },
+      
+    ],
+  },
+  {
+    component: CNavGroup,
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [

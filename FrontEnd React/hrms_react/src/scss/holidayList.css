@@ -1,0 +1,33 @@
+.holidays-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .holidays-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .holidays-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .holidays-container li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  
+  .holidays-container li:last-child {
+    border-bottom: none;
+  }
+  
+  .holidays-container strong {
+    font-weight: bold;
+  }
+  
+  .holidays-container span {
+    font-style: italic;
+    color: #666;
+  }
+  
