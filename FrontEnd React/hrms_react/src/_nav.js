@@ -417,11 +417,6 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Login',
-        to: '/login',
-      },
-      {
-        component: CNavItem,
         name: 'Error 404',
         to: '/404',
       },
