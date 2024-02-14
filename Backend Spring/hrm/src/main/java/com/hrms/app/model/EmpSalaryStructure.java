@@ -19,7 +19,7 @@ import lombok.ToString;
 @Document(collection = "salary_structure")
 public class EmpSalaryStructure {
 	@Id 
-	private Integer salId;  
+	private String salId;  
 	@DBRef 
 	@Field("emp_id")
 	private Employee emp; 

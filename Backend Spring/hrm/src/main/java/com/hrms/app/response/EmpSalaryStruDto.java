@@ -3,7 +3,7 @@ package com.hrms.app.response;
 import java.time.LocalDate;
 
 public class EmpSalaryStruDto {
-	private Integer salId;
+	private String salId;
 	private String empId;
 	private double basicSalary;
 	private double medicalAllowance; 

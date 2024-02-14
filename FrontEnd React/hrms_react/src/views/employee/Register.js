@@ -12,15 +12,14 @@ import {
   CInputGroupText,
   CFormSelect,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import SalaryStructureService from '../../services/SalaryStructure.api'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
-  const [flag, setflag] = useState(false)
+  const [flag, setflag] = useState(true)
   const [mangers, setMangers] = useState([])
   const [designation, setdesignation] = useState([])
   const [formdetails, setformdetails] = useState({
@@ -82,10 +81,14 @@ const Register = () => {
       ...formdetails,
       [e.target.name]: e.target.value,
     })
-    setsalaryform({
-      ...salaryform,
-      [e.target.name]: e.target.value,
-    })
+    // Check if the form being submitted is the Add Employee form
+    if (!flag) {
+      // Exclude fields from salaryform when submitting Add Employee form
+      setsalaryform({
+        ...salaryform,
+        [e.target.name]: e.target.value,
+      })
+    }
   }
 
   // Handle form submission
@@ -99,12 +102,27 @@ const Register = () => {
           empId: responseData.empId || '', // Use responseData.empId if it exists, or an empty string if not
         }))
         alert(`Employee Added Successfully!`)
+        setflag(false)
       })
       .catch((error) => {
         console.error('Error adding employee:', error.message)
         alert(`Oops! Error in Adding Employee`)
       })
     console.log('Form submitted:', formdetails)
+  }
+
+  const handleSalarySubmit = (e) => {
+    e.preventDefault()
+    SalaryStructureService.addSalaryStru(salaryform)
+      .then((responseData) => {
+        console.log('Employee salary structure added successfully:', responseData)
+        alert(`Employee salary structure Added Successfully!`)
+      })
+      .catch((error) => {
+        console.error('Error adding employee salary structure:', error.message)
+        alert(`Oops! Error in Adding Employee salary structure`)
+      })
+    console.log('Form submitted:', salaryform)
   }
 
   return (
@@ -348,14 +366,14 @@ const Register = () => {
                         </CInputGroup>
                       </CCol>
                     </CRow>
-                    <div className="d-grid">
+                    <div className="d-grid">  
                       <CButton type="submit" color="success">
                         Add employee
                       </CButton>
                     </div>
                   </CForm>
                 ) : (
-                  <CForm onSubmit={handleSubmit}>
+                  <CForm onSubmit={handleSalarySubmit}>
                     <h1>Add Employee Salary structure</h1>
                     <p className="text-medium-emphasis">Create your account</p>
                     <CRow className="mb-3">

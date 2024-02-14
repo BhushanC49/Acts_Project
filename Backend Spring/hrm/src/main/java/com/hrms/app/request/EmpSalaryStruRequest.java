@@ -7,7 +7,6 @@ import lombok.ToString;
 @Data 
 @ToString
 public class EmpSalaryStruRequest {
-	private Integer salId;
 	private String empId;
 	private String bankAccId; 
 	private double basicSalary;
