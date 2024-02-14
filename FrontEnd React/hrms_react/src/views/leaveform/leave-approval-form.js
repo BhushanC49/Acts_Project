@@ -5,7 +5,7 @@ import '../../scss/leaveApproval.css'
 const LeaveApproval = () => {
   const [leaveData, setLeaveData] = useState([])
   const [error, setError] = useState('')
-  const [managerId, setManagerId] = useState('')
+  // const [managerId, setManagerId] = useState('')
 
   useEffect(() => {
     // Fetch leave data from the API when the component mounts
@@ -15,7 +15,7 @@ const LeaveApproval = () => {
   const fetchLeaveData = () => {
     // Call your API service to fetch leave data with managerId as a parameter
 
-    LeaveService.fetchLeaves(managerId)
+    LeaveService.fetchLeaves()
       .then((data) => {
         setLeaveData(data)
       })
@@ -42,7 +42,7 @@ const LeaveApproval = () => {
   return (
     <div className="leave-approval-container">
       <h2>Leave Approval</h2>
-      <div className="manager-id-input">
+      {/* <div className="manager-id-input">
         <label htmlFor="managerId">Manager ID:</label>
         <input
           type="text"
@@ -50,7 +50,7 @@ const LeaveApproval = () => {
           value={managerId}
           onChange={(e) => setManagerId(e.target.value)}
         />
-      </div>
+      </div> */}
       {error && <p className="error-message">{error}</p>}
       <div className="leave-list">
         <table>

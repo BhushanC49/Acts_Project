@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hrms.app.request.AttendanceRequest;
 import com.hrms.app.service.AttendanceService;
+import com.hrms.app.utils.AuthUtils;
 
 import jakarta.validation.Valid;
 
@@ -23,13 +24,17 @@ public class AttendanceController {
 
 	@Autowired
 	private AttendanceService attendanceService;
+	
+	@Autowired
+	private AuthUtils authUtils;
 
-	@PostMapping("/{empId}")
-	public ResponseEntity<?> addAttendance(@PathVariable String empId, @Valid AttendanceRequest attendance) {
+	@PostMapping
+	public ResponseEntity<?> addAttendance(@Valid AttendanceRequest attendance) {
 		try {
 			// calling LeaveService method for adding leave in db
 			LocalDate dt = attendance.getDate();
-			return new ResponseEntity<>(attendanceService.markAttendance(dt, empId), HttpStatus.OK);
+			String username=authUtils.getUsername();
+			return new ResponseEntity<>(attendanceService.markAttendance(dt, username), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			System.out.println("err in controller " + e);
 			// return err mesg wrapped in DTO : ApiResp

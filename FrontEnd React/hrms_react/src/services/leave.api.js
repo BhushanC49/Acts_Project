@@ -26,10 +26,10 @@ const LeaveService = {
     }
   },
 
-  insertLeave: async (leaveId, leave) => {
+  insertLeave: async (leave) => {
     try {
       console.log('in service add')
-      const response = await HttpClientService.post(`${leaveUrl}/${leaveId}`, leave)
+      const response = await HttpClientService.post(leaveUrl, leave)
       return response.data
     } catch (error) {
       console.error('Error inserting leave:', error)
@@ -37,10 +37,10 @@ const LeaveService = {
     }
   },
 
-  fetchLeaves: async (managerId) => {
+  fetchLeaves: async () => {
     try {
       console.log('in fetchLeaves')
-      const response = await HttpClientService.get(`${leaveUrl}/${managerId}`)
+      const response = await HttpClientService.get(leaveUrl)
       return response.data
     } catch (error) {
       console.error('error in fetching leaves', error)

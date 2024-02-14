@@ -1,7 +1,7 @@
 package com.hrms.app.service;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,33 +63,43 @@ public class LeaveServiceImpl {
 
 	}
 
-	public List<LeaveDto> getLeavesList(String managerId) {
-		List<LeaveDto> leaveList = new ArrayList<LeaveDto>();
-		try {
-			List<Employee> empList = empRepo.findByManager(managerId);// get employee by his respective manager
-			for (Employee employee : empList) {
-				String empId = employee.getEmpId();// get empId of that particular employee
-				Optional<Employee> l = leaveRepository.findByEmpId(empId);
-				if (l.isPresent()) {// then fetch leave based on employee id and map them to dto and add to the list
-									// and return
-					LeaveDto leaveDto = mapper.map(l, LeaveDto.class);
-					leaveList.add(leaveDto);
+	public List<LeaveDto> getLeavesList(String username) {
+		Optional<Employee> o = empRepo.findByUserName(username);
+		if (o.isPresent()) {
+			Employee employee = o.get();
+			String desig = employee.getDesig();
+			String managerId = employee.getEmpId();
+			if ("MANAGER".equalsIgnoreCase(desig)) {
+				List<LeaveDto> leaveList = new ArrayList<>();
+				try {
+					List<Employee> empList = empRepo.findByManager(managerId);
+					for (Employee emp : empList) {
+						String empId = emp.getEmpId();
+						Optional<Leave> leaveOpt = leaveRepository.findByEmpId(empId);
+						leaveOpt.ifPresent(leave -> {
+							LeaveDto leaveDto = mapper.map(leave, LeaveDto.class);
+							leaveList.add(leaveDto);
+						});
+					}
+				} catch (Exception e) {
+					System.out.println("Exception in fetching leave list !");
+					throw new ResourceNotFoundException("Exception in fetching leave list !");
 				}
+				return leaveList;
+			} else {
+				// Handle non-manager or if leaves not scheduled here
+				return Collections.emptyList();
 			}
-
-		} catch (Exception e) {
-			System.out.println("Exception in fetching leave list !");
-			throw new ResourceNotFoundException("Exception in fetching leave list !");
 		}
-		return leaveList;
+		return Collections.emptyList(); // or throw an exception if employee is not found
 	}
 
-	public LeaveDto addLeave(String empId, LeaveRequest leaveReq) {
+	public LeaveDto addLeave(String username, LeaveRequest leaveReq) {
 		try {
 			// convert LeaveRequest to Leave
 			// Leave leave = mapper.map(leaveReq, Leave.class);
 			Leave leave = new Leave();
-			Optional<Employee> o = empRepo.findById(empId);
+			Optional<Employee> o = empRepo.findByUserName(username);
 			if (o.isPresent()) {
 				Employee employee = o.get();
 				leave.setEmpId(employee);
@@ -124,7 +134,7 @@ public class LeaveServiceImpl {
 
 	public int getLeaveBalance(String empid) {
 		try {
-			Optional<Employee> e = leaveRepository.findByEmpId(empid);
+			Optional<Employee> e = empRepo.findById(empid);
 
 			if (e.isPresent()) {
 				// get employee from optional wrapper

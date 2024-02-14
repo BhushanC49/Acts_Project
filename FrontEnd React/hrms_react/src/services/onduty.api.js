@@ -23,8 +23,8 @@ class OnDutyApiService {
     }
   }
 
-  static async fetchOnDutyListByManger(managerId) {
-    const url = `${OnDutyUrl.onDutyListUrl}/${managerId}`
+  static async fetchOnDutyListByManger() {
+    const url = OnDutyUrl.onDutyListUrl
 
     try {
       const response = await HttpClientService.get(url)

@@ -7,13 +7,13 @@ const OnDutyList = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const managerId = '65c859833a567a2bd3da2559'
-    fetchOnDutyList(managerId)
+    // const managerId = '65c859833a567a2bd3da2559'
+    fetchOnDutyList()
   }, [])
 
-  const fetchOnDutyList = async (managerId) => {
+  const fetchOnDutyList = async () => {
     try {
-      const data = await OnDutyService.fetchOnDutyListByManger(managerId)
+      const data = await OnDutyService.fetchOnDutyListByManger()
       setOnDutyList(data)
     } catch (error) {
       setError('Error fetching on-duty records')

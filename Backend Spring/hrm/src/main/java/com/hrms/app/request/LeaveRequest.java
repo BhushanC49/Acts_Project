@@ -11,7 +11,7 @@ import lombok.Setter;
 @Data
 public class LeaveRequest {
 
-	private String employeeId;
+//	private String employeeId;
 
 	private String leaveTypeId;
 

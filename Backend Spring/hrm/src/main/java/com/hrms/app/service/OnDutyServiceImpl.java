@@ -36,26 +36,33 @@ public class OnDutyServiceImpl {
 	@Autowired
 	private IOnDutyRepository onDutyRepo;
 
-	public List<OnDutyDto> getOnDutyList(String managerId) {
-		List<OnDutyDto> dtoList = new ArrayList<OnDutyDto>();
-		try {
-			List<Employee> empList = empRepo.findByManager(managerId);// get employee by his respective manager
-			for (Employee employee : empList) {
-				String empId = employee.getEmpId();// get empId of that particular employee
-				Optional<Employee> l = onDutyRepo.findByEmpId(empId);
-				if (l.isPresent()) {// then fetch onDuty based on employee id and map them to dto and add to the
-									// list
-									// and return
-					OnDutyDto leaveDto = mapper.map(l, OnDutyDto.class);
-					dtoList.add(leaveDto);
-
+	public List<OnDutyDto> getOnDutyList(String username) {
+		Optional<Employee> o = empRepo.findByUserName(username);
+		if (o.isPresent()) {
+			Employee employee = o.get();
+			String desig = employee.getDesig();
+			String managerId = employee.getEmpId();
+			if ("MANAGER".equalsIgnoreCase(desig)) {
+				List<OnDutyDto> dtoList = new ArrayList<>();
+				try {
+					List<Employee> empList = empRepo.findByManager(managerId); // Get employees managed by the manager
+					for (Employee emp : empList) {
+						String empId = emp.getEmpId(); // Get the employee ID
+						Optional<Employee> onDutyEmployee = onDutyRepo.findByEmpId(empId);
+						if (onDutyEmployee.isPresent()) { // Fetch onDuty based on employee ID and map them to DTO
+							OnDutyDto onDutyDto = mapper.map(onDutyEmployee.get(), OnDutyDto.class);
+							dtoList.add(onDutyDto);
+						}
+					}
+				} catch (Exception e) {
+					throw new ResourceNotFoundException("Exception in fetching onDuty list !");
 				}
+				return dtoList;
 			}
-		} catch (Exception e) {
-
-			throw new ResourceNotFoundException("Exception in fetching onDuty list !");
 		}
-		return dtoList;
+		return new ArrayList<>(); // Return an empty list if the employee is not a manager or other conditions are
+									// not met
+
 	}
 
 	public ApiResponse markOnDuty(String onDutyId) {

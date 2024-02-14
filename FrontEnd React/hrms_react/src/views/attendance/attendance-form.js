@@ -4,13 +4,13 @@ import AttendanceService from 'src/services/attendance.api'
 
 export default function AttendanceForm() {
   const [currentDate, setCurrentDate] = useState('')
-  const [employeeId, setEmployeeId] = useState('')
+  // const [employeeId, setEmployeeId] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // Send data to backend
 
-    AttendanceService.markAttendance(employeeId, currentDate)
+    AttendanceService.markAttendance(currentDate)
       .then((res) => {
         alert(`Your Attendance Is marked Successfully!`)
       })
@@ -33,9 +33,9 @@ export default function AttendanceForm() {
   }, [])
 
   // Handle input change for employee ID
-  const handleEmployeeIdChange = (e) => {
-    setEmployeeId(e.target.value)
-  }
+  // const handleEmployeeIdChange = (e) => {
+  //   setEmployeeId(e.target.value)
+  // }
 
   return (
     <div className="attendance-form-container">
@@ -44,7 +44,7 @@ export default function AttendanceForm() {
         <p className="current-date"> Today&rsquo;s Date: {currentDate}</p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="employeeId">Employee ID: &nbsp;</label>
+            {/* <label htmlFor="employeeId">Employee ID: &nbsp;</label>
             <input
               type="text"
               id="employeeId"
@@ -52,7 +52,7 @@ export default function AttendanceForm() {
               value={employeeId}
               onChange={handleEmployeeIdChange}
               className="employee-id-input"
-            />
+            /> */}
           </div>
           <br></br>
           <button type="submit" className="submit-button">
