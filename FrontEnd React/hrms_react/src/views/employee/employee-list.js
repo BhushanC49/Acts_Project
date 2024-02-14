@@ -26,16 +26,22 @@ function EmployeeList() {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
-            <tr key={employee.empId}>
-              <td>{employee.empId}</td>
-              <td>{employee.firstName}</td>
-              <td>{employee.lastName}</td>
-              <td>{employee?.dept?.deptName}</td>
-              <td>{employee.leaveBalance}</td>
-              <td>{employee.email}</td>
+          {employees.length > 0 ? ( // Check if the employee list is not empty
+            employees.map((employee) => (
+              <tr key={employee.empId}>
+                <td>{employee.empId}</td>
+                <td>{employee.firstName}</td>
+                <td>{employee.lastName}</td>
+                <td>{employee?.dept?.deptName}</td>
+                <td>{employee.leaveBalance}</td>
+                <td>{employee.email}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6">Employee List empty</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
