@@ -6,7 +6,6 @@ function LeaveForm() {
   // State variables
   const [leaveTypes, setLeaveTypes] = useState([])
   const [formData, setFormData] = useState({
-    employeeId: '', // New field for employee ID
     leaveTypeId: '',
     leaveStartOn: '',
     leaveEndOn: '',
@@ -38,7 +37,7 @@ function LeaveForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // send data to backend
-    LeaveService.insertLeave(formData.employeeId, formData)
+    LeaveService.insertLeave(formData)
       .then((res) => {
         alert(`Your leave-form has been submitted!`)
       })
@@ -53,7 +52,7 @@ function LeaveForm() {
       <h2 className="form-title">Leave Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="employeeId">Employee ID</label>
+          {/* <label htmlFor="employeeId">Employee ID</label>
           <input
             type="text"
             className="form-control"
@@ -61,7 +60,7 @@ function LeaveForm() {
             name="employeeId"
             value={formData.employeeId}
             onChange={handleInputChange}
-          />
+          /> */}
         </div>
         <div className="form-group">
           <label htmlFor="leaveType">Leave Type</label>

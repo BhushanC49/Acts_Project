@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hrms.app.model.Employee;
 import com.hrms.app.model.Leave;
 import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.request.LeaveRequest;
 import com.hrms.app.response.LeaveDto;
 import com.hrms.app.response.LeaveTypeDto;
 import com.hrms.app.service.LeaveServiceImpl;
+import com.hrms.app.utils.AuthUtils;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +32,9 @@ public class LeaveController {
 
 	@Autowired
 	private LeaveServiceImpl leaveService;
+	
+	@Autowired
+	private AuthUtils authUtils;
 
 	@PutMapping("/leave-approval/{leaveId}")
 	public ResponseEntity<String> approveLeave(@PathVariable String leaveId) {
@@ -43,10 +48,11 @@ public class LeaveController {
 		}
 	}
 
-	@GetMapping("/{managerId}")
-	public ResponseEntity<?> getLeaveByManagerId(@PathVariable String managerId) {
+	@GetMapping()
+	public ResponseEntity<?> getLeaveByManagerId() {
 		try {
-			List<LeaveDto> leaveList = leaveService.getLeavesList(managerId);
+			String username=authUtils.getUsername();
+			List<LeaveDto> leaveList = leaveService.getLeavesList(username);
 			return new ResponseEntity<>(leaveList, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -54,11 +60,12 @@ public class LeaveController {
 
 	}
 
-	@PostMapping("/{empId}")
-	public ResponseEntity<?> addLeaveDetails(@PathVariable String empId, @RequestBody @Valid LeaveRequest leaveReq) {
+	@PostMapping
+	public ResponseEntity<?> addLeaveDetails(@RequestBody @Valid LeaveRequest leaveReq) {
 		try {
 			// calling LeaveService method for adding leave in db
-			return new ResponseEntity<>(leaveService.addLeave(empId, leaveReq), HttpStatus.OK);
+			String username=authUtils.getUsername();
+			return new ResponseEntity<>(leaveService.addLeave(username, leaveReq), HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("Error in controller: " + e);
 			// return error message wrapped in DTO: ApiResp

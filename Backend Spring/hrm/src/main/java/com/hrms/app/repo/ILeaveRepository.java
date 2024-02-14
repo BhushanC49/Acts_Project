@@ -13,8 +13,6 @@ import com.hrms.app.response.LeaveDto;
 
 public interface ILeaveRepository extends MongoRepository<Leave, String> {
 
-	Optional<Employee> findByEmpId(String empId);
-	
-
+	Optional<Leave> findByEmpId(String empId);
 
 }

@@ -14,4 +14,6 @@ public interface IEmployeeRepository extends MongoRepository<Employee, String> {
 	public List<Employee> findByDesig(String designation);
 
 	public List<Employee> findByManager(String managerId);
+
+	public Optional<Employee> findByUserName(String username);
 }

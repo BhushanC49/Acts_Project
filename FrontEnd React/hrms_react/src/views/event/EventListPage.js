@@ -22,8 +22,7 @@ const EventListPage = () => {
     <div>
       <h1>All Events</h1>
       <div className="event-list">
-        {console.log('Fetched events:', Array.isArray(events))}
-        {events &&
+        {events.length > 0 ? (
           events.map((event) => (
             <div key={event.id} className="event-item">
               <h2>{event.title}</h2>
@@ -40,7 +39,10 @@ const EventListPage = () => {
                 />
               )}
             </div>
-          ))}
+          ))
+        ) : (
+          <p>No events found</p>
+        )}
       </div>
     </div>
   )

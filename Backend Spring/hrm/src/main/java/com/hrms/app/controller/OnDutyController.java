@@ -17,6 +17,7 @@ import com.hrms.app.request.OnDutyRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.OnDutyDto;
 import com.hrms.app.service.OnDutyServiceImpl;
+import com.hrms.app.utils.AuthUtils;
 
 import jakarta.validation.Valid;
 
@@ -26,6 +27,9 @@ public class OnDutyController {
 
 	@Autowired
 	private OnDutyServiceImpl onDutyService;
+
+	@Autowired
+	private AuthUtils authUtils;
 
 	@PostMapping
 	public ResponseEntity<ApiResponse> insertOnDuty(@RequestBody @Valid OnDutyRequest onDutyReq) {
@@ -40,10 +44,11 @@ public class OnDutyController {
 		}
 	}
 
-	@GetMapping("/onduty-list/{managerId}")
-	public ResponseEntity<?> getOnDutyList(@PathVariable String managerId) {
+	@GetMapping("/onduty-list")
+	public ResponseEntity<?> getOnDutyList() {
 		try {
-			List<OnDutyDto> onDutyDtoList = onDutyService.getOnDutyList(managerId);
+			String username=authUtils.getUsername();
+			List<OnDutyDto> onDutyDtoList = onDutyService.getOnDutyList(username);
 			return new ResponseEntity<>(onDutyDtoList, HttpStatus.OK);
 
 		} catch (Exception e) {

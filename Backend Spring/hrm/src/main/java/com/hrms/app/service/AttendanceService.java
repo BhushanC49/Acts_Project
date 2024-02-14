@@ -27,9 +27,9 @@ public class AttendanceService {
 	@Autowired
 	private IAttendanceRepository attendanceRepo;
 
-	public ApiResponse markAttendance(LocalDate date, String empId) {
+	public ApiResponse markAttendance(LocalDate date, String username) {
 		try {
-			Optional<Employee> e = empRepo.findById(empId);
+			Optional<Employee> e = empRepo.findByUserName(username);
 			if (e.isPresent()) {
 				Employee employee = e.get();
 				Attendance attendance = new Attendance();
@@ -39,7 +39,7 @@ public class AttendanceService {
 				attendanceRepo.save(attendance);
 				return new ApiResponse("Attendance Marked");
 			} else {
-				return new ApiResponse("Employee not found with ID: " + empId);
+				return new ApiResponse("Employee not found with ID: " + username);
 			}
 		} catch (Exception e) {
 

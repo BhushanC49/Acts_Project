@@ -505,8 +505,7 @@ const Register = () => {
                       </CButton>
                     </div>
                   </CForm>
-                )
-                }
+                )}
               </CCardBody>
             </CCard>
           </CCol>
