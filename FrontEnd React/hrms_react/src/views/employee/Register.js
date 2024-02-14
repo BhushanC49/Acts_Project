@@ -366,7 +366,7 @@ const Register = () => {
                         </CInputGroup>
                       </CCol>
                     </CRow>
-                    <div className="d-grid">  
+                    <div className="d-grid">
                       <CButton type="submit" color="success">
                         Add employee
                       </CButton>

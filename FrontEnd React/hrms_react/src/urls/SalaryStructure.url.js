@@ -1,3 +1,3 @@
 export class SalaryStructureUrl {
-    static salaryUrl = `salaryStru`
+  static salaryUrl = `salaryStru`
 }
