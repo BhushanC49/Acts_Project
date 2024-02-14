@@ -13,6 +13,14 @@ class CompanyApiService {
       throw new Error('Companies fetching failed. Please try again.')
     }
   }
+  async addCompany(companyData) {
+    try {
+      const response = await HttpClientService.post(CompanyUrl.addCompanyUrl, companyData);
+      return response.data; // Return the response data
+    } catch (error) {
+      throw new Error('Failed to add company. Please try again.');
+    }
+  }
 }
 
 export default new CompanyApiService()

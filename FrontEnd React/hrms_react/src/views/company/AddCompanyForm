@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+import CompanyApiService from '../../services/company.api';
+
+const AddCompanyForm = () => {
+  const [companyName, setCompanyName] = useState('');
+  const [companyEmail, setCompanyEmail] = useState('');
+  const [companyContact, setCompanyContact] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const companyData = {
+      companyName,
+      companyEmail,
+      companyContact
+    };
+    try {
+      await CompanyApiService.addCompany(companyData);
+      console.log('Company added successfully');
+      setCompanyName('');
+      setCompanyEmail('');
+      setCompanyContact('');
+    } catch (error) {
+      console.error('Failed to add company:', error);
+    }
+  };
+
+  return 
+  
+
+};
+
+export default AddCompanyForm;
