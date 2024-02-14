@@ -407,7 +407,6 @@ const _nav = [
         name: 'View all Holidays',
         to: '/getHolidays',
       },
-      
     ],
   },
   {

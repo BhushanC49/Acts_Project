@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import '../../scss/holiday.css'; // Import the CSS file
+import React, { useState } from 'react'
+import '../../scss/holiday.css' // Import the CSS file
 
 function HolidayForm() {
-  const [holidayName, setHolidayName] = useState('');
-  const [holidayFromDate, setHolidayFromDate] = useState('');
-  const [holidayToDate, setHolidayToDate] = useState('');
-  const [recordStatus, setRecordStatus] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [holidayName, setHolidayName] = useState('')
+  const [holidayFromDate, setHolidayFromDate] = useState('')
+  const [holidayToDate, setHolidayToDate] = useState('')
+  const [recordStatus, setRecordStatus] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!holidayName || !holidayFromDate || !holidayToDate || !recordStatus) {
-      setErrorMessage('Please fill out all fields.');
-      return;
+      setErrorMessage('Please fill out all fields.')
+      return
     }
     console.log({
       holidayName,
       holidayFromDate,
       holidayToDate,
-      recordStatus
-    });
+      recordStatus,
+    })
     // Reset form fields and error message after submission
-    setHolidayName('');
-    setHolidayFromDate('');
-    setHolidayToDate('');
-    setRecordStatus('');
-    setErrorMessage('');
-  };
+    setHolidayName('')
+    setHolidayFromDate('')
+    setHolidayToDate('')
+    setRecordStatus('')
+    setErrorMessage('')
+  }
 
   return (
     <div className="form-container">
@@ -78,8 +78,7 @@ function HolidayForm() {
         {errorMessage && <div className="error-message">{errorMessage}</div>}
       </form>
     </div>
-  );
+  )
 }
 
-export default HolidayForm;
-
+export default HolidayForm

@@ -12,5 +12,16 @@ const AttendanceService = {
       throw error
     }
   },
+
+  fetchAttendance: async () => {
+    try {
+      const url = AttendanceUrl.baseAttendanceUrl
+      const response = await HttpClientService.get(url)
+      return response.data
+    } catch (error) {
+      console.error('error fetching attendance dates', error)
+      throw error
+    }
+  },
 }
 export default AttendanceService

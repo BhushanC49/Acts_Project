@@ -64,8 +64,8 @@ const addDepartment = React.lazy(() => import('./views/Department/Register-dept'
 const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-form'))
 const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 const updateEmployee = React.lazy(() => import('./views/employee/updateEmployee'))
-const addHoliday= React.lazy(() => import('./views/holiday/addHolidayForm'))
-const getHolidays=React.lazy(() => import('./views/holiday/getAllHolidays'))
+const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
+const getHolidays = React.lazy(() => import('./views/holiday/getAllHolidays'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -126,8 +126,6 @@ const routes = [
   { path: '/update-employee', name: 'update-employee', element: updateEmployee },
   { path: '/addHoliday', name: 'Add-Holiday', element: addHoliday },
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
-
-
 ]
 
 export default routes

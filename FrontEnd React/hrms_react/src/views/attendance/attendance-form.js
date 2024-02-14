@@ -4,12 +4,11 @@ import AttendanceService from 'src/services/attendance.api'
 
 export default function AttendanceForm() {
   const [currentDate, setCurrentDate] = useState('')
-  // const [employeeId, setEmployeeId] = useState('')
+  const [presentDays, setPresentDays] = useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // Send data to backend
-
     AttendanceService.markAttendance(currentDate)
       .then((res) => {
         alert(`Your Attendance Is marked Successfully!`)
@@ -27,34 +26,68 @@ export default function AttendanceForm() {
     setCurrentDate(formattedDate)
   }
 
-  // Fetch current date when component mounts
+  // Fetch present days data when component mounts
   useEffect(() => {
     getCurrentDate()
+    fetchPresentDays()
   }, [])
 
-  // Handle input change for employee ID
-  // const handleEmployeeIdChange = (e) => {
-  //   setEmployeeId(e.target.value)
-  // }
+  const fetchPresentDays = () => {
+    // Fetch present days data from the backend
+    AttendanceService.fetchAttendance()
+      .then((data) => {
+        setPresentDays(data)
+      })
+      .catch((error) => {
+        console.error('Error fetching present days:', error)
+        // Handle error appropriately, e.g., display an error message
+      })
+  }
+
+  const renderCalendar = () => {
+    const currentDateObj = new Date(currentDate)
+    const daysInMonth = new Date(
+      currentDateObj.getFullYear(),
+      currentDateObj.getMonth() + 1,
+      0,
+    ).getDate()
+
+    const calendarDays = []
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(currentDateObj.getFullYear(), currentDateObj.getMonth(), i)
+      const dayOfWeek = date.getDay()
+      const dateString = `${currentDateObj.getFullYear()}-${currentDateObj.getMonth() + 1}-${i}`
+      const isPresent = presentDays.includes(dateString)
+
+      let attendanceStatus = ''
+
+      // Check if it's a weekend (Saturday or Sunday)
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        attendanceStatus = 'H' // Mark weekends as holidays
+      } else if (isPresent) {
+        attendanceStatus = 'P' // Present days
+      } else if (date <= currentDateObj) {
+        attendanceStatus = 'A' // Mark previous days till current date as absent
+      }
+
+      calendarDays.push(
+        <div key={i} className={`calendar-day ${attendanceStatus}`}>
+          <span className="day-number">{i}</span>
+          <span className="attendance-status">{attendanceStatus}</span>
+        </div>,
+      )
+    }
+    return calendarDays
+  }
 
   return (
     <div className="attendance-form-container">
       <h1 className="form-title">Mark Attendance</h1>
       <div className="form-content">
-        <p className="current-date"> Today&rsquo;s Date: {currentDate}</p>
+        <p className="current-date">Today&rsquo;s Date: {currentDate}</p>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            {/* <label htmlFor="employeeId">Employee ID: &nbsp;</label>
-            <input
-              type="text"
-              id="employeeId"
-              name="employeeId"
-              value={employeeId}
-              onChange={handleEmployeeIdChange}
-              className="employee-id-input"
-            /> */}
-          </div>
-          <br></br>
+          <div className="calendar-container">{renderCalendar()}</div>
+          <br />
           <button type="submit" className="submit-button">
             Punch In
           </button>
