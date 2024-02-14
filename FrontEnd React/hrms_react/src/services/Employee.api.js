@@ -13,6 +13,17 @@ class EmployeeApiService {
     }
   }
 
+  async updateEmployee(employee) {
+    try {
+      const url = EmployeeUrl.baseEmployeeUrl + '/empid'
+      console.log(url)
+      const response = await HttpClientService.put(url, employee)
+      return response.data // return the response data
+    } catch (error) {
+      throw new Error('Employee updation failed. Please try again.')
+    }
+  }
+
   async fetchEmployees() {
     try {
       const url = EmployeeUrl.baseEmployeeUrl
@@ -28,7 +39,7 @@ class EmployeeApiService {
 
   async getSingleEmployees(empid) {
     try {
-      const url = EmployeeUrl.baseEmployeeUrl + '/empid'
+      const url = EmployeeUrl.baseEmployeeUrl + '/' + `${empid}`
       const response = await HttpClientService.get(url)
       return response.data
     } catch (error) {

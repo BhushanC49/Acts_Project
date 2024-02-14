@@ -68,6 +68,7 @@ const Register = () => {
         console.log(data + 'in fetchManger')
         // Assuming `data` is an object with properties matching the formdetails fields
         setformdetails({
+          empId: data.empId || '',
           firstName: data.firstName || '',
           middleName: data.middleName || '',
           lastName: data.lastName || '',
@@ -98,14 +99,14 @@ const Register = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
-    EmployeeService.addEmployee(formdetails)
+    EmployeeService.updateEmployee(formdetails)
       .then((responseData) => {
-        console.log('Employee added successfully:', responseData)
-        alert(`Employee Added Successfully!`)
+        console.log('Employee updated successfully:', responseData)
+        alert(`Employee updated Successfully!`)
       })
       .catch((error) => {
-        console.error('Error adding employee:', error.message)
-        alert(`Oops! Error in Adding Employee`)
+        console.error('Error updating employee:', error.message)
+        alert(`Oops! Error in updating Employee`)
       })
     console.log('Form submitted:', formdetails)
   }

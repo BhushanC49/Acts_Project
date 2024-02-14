@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { DesignationUrl } from '../urls/Designation.url'
 import HttpClientService from './http-client.service'
 
