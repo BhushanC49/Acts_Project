@@ -285,6 +285,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'View Employee',
+        to: '/view-employee',
+      },
+      {
+        component: CNavItem,
         name: 'Employee List',
         to: '/employees',
       },
