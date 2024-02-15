@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddLeaveTypeForm = () => {
+    // eslint-disable-next-line prettier/prettier
     const [leaveType, setLeaveType] = useState('');
     const [maxLeaves, setMaxLeaves] = useState(0);
 

@@ -10,6 +10,7 @@ function GetHolidaysForm() {
       try {
         const holidayList = await HolidayApiService.getHolidayList()
         setHolidays(holidayList)
+        console.log(holidayList)
       } catch (error) {
         setError('Failed to fetch holidays. Please try again.')
       }

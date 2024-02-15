@@ -130,7 +130,6 @@ const routes = [
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
-  
 ]
 
 export default routes
