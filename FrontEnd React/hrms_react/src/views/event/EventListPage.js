@@ -25,6 +25,7 @@ const EventListPage = () => {
         {events.length > 0 ? (
           events.map((event) => (
             <div key={event.id} className="event-item">
+           
               <h2>{event.title}</h2>
               <p>{event.description}</p>
               <p>Start Date: {event.startDate}</p>

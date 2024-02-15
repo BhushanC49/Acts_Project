@@ -55,6 +55,8 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const leaveForm = React.lazy(() => import('./views/leaveform/leave-form'))
 const AddProjectForm = React.lazy(() => import('./views/project/AddProjectForm'))
 const AddEventForm = React.lazy(() => import('./views/event/AddEventForm'))
+const AddCompanyForm = React.lazy(() => import('./views/company/AddCompanyForm'))
+const ViewCompaniesPage = React.lazy(() => import('./views/company/ViewAllCompanies'))
 const EventListPage = React.lazy(() => import('./views/event/EventListPage'))
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
@@ -65,8 +67,8 @@ const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-
 const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 const updateEmployee = React.lazy(() => import('./views/employee/updateEmployee'))
 const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
-const getHolidays = React.lazy(() => import('./views/holiday/getAllHolidays')) 
-const viewEmployee = React.lazy(() => import('./views/employee/viewEmployee')) 
+const getHolidays = React.lazy(() => import('./views/holiday/getAllHolidays'))
+const viewEmployee = React.lazy(() => import('./views/employee/viewEmployee'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -127,7 +129,10 @@ const routes = [
   { path: '/update-employee', name: 'update-employee', element: updateEmployee },
   { path: '/addHoliday', name: 'Add-Holiday', element: addHoliday },
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
+  { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
+  { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
   { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
+
 ]
 
 export default routes

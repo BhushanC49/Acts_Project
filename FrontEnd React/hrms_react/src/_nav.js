@@ -327,6 +327,16 @@ const _nav = [
         name: 'Add Employee',
         to: '/register',
       },
+      {
+        component: CNavItem,
+        name: 'Add Company',
+        to: '/Add-company',
+      },
+      {
+        component: CNavItem,
+        name: 'View All Companies',
+        to: '/All-companies',
+      },
     ],
   },
   {
