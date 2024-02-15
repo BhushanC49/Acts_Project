@@ -1,4 +1,6 @@
 import React from 'react'
+// import { useNavigate } from 'react-router-dom'
+import { StorageService } from '../../services/storage.service'
 import {
   CAvatar,
   CBadge,
@@ -25,6 +27,14 @@ import CIcon from '@coreui/icons-react'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 
 const AppHeaderDropdown = () => {
+  // const navigate = useNavigate()
+  const handleLogout = () => {
+    // Remove JWT token from session storage
+    StorageService.remove('token')
+
+    // Redirect to the login page or any other route as needed
+    window.location.href = '/'
+  }
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -84,9 +94,9 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem onClick={handleLogout}>
           <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+          Log Out !
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
