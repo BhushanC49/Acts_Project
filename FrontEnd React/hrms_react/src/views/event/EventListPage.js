@@ -12,7 +12,7 @@ const EventListPage = () => {
     try {
       const eventsData = await EventApiService.getAllEvents()
       console.log('Fetched events:', eventsData)
-      setEvents(eventsData)
+      setEvents(eventsData.data)
     } catch (error) {
       console.error('Error fetching events:', error)
     }
