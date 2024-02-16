@@ -1,7 +1,5 @@
 package com.hrms.app.model;
 
-import java.time.LocalDate;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor 
 @ToString 
 @Document(collection = "salary_structure")
-public class EmpSalaryStructure {
+public class EmpSalaryStructure {	
 	@Id 
 	private String salId;  
 	@DBRef 
