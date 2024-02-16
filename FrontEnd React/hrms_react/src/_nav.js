@@ -463,6 +463,12 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'View Payslip',
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+    to: '/Payslip',
+  },
+  {
+    component: CNavItem,
     name: 'Docs',
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,

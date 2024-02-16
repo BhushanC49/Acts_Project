@@ -73,6 +73,7 @@ const viewEmployee = React.lazy(() => import('./views/employee/viewEmployee'))
 const HrDashboard = React.lazy(() => import('./views/dashboard/Dashboard.hr'))
 const ManagerDashboard = React.lazy(() => import('./views/dashboard/Dashboard.manager'))
 const EmployeeDashboard = React.lazy(() => import('./views/dashboard/Dashboard.emp'))
+const Payslip = React.lazy(() => import('./views/Payslip/Payslip'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -140,6 +141,7 @@ const routes = [
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
   { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
+  { path: '/Payslip', name: 'Payslip', element: Payslip },
 ]
 
 export default routes
