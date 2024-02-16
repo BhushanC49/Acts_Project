@@ -42,7 +42,7 @@ const Register = () => {
     basicSalary: '',
     medicalAllowance: '',
     conventionalAllowance: '',
-    deduction: '',
+    profissionTax: '',
     iTax: '',
     grossSalary: '',
     netSalary: '',
@@ -426,13 +426,13 @@ const Register = () => {
                       </CCol>
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1">Deduction</CInputGroupText>
+                          <CInputGroupText id="basic-addon1">profission tax</CInputGroupText>
                           <CFormInput
-                            placeholder="deduction"
-                            autoComplete="deduction"
-                            id="deduction"
-                            name="deduction"
-                            value={salaryform.deduction}
+                            placeholder="profission tax"
+                            autoComplete="profission tax"
+                            id="profissionTax"
+                            name="profissionTax"
+                            value={salaryform.profissionTax}
                             onChange={handleInputChange}
                           />
                         </CInputGroup>
