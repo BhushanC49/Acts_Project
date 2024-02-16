@@ -1,0 +1,35 @@
+/* Optional: Adjust the font family and size */
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for card headers */
+  .CCardHeader {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Style for card bodies */
+  .CCardBody {
+    padding: 15px;
+  }
+  
+  /* Style for chart containers */
+  .CChart {
+    height: 300px; /* Adjust the height as needed */
+  }
+  
+  /* Optional: Adjust the font family and size for chart labels */
+  .CChart .label {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  /* Optional: Adjust the font size for chart data */
+  .CChart .data {
+    font-size: 16px;
+  }
+  

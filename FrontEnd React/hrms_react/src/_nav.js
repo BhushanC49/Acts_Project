@@ -431,6 +431,11 @@ const _nav = [
     items: [
       {
         component: CNavItem,
+        name: 'HR Dashboard',
+        to: '/hrdashboard',
+      },
+      {
+        component: CNavItem,
         name: 'Error 404',
         to: '/404',
       },
