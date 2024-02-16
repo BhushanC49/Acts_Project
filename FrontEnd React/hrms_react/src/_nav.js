@@ -315,6 +315,11 @@ const _nav = [
         name: 'Leave Approval For Manager',
         to: '/leave/leave-approval',
       },
+      {
+        component: CNavItem,
+        name: 'Add LeaveType',
+        to: '/leave/leaveType',
+      },
     ],
   },
   {

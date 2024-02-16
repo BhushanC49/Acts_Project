@@ -28,6 +28,7 @@ function LeaveForm() {
   useEffect(() => {
     LeaveService.fetchLeaveTypes()
       .then((response) => {
+        console.log('asdsdsadadsd' + response)
         setLeaveTypes(response.data)
       })
       .catch((error) => {
