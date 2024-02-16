@@ -18,7 +18,7 @@ const ViewEmployee = () => {
     EmployeeService.getSingleEmployees('65c74a9eb4e7524ac2cd746e')
       .then((data) => {
         console.log(data)
-        setEmployee(data) 
+        setEmployee(data)
         console.log(employee)
       })
       .catch((error) => {

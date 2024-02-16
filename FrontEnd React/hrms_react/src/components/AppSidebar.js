@@ -30,9 +30,11 @@ const AppSidebar = () => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
     >
-      <CSidebarBrand className="d-none d-md-flex" to="/" style={{ height: '100px' }}>
-        
-      </CSidebarBrand>
+      <CSidebarBrand
+        className="d-none d-md-flex"
+        to="/"
+        style={{ height: '100px' }}
+      ></CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
           <AppSidebarNav items={navigation} />

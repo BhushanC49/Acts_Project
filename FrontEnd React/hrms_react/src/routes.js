@@ -132,7 +132,6 @@ const routes = [
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
   { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
-
 ]
 
 export default routes
