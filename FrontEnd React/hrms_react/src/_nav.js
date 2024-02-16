@@ -436,6 +436,16 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Manager Dashboard',
+        to: '/manager-dashboard',
+      },
+      {
+        component: CNavItem,
+        name: 'Employee Dashboard',
+        to: '/employee-dashboard',
+      },
+      {
+        component: CNavItem,
         name: 'Error 404',
         to: '/404',
       },

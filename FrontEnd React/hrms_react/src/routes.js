@@ -70,9 +70,13 @@ const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
 const getHolidays = React.lazy(() => import('./views/holiday/getAllHolidays'))
 const viewEmployee = React.lazy(() => import('./views/employee/viewEmployee'))
 const HrDashboard = React.lazy(() => import('./views/dashboard/Dashboard.hr'))
+const ManagerDashboard = React.lazy(() => import('./views/dashboard/Dashboard.manager'))
+const EmployeeDashboard = React.lazy(() => import('./views/dashboard/Dashboard.emp'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/employee-dashboard', name: 'Employee Dashboard', element: EmployeeDashboard },
+  { path: '/manager-dashboard', name: 'Manager Dashboard', element: ManagerDashboard },
   { path: '/hrdashboard', name: 'HR Dashboard', element: HrDashboard },
   { path: '/onduty/onduty-list', name: 'Onduty Approval', element: onDutyList },
   { path: '/leave/leave-approval', name: 'Leave Approval', element: leaveApproval },
