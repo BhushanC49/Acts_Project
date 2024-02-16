@@ -6,6 +6,7 @@ class HolidayApiService {
     try {
       const url = HolidayUrl.getHolidayUrl
       const response = await HttpClientService.get(url)
+      console.log(response)
       return response.data
     } catch (error) {
       throw new Error('Holiday fetching failed. Please try again.')

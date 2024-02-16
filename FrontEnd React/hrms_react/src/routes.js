@@ -64,6 +64,7 @@ const attendance = React.lazy(() => import('./views/attendance/attendance-form')
 const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-form'))
+const leaveTypeForm = React.lazy(() => import(`./views/leaveform/leaveTypeform`))
 const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 const updateEmployee = React.lazy(() => import('./views/employee/updateEmployee'))
 const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
@@ -129,6 +130,7 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/leave', name: 'leave-form', element: leaveForm },
+  { path: '/leave/leaveType', name: 'leave-form', element: leaveTypeForm },
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
   { path: '/Add-event', name: 'Event-form', element: AddEventForm },
   { path: '/All-event', name: 'Event-form', element: EventListPage },
