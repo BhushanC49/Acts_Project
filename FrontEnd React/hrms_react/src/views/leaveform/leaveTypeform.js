@@ -1,31 +1,25 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react'
 import '../../scss/leaveTypeform.css'
-import leaveTypeApi from 'src/services/leaveType.api';
+import leaveTypeApi from 'src/services/leaveType.api'
 
 const AddLeaveTypeForm = () => {
-<<<<<<< HEAD
-    // eslint-disable-next-line prettier/prettier
-    const [leaveType, setLeaveType] = useState('');
-    const [maxLeaves, setMaxLeaves] = useState(0);
-=======
-  const [leaveType, setLeaveType] = useState('');
-  const [maxLeaves, setMaxLeaves] = useState('');
->>>>>>> 112c21b4c6419d869cf8fab7545d7b19749c20e1
+  const [leaveType, setLeaveType] = useState('')
+  const [maxLeaves, setMaxLeaves] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const leaveTypeData = {
-        leaveType,
-        maxLeaves,
-    };
-    try {
-      const response =  await leaveTypeApi.addLeaveType(leaveTypeData);
-      setLeaveType('');
-      setMaxLeaves('');
-    } catch (error) {
-      console.error('Failed to add leave type........:', error);
+      leaveType,
+      maxLeaves,
     }
-  };
+    try {
+      const response = await leaveTypeApi.addLeaveType(leaveTypeData)
+      setLeaveType('')
+      setMaxLeaves('')
+    } catch (error) {
+      console.error('Failed to add leave type........:', error)
+    }
+  }
 
   return (
     <div className="add-leave-type-form">
@@ -54,7 +48,7 @@ const AddLeaveTypeForm = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default AddLeaveTypeForm;
+export default AddLeaveTypeForm

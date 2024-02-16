@@ -64,7 +64,7 @@ const attendance = React.lazy(() => import('./views/attendance/attendance-form')
 const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-form'))
-const leaveTypeForm = React.lazy(()=> import(`./views/leaveform/leaveTypeform`))
+const leaveTypeForm = React.lazy(() => import(`./views/leaveform/leaveTypeform`))
 const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 const updateEmployee = React.lazy(() => import('./views/employee/updateEmployee'))
 const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
@@ -139,10 +139,7 @@ const routes = [
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
-<<<<<<< HEAD
-=======
   { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
->>>>>>> 112c21b4c6419d869cf8fab7545d7b19749c20e1
 ]
 
 export default routes
