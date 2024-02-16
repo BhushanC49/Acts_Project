@@ -14,6 +14,7 @@ import lombok.ToString;
 @Data 
 @ToString
 public class UpdateEmpRequest {
+	private String empId;
 	@NotBlank(message = "First Name can not be blank")
 	private String firstName; 
 	private String middleName; 
@@ -23,7 +24,6 @@ public class UpdateEmpRequest {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate joiningDate; 
 	private String desig;
-	@Email
 	private String email;  
 	private String contactNo; 
 	private String dept;

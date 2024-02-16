@@ -15,7 +15,7 @@ class EmployeeApiService {
 
   async updateEmployee(employee) {
     try {
-      const url = EmployeeUrl.baseEmployeeUrl + '/empid'
+      const url = EmployeeUrl.baseEmployeeUrl + '/' + `${employee.empId}`
       console.log(url)
       const response = await HttpClientService.put(url, employee)
       return response.data // return the response data

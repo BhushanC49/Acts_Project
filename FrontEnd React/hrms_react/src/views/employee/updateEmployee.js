@@ -17,10 +17,12 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
+import { getAllProjects } from '../../services/project.api'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [mangers, setMangers] = useState([])
+  const [project, setProject] = useState([])
   const [designation, setdesignation] = useState([])
   const [formdetails, setformdetails] = useState({
     firstName: '',
@@ -36,9 +38,18 @@ const Register = () => {
     desig: '',
     password: '',
     confirmPassword: '',
+    projects: [],
   })
 
   useEffect(() => {
+    getAllProjects()
+      .then((data) => {
+        console.log(data)
+        setProject([...data])
+      })
+      .catch((error) => {
+        console.error('Error fetching departments:', error)
+      })
     DepartmentService.getDepartmentList()
       .then((data) => {
         console.log(data)
@@ -63,7 +74,7 @@ const Register = () => {
       .catch((error) => {
         console.error('Error fetching mangers:', error)
       })
-    EmployeeService.getSingleEmployees('65c74a9eb4e7524ac2cd746e')
+    EmployeeService.getSingleEmployees('65cf128cccdf6648e7860d6c')
       .then((data) => {
         console.log(data + 'in fetchManger')
         // Assuming `data` is an object with properties matching the formdetails fields
@@ -90,10 +101,19 @@ const Register = () => {
   }, [])
 
   const handleInputChange = (e) => {
-    setformdetails({
-      ...formdetails,
-      [e.target.name]: e.target.value,
-    })
+    if (e.target.name === 'projects') {
+      // If the changed input is projects, update the array
+      setformdetails({
+        ...formdetails,
+        [e.target.name]: Array.from(e.target.selectedOptions, (option) => option.value),
+      })
+    } else {
+      // For other inputs, update as usual
+      setformdetails({
+        ...formdetails,
+        [e.target.name]: e.target.value,
+      })
+    }
   }
 
   // Handle form submission
@@ -313,6 +333,26 @@ const Register = () => {
                           {designation.map((designation, index) => (
                             <option key={index} value={designation}>
                               {designation}
+                            </option>
+                          ))}
+                        </CFormSelect>
+                      </CInputGroup>
+                    </CCol>
+                    <CCol md={6}>
+                      <CInputGroup className="mb-3">
+                        <CInputGroupText id="basic-addon1">Projects&nbsp;</CInputGroupText>
+                        <CFormSelect
+                          aria-label="Default select example"
+                          id="projects"
+                          name="projects"
+                          multiple
+                          value={formdetails.projects}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Select Projects</option>
+                          {project.map((project, index) => (
+                            <option key={index} value={project.id}>
+                              {project.projectTitle}
                             </option>
                           ))}
                         </CFormSelect>

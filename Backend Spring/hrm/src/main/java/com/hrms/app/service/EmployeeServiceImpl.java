@@ -82,21 +82,27 @@ public class EmployeeServiceImpl {
 
 	public EmployeeDto updateEmployee(UpdateEmpRequest empReq) {
 		// convert the empReq to employee
+		System.out.println(empReq);
 		Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 		Employee emp = mapper.map(empReq, Employee.class);
 		emp.setDept(dept); 
 		List<String> project = empReq.getProjects();  
-		List<Project> projects= new ArrayList<>();
+		List<Project> projects= emp.getProjects(); 
+		project.forEach(id->{
+			Project p=proRepo.findById(id).get();
+			System.out.println(p);
+			});
 		project
-		 .stream()
-		 .map(pro -> proRepo.findById(pro))
-		 .map(op -> op.orElseThrow(() -> new ResourceNotFoundException("invalid department")))
-		 .forEach(p -> projects.add(p));
+	    .stream()
+	    .map(pro -> proRepo.findById(pro))
+	    .filter(Optional::isPresent) // Filter out empty optionals
+	    .map(Optional::get) // Get the actual Project from Optional
+	    .forEach(p -> projects.add(p));
 		emp.setUserName(emp.getEmail()); 
 		emp.setUpdatedOn(LocalDateTime.now()); 
 		// update the emp using save method
-
-		empRepo.save(emp);
+		System.out.println(emp);
+		//empRepo.save(emp);
 
 		return mapper.map(emp, EmployeeDto.class);
 	}

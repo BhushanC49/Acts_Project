@@ -2,6 +2,7 @@ package com.hrms.app.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -35,7 +36,7 @@ public class Employee {
 	private Department dept;  
     // Reference to Project (many-to-many)
     @DBRef
-    private List<Project> projects;
+    private List<Project> projects=new ArrayList<>();
 	private String desig; 
 	private String email; 
 	private String contactNo; 

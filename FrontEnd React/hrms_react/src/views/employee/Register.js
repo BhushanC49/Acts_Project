@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   CButton,
   CCard,
@@ -9,6 +9,10 @@ import {
   CFormInput,
   CInputGroup,
   CRow,
+  CToast,
+  CToastHeader,
+  CToastBody,
+  CToaster,
   CInputGroupText,
   CFormSelect,
 } from '@coreui/react'
@@ -21,6 +25,9 @@ const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [flag, setflag] = useState(true)
   const [mangers, setMangers] = useState([])
+  const [toast, addToast] = useState(0)
+  const [errors, setErrors] = useState('')
+  const toaster = useRef()
   const [designation, setdesignation] = useState([])
   const [formdetails, setformdetails] = useState({
     firstName: '',
@@ -50,6 +57,15 @@ const Register = () => {
     grossSalary: '',
     bankAccountId: '',
   })
+
+  const invalidLoginTost = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody> {errors} </CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
     DepartmentService.getDepartmentList()
@@ -126,6 +142,8 @@ const Register = () => {
       })
       .catch((error) => {
         console.error('Error adding employee:', error.message)
+        addToast(invalidLoginTost)
+        setErrors(error.message)
         alert(`Oops! Error in Adding Employee`)
       })
     console.log('Form submitted:', formdetails)
@@ -140,6 +158,8 @@ const Register = () => {
       })
       .catch((error) => {
         console.error('Error adding employee salary structure:', error.message)
+        addToast(invalidLoginTost)
+        setErrors(error.message)
         alert(`Oops! Error in Adding Employee salary structure`)
       })
     console.log('Form submitted:', salaryform)
@@ -554,6 +574,7 @@ const Register = () => {
           </CCol>
         </CRow>
       </CContainer>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
     </div>
   )
 }

@@ -23,8 +23,8 @@ public class EmpSalrayStruServiceImpl {
 	public EmpSalaryStruDto addEmpSalaryStru(EmpSalaryStruRequest salaryReq) {
 		
 		EmpSalaryStructure empSalStru=mapper.map(salaryReq, EmpSalaryStructure.class); 
-		EmpSalaryStructure persistentSalStru=salRepo.save(empSalStru);
-		return mapper.map(persistentSalStru, EmpSalaryStruDto.class);
+		salRepo.save(empSalStru);
+		return mapper.map(empSalStru, EmpSalaryStruDto.class);
 	}
 
 }
