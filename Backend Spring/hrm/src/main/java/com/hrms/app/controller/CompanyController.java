@@ -1,7 +1,5 @@
 package com.hrms.app.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hrms.app.model.Company;
 import com.hrms.app.request.CompanyRequest;
-import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.response.CompanyDto;
 import com.hrms.app.service.CompanyServiceImpl;
-
-import jakarta.validation.Valid;
 ;
 
 @RestController

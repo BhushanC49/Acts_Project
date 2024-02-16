@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import HolidayApiService from '../../services/holiday.api' // Assuming you have a service for handling holiday API requests
-import '../../scss/holidayList.css' // Import the CSS file
+import HolidayApiService from '../../services/holiday.api'
+import {
+  CTable,
+  CTableHead,
+  CTableRow,
+  CTableHeaderCell,
+  CTableBody,
+  CTableDataCell,
+} from '@coreui/react' // Assuming you have imported these components
+import '../../scss/holidayList.css'
+
 function GetHolidaysForm() {
   const [holidays, setHolidays] = useState([])
   const [error, setError] = useState(null)
@@ -19,18 +28,33 @@ function GetHolidaysForm() {
   }, [])
 
   return (
-    <div>
+    <div className="holiday-container">
       <h2>Holidays</h2>
       {error && <div>{error}</div>}
-      <ul>
-        {holidays.map((holiday) => (
-          <li key={holiday.id}>
-            <strong>{holiday.holidayName}</strong> - {holiday.holidayFromDate} to{' '}
-            {holiday.holidayToDate}
-            {holiday.status && <span> - Status: {holiday.status}</span>}
-          </li>
-        ))}
-      </ul>
+      <CTable>
+        <CTableHead>
+          <CTableRow>
+            <CTableHeaderCell scope="col">#</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Holiday Name</CTableHeaderCell>
+            <CTableHeaderCell scope="col">From</CTableHeaderCell>
+            <CTableHeaderCell scope="col">To</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Status</CTableHeaderCell>
+          </CTableRow>
+        </CTableHead>
+        <CTableBody>
+          {holidays.map((holiday, index) => (
+            <CTableRow key={holiday.id}>
+              <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+              <CTableDataCell>{holiday.holidayName}</CTableDataCell>
+              <CTableDataCell>{holiday.holidayFromDate}</CTableDataCell>
+              <CTableDataCell>{holiday.holidayToDate}</CTableDataCell>
+              <CTableDataCell className={holiday.recordStatus ? 'text-success' : 'text-danger'}>
+                {holiday.recordStatus ? 'Active' : 'Inactive'}
+              </CTableDataCell>
+            </CTableRow>
+          ))}
+        </CTableBody>
+      </CTable>
     </div>
   )
 }

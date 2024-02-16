@@ -57,9 +57,10 @@ public class LeaveServiceImpl {
 		List<LeaveType> leaveTypes = leaveTypeRepository.findAll();
 
 		// Map each LeaveType entity to LeaveTypeDto using ModelMapper
-		List<LeaveTypeDto> leaveTypeDtos = leaveTypes.stream()
-				.map(leaveType -> mapper.map(leaveType, LeaveTypeDto.class)).collect(Collectors.toList());
-		return leaveTypeDtos;
+		return leaveTypes.stream()
+				.map(leaveType -> mapper.map(leaveType, LeaveTypeDto.class))
+				.collect(Collectors.toList());
+		
 
 	}
 

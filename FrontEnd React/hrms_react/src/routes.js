@@ -64,13 +64,21 @@ const attendance = React.lazy(() => import('./views/attendance/attendance-form')
 const applyOnDuty = React.lazy(() => import('./views/attendance/OnDuty-form'))
 const addDepartment = React.lazy(() => import('./views/Department/Register-dept'))
 const leaveApproval = React.lazy(() => import('./views/leaveform/leave-approval-form'))
+const leaveTypeForm = React.lazy(()=> import(`./views/leaveform/leaveTypeform`))
 const onDutyList = React.lazy(() => import('./views/attendance/accept-onduty.list'))
 const updateEmployee = React.lazy(() => import('./views/employee/updateEmployee'))
 const addHoliday = React.lazy(() => import('./views/holiday/addHolidayForm'))
 const getHolidays = React.lazy(() => import('./views/holiday/getAllHolidays'))
+const viewEmployee = React.lazy(() => import('./views/employee/viewEmployee'))
+const HrDashboard = React.lazy(() => import('./views/dashboard/Dashboard.hr'))
+const ManagerDashboard = React.lazy(() => import('./views/dashboard/Dashboard.manager'))
+const EmployeeDashboard = React.lazy(() => import('./views/dashboard/Dashboard.emp'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/employee-dashboard', name: 'Employee Dashboard', element: EmployeeDashboard },
+  { path: '/manager-dashboard', name: 'Manager Dashboard', element: ManagerDashboard },
+  { path: '/hrdashboard', name: 'HR Dashboard', element: HrDashboard },
   { path: '/onduty/onduty-list', name: 'Onduty Approval', element: onDutyList },
   { path: '/leave/leave-approval', name: 'Leave Approval', element: leaveApproval },
   { path: '/onduty', name: 'Apply On Duty', element: applyOnDuty },
@@ -122,6 +130,7 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/leave', name: 'leave-form', element: leaveForm },
+  { path: '/leave/leaveType', name: 'leave-form', element: leaveTypeForm },
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
   { path: '/Add-event', name: 'Event-form', element: AddEventForm },
   { path: '/All-event', name: 'Event-form', element: EventListPage },
@@ -130,6 +139,10 @@ const routes = [
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
+<<<<<<< HEAD
+=======
+  { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
+>>>>>>> 112c21b4c6419d869cf8fab7545d7b19749c20e1
 ]
 
 export default routes

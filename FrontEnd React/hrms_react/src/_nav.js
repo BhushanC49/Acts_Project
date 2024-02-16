@@ -285,6 +285,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'View Employee',
+        to: '/view-employee',
+      },
+      {
+        component: CNavItem,
         name: 'Employee List',
         to: '/employees',
       },
@@ -309,6 +314,11 @@ const _nav = [
         component: CNavItem,
         name: 'Leave Approval For Manager',
         to: '/leave/leave-approval',
+      },
+      {
+        component: CNavItem,
+        name: 'Add LeaveType',
+        to: '/leave/leaveType',
       },
     ],
   },
@@ -424,6 +434,21 @@ const _nav = [
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
+      {
+        component: CNavItem,
+        name: 'HR Dashboard',
+        to: '/hrdashboard',
+      },
+      {
+        component: CNavItem,
+        name: 'Manager Dashboard',
+        to: '/manager-dashboard',
+      },
+      {
+        component: CNavItem,
+        name: 'Employee Dashboard',
+        to: '/employee-dashboard',
+      },
       {
         component: CNavItem,
         name: 'Error 404',
