@@ -27,11 +27,12 @@ public class EmpSalaryStructure {
 	private double basicSalary;
 	private double medicalAllowance; 
 	private double conventionalAllowance; 
-	private double deduction;
-	private double iTax;
+	private double Tds;
+	private double professionTax;
 	private double grossSalary;
 	private double netSalary;
-	private LocalDate effectiveFromDate;
-	private String recordStatus;
+	private double providuntFund;
+	private boolean recordStatus; 
+	private double HRA;
 	
 }

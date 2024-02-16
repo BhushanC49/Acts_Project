@@ -42,11 +42,13 @@ const Register = () => {
     basicSalary: '',
     medicalAllowance: '',
     conventionalAllowance: '',
-    profissionTax: '',
-    iTax: '',
-    grossSalary: '',
+    professionTax: '',
+    Tds: '',
+    providuntFund: '',
+    HRA: '',
     netSalary: '',
-    effectiveFromDate: '',
+    grossSalary: '',
+    bankAccountId: '',
   })
 
   useEffect(() => {
@@ -81,13 +83,31 @@ const Register = () => {
       ...formdetails,
       [e.target.name]: e.target.value,
     })
-    // Check if the form being submitted is the Add Employee form
+
     if (!flag) {
-      // Exclude fields from salaryform when submitting Add Employee form
       setsalaryform({
         ...salaryform,
         [e.target.name]: e.target.value,
       })
+
+      const basicSalary = parseFloat(salaryform.basicSalary) || 0
+      const medicalAllowance = parseFloat(salaryform.medicalAllowance) || 0
+      const conventionalAllowance = parseFloat(salaryform.conventionalAllowance) || 0
+      const HRA = parseFloat(salaryform.HRA) || 0
+      let grossSalary = basicSalary + medicalAllowance + conventionalAllowance + HRA
+
+      const TDS = parseFloat(salaryform.Tds) || 0
+      const providuntFund = parseFloat(salaryform.providuntFund) || 0
+      const professionTax = parseFloat(salaryform.professionTax) || 0
+
+      let netSalary = grossSalary - (TDS + providuntFund + professionTax)
+
+      // Update the state with calculated netSalary and grossSalary
+      setsalaryform((prev) => ({
+        ...prev,
+        netSalary: netSalary.toFixed(2),
+        grossSalary: grossSalary.toFixed(2),
+      }))
     }
   }
 
@@ -410,6 +430,19 @@ const Register = () => {
                     <CRow className="mb-3">
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
+                          <CInputGroupText id="basic-addon1">Profession Tax</CInputGroupText>
+                          <CFormInput
+                            placeholder="Profession Tax"
+                            autoComplete="Profession Tax"
+                            id="professionTax"
+                            name="professionTax"
+                            value={salaryform.profissionTax}
+                            onChange={handleInputChange}
+                          />
+                        </CInputGroup>
+                      </CCol>
+                      <CCol md={6}>
+                        <CInputGroup className="mb-3">
                           <CInputGroupText id="basic-addon1">
                             Conventional Allowance
                           </CInputGroupText>
@@ -424,45 +457,30 @@ const Register = () => {
                           />
                         </CInputGroup>
                       </CCol>
-                      <CCol md={6}>
-                        <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1">profission tax</CInputGroupText>
-                          <CFormInput
-                            placeholder="profission tax"
-                            autoComplete="profission tax"
-                            id="profissionTax"
-                            name="profissionTax"
-                            value={salaryform.profissionTax}
-                            onChange={handleInputChange}
-                          />
-                        </CInputGroup>
-                      </CCol>
                     </CRow>
                     <CRow className="mb-3">
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1">
-                            iTax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          </CInputGroupText>
+                          <CInputGroupText id="basic-addon1"> Providunt Fund </CInputGroupText>
                           <CFormInput
-                            placeholder="iTax"
-                            autoComplete="iTax"
-                            id="iTax"
-                            name="iTax"
-                            value={salaryform.iTax}
+                            placeholder="Providunt Fund"
+                            autoComplete="providuntFund"
+                            id="providuntFund"
+                            name="providuntFund"
+                            value={salaryform.providuntFund}
                             onChange={handleInputChange}
                           />
                         </CInputGroup>
                       </CCol>
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1">Joining Date</CInputGroupText>
+                          <CInputGroupText id="basic-addon1">TDS</CInputGroupText>
                           <CFormInput
-                            placeholder="grossSalary"
-                            autoComplete="grossSalary"
-                            id="grossSalary"
-                            name="grossSalary"
-                            value={salaryform.grossSalary}
+                            placeholder="Tax Deducted at Source"
+                            autoComplete="TDS"
+                            id="Tds"
+                            name="Tds"
+                            value={salaryform.Tds}
                             onChange={handleInputChange}
                           />
                         </CInputGroup>
@@ -486,14 +504,39 @@ const Register = () => {
                       </CCol>
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1"> effectiveFromDate</CInputGroupText>
+                          <CInputGroupText id="basic-addon1">Gross Salary</CInputGroupText>
                           <CFormInput
-                            type="date"
-                            placeholder="effectiveFromDate"
-                            autoComplete="effectiveFromDate"
-                            id="emaeffectiveFromDateil"
-                            name="effectiveFromDate"
-                            value={salaryform.effectiveFromDate}
+                            placeholder="grossSalary"
+                            autoComplete="grossSalary"
+                            id="grossSalary"
+                            name="grossSalary"
+                            value={salaryform.grossSalary}
+                            readOnly
+                          />
+                        </CInputGroup>
+                      </CCol>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <CCol md={6}>
+                        <CInputGroup className="mb-3">
+                          <CInputGroupText id="basic-addon1"> HRA&nbsp;&nbsp;&nbsp; </CInputGroupText>
+                          <CFormInput
+                            placeholder="House Rent Allowance "
+                            id="HRA"
+                            name="HRA"
+                            value={salaryform.HRA}
+                            onChange={handleInputChange}
+                          />
+                        </CInputGroup>
+                      </CCol>
+                      <CCol md={6}>
+                        <CInputGroup className="mb-3">
+                          <CInputGroupText id="basic-addon1"> Bank Account Id </CInputGroupText>
+                          <CFormInput
+                            placeholder="Bank Account Id"
+                            id="bankAccountId"
+                            name="bankAccountId"
+                            value={salaryform.bankAccountId}
                             onChange={handleInputChange}
                           />
                         </CInputGroup>

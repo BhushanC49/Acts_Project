@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.hrms.app.request.EmployeeRequest;
+import com.hrms.app.request.UpdateEmpRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.EmployeeDto;
 import com.hrms.app.service.EmployeeServiceImpl;
@@ -66,7 +67,7 @@ public class EmployeeController {
 	}
 	
 	@PutMapping("/{empId}")
-	public ResponseEntity<?> updateEmployee(@PathVariable String empId,@RequestBody @Valid EmployeeRequest empReq){
+	public ResponseEntity<?> updateEmployee(@PathVariable String empId,@RequestBody @Valid UpdateEmpRequest empReq){
 		//call update employee method to update emoloyee 
 		System.out.println("in update employee method");
 		return ResponseEntity.ok(empService.updateEmployee(empReq));
