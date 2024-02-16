@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class LeaveTypeDto {
 
-	private String leaveType;
-
-	private int maxLeaves;
+	  private String leavetypeId;
+	    private String leaveType;
+	    private int maxLeaves;
 
 }
