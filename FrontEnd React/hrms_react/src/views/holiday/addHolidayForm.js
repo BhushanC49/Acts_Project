@@ -1,82 +1,99 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { CButton, CCard, CCardBody, CCol, CContainer, CForm, CRow } from '@coreui/react'
+import HolidayService from '../../services/holiday.api'
 import '../../scss/holiday.css' // Import the CSS file
 
 function HolidayForm() {
-  const [holidayName, setHolidayName] = useState('')
-  const [holidayFromDate, setHolidayFromDate] = useState('')
-  const [holidayToDate, setHolidayToDate] = useState('')
-  const [recordStatus, setRecordStatus] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [HolidayData, setHolidayData] = useState({
+    holidayName: '',
+    holidayFromDate: '',
+    holidayToDate: '',
+  })
+
+  const handleInputChange = (e) => {
+    setHolidayData({
+      ...HolidayData,
+      [e.target.name]: e.target.value,
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!holidayName || !holidayFromDate || !holidayToDate || !recordStatus) {
-      setErrorMessage('Please fill out all fields.')
-      return
-    }
-    console.log({
-      holidayName,
-      holidayFromDate,
-      holidayToDate,
-      recordStatus,
-    })
+    console.log(HolidayData)
     // Reset form fields and error message after submission
-    setHolidayName('')
-    setHolidayFromDate('')
-    setHolidayToDate('')
-    setRecordStatus('')
+    HolidayService.addHoliday(HolidayData)
+      .then((res) => {
+        alert(`Your Holiday Form Submitted!`)
+      })
+      .catch((err) => {
+        alert(`An Error Occured While Submitting your Request :  ${err}`)
+      })
     setErrorMessage('')
   }
-
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="holidayName">Holiday Name:</label>
-          <input
-            type="text"
-            id="holidayName"
-            value={holidayName}
-            onChange={(e) => setHolidayName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="holidayFromDate">From Date:</label>
-          <input
-            type="date"
-            id="holidayFromDate"
-            value={holidayFromDate}
-            onChange={(e) => setHolidayFromDate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="holidayToDate">To Date:</label>
-          <input
-            type="date"
-            id="holidayToDate"
-            value={holidayToDate}
-            onChange={(e) => setHolidayToDate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="recordStatus">Record Status:</label>
-          <select
-            id="recordStatus"
-            value={recordStatus}
-            onChange={(e) => setRecordStatus(e.target.value)}
-            required
-          >
-            <option value="">Select status</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-        <button type="submit">Submit</button>
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
-      </form>
+      <CContainer>
+        <CRow className="justify-content-center">
+          <CCol md={12}>
+            <CCard className="mx-4" style={{ width: '100%' }}>
+              <CCardBody className="p-4">
+                <>
+                  <CForm onSubmit={handleSubmit}>
+                    <h1>Add Holiday</h1>
+                    <p className="text-medium-emphasis">Add Your Holiday</p>
+                    <CRow className="mb-3">
+                      <div>
+                        <label htmlFor="holidayName">Holiday Name:</label>
+                        <input
+                          type="text"
+                          id="holidayName"
+                          name="holidayName"
+                          value={HolidayData.holidayName}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <div>
+                        <label htmlFor="holidayFromDate">From Date:</label>
+                        <input
+                          type="date"
+                          id="holidayFromDate"
+                          name="holidayFromDate"
+                          value={HolidayData.holidayFromDate}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </CRow>
+                    <CRow className="mb-3">
+                      <div>
+                        <label htmlFor="holidayToDate">To Date:</label>
+                        <input
+                          type="date"
+                          id="holidayToDate"
+                          name="holidayToDate"
+                          value={HolidayData.holidayToDate}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </CRow>
+                    <div className="d-grid">
+                      <CButton type="submit" color="success">
+                        Submit
+                      </CButton>
+                    </div>
+                    {errorMessage && <div className="error-message">{errorMessage}</div>}
+                  </CForm>
+                </>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
+      </CContainer>
     </div>
   )
 }

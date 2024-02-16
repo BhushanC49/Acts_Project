@@ -9,4 +9,8 @@ export class StorageService {
   static set(key, value) {
     sessionStorage.setItem(key, JSON.stringify(value))
   }
+
+  static remove(key) {
+    sessionStorage.removeItem(key)
+  }
 }
