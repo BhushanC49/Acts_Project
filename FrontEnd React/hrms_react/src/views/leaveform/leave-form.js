@@ -27,9 +27,9 @@ function LeaveForm() {
   // Fetch leave types from mock database
   useEffect(() => {
     LeaveService.fetchLeaveTypes()
-      .then((response) => {
-        console.log('asdsdsadadsd' + response)
-        setLeaveTypes(response.data)
+      .then((data) => {
+        console.log(data)
+        setLeaveTypes([...data])
       })
       .catch((error) => {
         console.error('Error fetching leave types:', error)
@@ -81,15 +81,15 @@ function LeaveForm() {
             <label htmlFor="leaveType">Leave Type</label>
             <select
               className="form-control"
-              id="leaveType"
+              id="leaveTypeId"
               name="leaveTypeId"
               value={formData.leaveTypeId}
               onChange={handleInputChange}
             >
               <option value="">Select Leave Type</option>
-              {leaveTypes.map((leaveType) => (
-                <option key={leaveType.id} value={leaveType.name}>
-                  {leaveType.name}
+              {leaveTypes.map((leaveTypes) => (
+                <option key={leaveTypes.leavetypeId} value={leaveTypes.leavetypeId}>
+                  {leaveTypes.leaveType}
                 </option>
               ))}
             </select>
