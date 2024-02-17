@@ -1,62 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import HolidayApiService from '../../services/holiday.api'
-import {
-  CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
-  CTableBody,
-  CTableDataCell,
-} from '@coreui/react' // Assuming you have imported these components
-import '../../scss/holidayList.css'
+import React, { useState, useEffect } from 'react';
+import HolidayApiService from '../../services/holiday.api';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import '../../scss/holidayList.css';
 
 function GetHolidaysForm() {
-  const [holidays, setHolidays] = useState([])
-  const [error, setError] = useState(null)
+  const [holidays, setHolidays] = useState([]);
+  const [error, setError] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     async function fetchHolidays() {
       try {
-        const holidayList = await HolidayApiService.getHolidayList()
-        setHolidays(holidayList)
-        console.log(holidayList)
+        const holidayList = await HolidayApiService.getHolidayList();
+        setHolidays(holidayList);
       } catch (error) {
-        setError('Failed to fetch holidays. Please try again.')
+        setError('Failed to fetch holidays. Please try again.');
       }
     }
-    fetchHolidays()
-  }, [])
+    fetchHolidays();
+  }, []);
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+  };
+
+  const tileContent = ({ date, view }) => {
+    if (view === 'month') {
+      const holiday = holidays.find((holiday) => {
+        const holidayFromDate = new Date(holiday.holidayFromDate);
+        const holidayToDate = new Date(holiday.holidayToDate);
+        return date >= holidayFromDate && date <= holidayToDate;
+      });
+      if (holiday) {
+        return (
+          <div className="holiday-tile">
+            <span className="holiday-name" >{holiday.holidayName}</span>
+           
+          </div>
+        );
+      }
+    }
+  };
 
   return (
     <div className="holiday-container">
       <h2>Holidays</h2>
       {error && <div>{error}</div>}
-      <CTable>
-        <CTableHead>
-          <CTableRow>
-            <CTableHeaderCell scope="col">#</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Holiday Name</CTableHeaderCell>
-            <CTableHeaderCell scope="col">From</CTableHeaderCell>
-            <CTableHeaderCell scope="col">To</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-          </CTableRow>
-        </CTableHead>
-        <CTableBody>
-          {holidays.map((holiday, index) => (
-            <CTableRow key={holiday.id}>
-              <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-              <CTableDataCell>{holiday.holidayName}</CTableDataCell>
-              <CTableDataCell>{holiday.holidayFromDate}</CTableDataCell>
-              <CTableDataCell>{holiday.holidayToDate}</CTableDataCell>
-              <CTableDataCell className={holiday.recordStatus ? 'text-success' : 'text-danger'}>
-                {holiday.recordStatus ? 'Active' : 'Inactive'}
-              </CTableDataCell>
-            </CTableRow>
-          ))}
-        </CTableBody>
-      </CTable>
+      <div className="calendar-container">
+        <Calendar
+          onClickDay={handleDateClick}
+          value={selectedDate}
+          tileContent={tileContent}
+          calendarClassName="custom-calendar"
+        />
+        {selectedDate && (
+          <div className="selected-date">
+            Selected Date: {selectedDate.toLocaleDateString()}
+          </div>
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
-export default GetHolidaysForm
+export default GetHolidaysForm;
+
+
