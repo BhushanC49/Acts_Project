@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hrms.app.custome_exception.ApiException;
@@ -39,6 +40,9 @@ public class EmployeeServiceImpl {
 
 	@Autowired
 	private ModelMapper mapper;
+	
+//	@Autowired
+//	private PasswordEncoder encoder;
 
 	public EmployeeDto addEmployee(EmployeeRequest empReq) {
 		// validate password and confirm password 
@@ -50,12 +54,14 @@ public class EmployeeServiceImpl {
 		if (empReq.getConfirmPassword().equals(empReq.getPassword())) {
 			// convert EmployeeRequest object to Employee 
 			Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
+			//empReq.setPassword(encoder.encode(empReq.getPassword()));
 			Employee emp = mapper.map(empReq, Employee.class);
 			emp.setDept(dept);
 			emp.setUserName(emp.getEmail()); 
 			emp.setCreatedOn(LocalDateTime.now());
 			emp.setUpdatedOn(LocalDateTime.now()); 
 			emp.setLeaveBalance(24);
+			emp.setEmpStatus(true);
 			// save emp object in database
 			empRepo.save(emp);
 			System.out.println("Employee addes with id: " + emp.getEmpId());
@@ -86,23 +92,20 @@ public class EmployeeServiceImpl {
 		Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 		Employee emp = mapper.map(empReq, Employee.class);
 		emp.setDept(dept); 
-		List<String> project = empReq.getProjects();  
-		List<Project> projects= emp.getProjects(); 
-		project.forEach(id->{
-			Project p=proRepo.findById(id).get();
-			System.out.println(p);
-			});
-		project
-	    .stream()
-	    .map(pro -> proRepo.findById(pro))
-	    .filter(Optional::isPresent) // Filter out empty optionals
-	    .map(Optional::get) // Get the actual Project from Optional
-	    .forEach(p -> projects.add(p));
+		List<String> projectIds = empReq.getProjects();  
+		List<Project> projectList = projectIds.stream()
+				.map(proRepo::findById)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toList()); 
+		emp.setProjects(projectList);
 		emp.setUserName(emp.getEmail()); 
 		emp.setUpdatedOn(LocalDateTime.now()); 
+		emp.setLeaveBalance(24);
+		emp.setEmpStatus(true);
 		// update the emp using save method
 		System.out.println(emp);
-		//empRepo.save(emp);
+		empRepo.save(emp);
 
 		return mapper.map(emp, EmployeeDto.class);
 	}

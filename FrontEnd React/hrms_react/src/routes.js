@@ -135,7 +135,7 @@ const routes = [
   { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
   { path: '/Add-event', name: 'Event-form', element: AddEventForm },
   { path: '/All-event', name: 'Event-form', element: EventListPage },
-  { path: '/update-employee', name: 'update-employee', element: updateEmployee },
+  { path: '/update-employee/:empId', name: 'update-employee', element: updateEmployee },
   { path: '/addHoliday', name: 'Add-Holiday', element: addHoliday },
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },

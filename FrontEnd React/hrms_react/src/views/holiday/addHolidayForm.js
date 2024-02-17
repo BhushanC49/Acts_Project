@@ -23,7 +23,7 @@ function HolidayForm() {
   const successToast = (
     <CToast>
       <CToastHeader closeButton>
-        <div className="text-center fw-bold me-auto text-success fs-4" >Success !</div>
+        <div className="text-center fw-bold me-auto text-success fs-4">Success !</div>
       </CToastHeader>
       <CToastBody>Holiday is added successfully.</CToastBody>
     </CToast>
@@ -53,71 +53,71 @@ function HolidayForm() {
   }
 
   return (
-  <>
-    <div className="form-container">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={12}>
-            <CCard className="mx-4" style={{ width: '100%' }}>
-              <CCardBody className="p-4">
-                <>
-                  <CForm onSubmit={handleSubmit}>
-                    <h1>Add Holiday</h1>
-                    <p className="text-medium-emphasis">Add Your Holiday</p>
-                    <CRow className="mb-3">
-                      <div>
-                        <label htmlFor="holidayName">Holiday Name:</label>
-                        <input
-                          type="text"
-                          id="holidayName"
-                          name="holidayName"
-                          value={HolidayData.holidayName}
-                          onChange={handleInputChange}
-                          required
-                        />
+    <>
+      <div className="form-container">
+        <CContainer>
+          <CRow className="justify-content-center">
+            <CCol md={12}>
+              <CCard className="mx-4" style={{ width: '100%' }}>
+                <CCardBody className="p-4">
+                  <>
+                    <CForm onSubmit={handleSubmit}>
+                      <h1>Add Holiday</h1>
+                      <p className="text-medium-emphasis">Add Your Holiday</p>
+                      <CRow className="mb-3">
+                        <div>
+                          <label htmlFor="holidayName">Holiday Name:</label>
+                          <input
+                            type="text"
+                            id="holidayName"
+                            name="holidayName"
+                            value={HolidayData.holidayName}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                      </CRow>
+                      <CRow className="mb-3">
+                        <div>
+                          <label htmlFor="holidayFromDate">From Date:</label>
+                          <input
+                            type="date"
+                            id="holidayFromDate"
+                            name="holidayFromDate"
+                            value={HolidayData.holidayFromDate}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                      </CRow>
+                      <CRow className="mb-3">
+                        <div>
+                          <label htmlFor="holidayToDate">To Date:</label>
+                          <input
+                            type="date"
+                            id="holidayToDate"
+                            name="holidayToDate"
+                            value={HolidayData.holidayToDate}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
+                      </CRow>
+                      <div className="d-grid">
+                        <CButton type="submit" color="success">
+                          ADD
+                        </CButton>
                       </div>
-                    </CRow>
-                    <CRow className="mb-3">
-                      <div>
-                        <label htmlFor="holidayFromDate">From Date:</label>
-                        <input
-                          type="date"
-                          id="holidayFromDate"
-                          name="holidayFromDate"
-                          value={HolidayData.holidayFromDate}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                    </CRow>
-                    <CRow className="mb-3">
-                      <div>
-                        <label htmlFor="holidayToDate">To Date:</label>
-                        <input
-                          type="date"
-                          id="holidayToDate"
-                          name="holidayToDate"
-                          value={HolidayData.holidayToDate}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                    </CRow>
-                    <div className="d-grid">
-                      <CButton type="submit" color="success">
-                        ADD
-                      </CButton>
-                    </div>
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
-                  </CForm>
-                </>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
-    <CToaster ref={toaster} push={toast} placement="top-end" />
+                      {errorMessage && <div className="error-message">{errorMessage}</div>}
+                    </CForm>
+                  </>
+                </CCardBody>
+              </CCard>
+            </CCol>
+          </CRow>
+        </CContainer>
+      </div>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
     </>
   )
 }

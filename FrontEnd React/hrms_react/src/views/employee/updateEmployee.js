@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -40,7 +41,7 @@ const Register = () => {
     confirmPassword: '',
     projects: [],
   })
-
+  const { empId } = useParams()
   useEffect(() => {
     getAllProjects()
       .then((data) => {
@@ -74,7 +75,7 @@ const Register = () => {
       .catch((error) => {
         console.error('Error fetching mangers:', error)
       })
-    EmployeeService.getSingleEmployees('65cf128cccdf6648e7860d6c')
+    EmployeeService.getSingleEmployees(empId)
       .then((data) => {
         console.log(data + 'in fetchManger')
         // Assuming `data` is an object with properties matching the formdetails fields
@@ -139,8 +140,7 @@ const Register = () => {
             <CCard className="mx-4" style={{ width: '100%' }}>
               <CCardBody className="p-4">
                 <CForm onSubmit={handleSubmit}>
-                  <h1>update Employee</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
+                  <h1>Update Employee</h1>
                   <CRow className="mb-3">
                     <CCol md={6}>
                       <CInputGroup className="mb-3">
