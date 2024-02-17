@@ -20,6 +20,8 @@ import SalaryStructureService from '../../services/SalaryStructure.api'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
+import useRedirect from '../pages/login/useRedirect'
+import { useLocation } from 'react-router-dom'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
@@ -57,6 +59,9 @@ const Register = () => {
     grossSalary: '',
     bankAccountId: '',
   })
+
+  let { pathname } = useLocation()
+  useRedirect(pathname)
 
   const invalidLoginTost = (
     <CToast>
@@ -539,7 +544,10 @@ const Register = () => {
                     <CRow className="mb-3">
                       <CCol md={6}>
                         <CInputGroup className="mb-3">
-                          <CInputGroupText id="basic-addon1"> HRA&nbsp;&nbsp;&nbsp; </CInputGroupText>
+                          <CInputGroupText id="basic-addon1">
+                            {' '}
+                            HRA&nbsp;&nbsp;&nbsp;{' '}
+                          </CInputGroupText>
                           <CFormInput
                             placeholder="House Rent Allowance "
                             id="HRA"

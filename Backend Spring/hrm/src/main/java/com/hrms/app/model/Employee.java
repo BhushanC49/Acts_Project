@@ -36,13 +36,13 @@ public class Employee {
 	private Department dept;  
     // Reference to Project (many-to-many)
     @DBRef
-    private List<Project> projects=new ArrayList<>();
+    private List<Project> projects;
 	private String desig; 
 	private String email; 
 	private String contactNo; 
 	private int noticePeriod; 
 	private LocalDate lastWorkingDay;
-	private String empStatus; 
+	private boolean empStatus; 
 	private String empAccesRole; 
 	private int leaveBalance; 
 	private String manager;
