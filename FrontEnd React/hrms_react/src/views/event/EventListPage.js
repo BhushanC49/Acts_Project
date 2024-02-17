@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { EventApiService } from '../../services/event.api'
-
+import '../../scss/eventList.css'
 const EventListPage = () => {
   const [events, setEvents] = useState([])
 
@@ -18,6 +18,11 @@ const EventListPage = () => {
     }
   }
 
+  const getBannerFromLocalStorage = (eventTitle) => {
+    // Retrieve image data from localStorage using event title as key
+    return localStorage.getItem(eventTitle)
+  }
+
   return (
     <div>
       <h1>All Events</h1>
@@ -25,16 +30,15 @@ const EventListPage = () => {
         {events.length > 0 ? (
           events.map((event) => (
             <div key={event.id} className="event-item">
-           
               <h2>{event.title}</h2>
               <p>{event.description}</p>
               <p>Start Date: {event.startDate}</p>
               <p>End Date: {event.endDate}</p>
               <p>Venue: {event.venue}</p>
               <p>Category: {event.category}</p>
-              {event.banner && (
+              {event.bannerId && (
                 <img
-                  src={`data:image/jpeg;base64,${event.banner}`}
+                  src={getBannerFromLocalStorage(event.title)}
                   alt={event.title}
                   style={{ maxWidth: '200px' }}
                 />

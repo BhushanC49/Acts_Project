@@ -1,4 +1,4 @@
-package com.hrms.app.model;
+ package com.hrms.app.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

@@ -298,6 +298,11 @@ const _nav = [
         name: 'Attendance Punch-In',
         to: '/attendance',
       },
+      {
+        component: CNavItem,
+        name: 'View Payslip',
+        to: '/Payslip',
+      },
     ],
   },
   {

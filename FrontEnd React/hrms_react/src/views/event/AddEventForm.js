@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { EventUrl } from '../../urls/Event.url'
 import HttpClientService from '../../services/http-client.service'
 import '../../scss/event.css'
+
 const AddEventForm = () => {
   const [eventData, setEventData] = useState({
     title: '',
@@ -14,6 +15,14 @@ const AddEventForm = () => {
   })
   const [bannerFile, setBannerFile] = useState(null)
 
+  useEffect(() => {
+    // Load banner image from localStorage when component mounts
+    const storedImage = localStorage.getItem(eventData.title)
+    if (storedImage) {
+      setBannerFile(storedImage)
+    }
+  }, [eventData.title])
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setEventData({
@@ -25,6 +34,21 @@ const AddEventForm = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     setBannerFile(file)
+    saveImageLocally(eventData.title, file) // Save image locally when selected
+  }
+
+  const saveImageLocally = (eventTitle, file) => {
+    // Save the image file locally using localStorage
+    try {
+      const reader = new FileReader()
+      reader.onload = function () {
+        const imageData = reader.result
+        localStorage.setItem(eventTitle, imageData)
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error('Failed to save image locally:', error)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -41,11 +65,7 @@ const AddEventForm = () => {
       formData.append('bannerFile', bannerFile) // Append banner file
 
       await HttpClientService.post(EventUrl.addEventUrl, formData, {
-        // ...defaultOptions,
-        // ...options,
         headers: {
-          // ...defaultOptions.headers,
-          // ...options.headers,
           'Content-Type': 'multipart/form-data', // Set Content-Type to multipart/form-data
         },
       })
@@ -145,10 +165,18 @@ const AddEventForm = () => {
             accept="image/*"
             // required
           />
+          {bannerFile && (
+            <img
+              src={typeof bannerFile === 'string' ? bannerFile : URL.createObjectURL(bannerFile)}
+              alt="Banner Preview"
+              style={{ width: '100px', height: '100px', marginTop: '10px' }}
+            />
+          )}
         </div>
         <button type="submit">Add Event</button>
       </fieldset>
     </form>
   )
 }
+
 export default AddEventForm
