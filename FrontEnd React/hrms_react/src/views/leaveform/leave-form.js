@@ -20,7 +20,17 @@ function LeaveForm() {
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
       </CToastHeader>
-      <CToastBody>Couldn&rsquo;t submit Form ! Please Check the Details </CToastBody>
+      <CToastBody>
+        Couldn&rsquo;t submit Form ! Please Check Details Before Submitting .{' '}
+      </CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>Your form has been submitted successfully.</CToastBody>
     </CToast>
   )
 
@@ -52,7 +62,14 @@ function LeaveForm() {
     // send data to backend
     LeaveService.insertLeave(formData)
       .then((res) => {
-        alert(`Your leave-form has been submitted!`)
+        // alert(`Your leave-form has been submitted!`)
+        addToast(successToast)
+        setFormData({
+          leaveTypeId: '',
+          leaveStartOn: '',
+          leaveEndOn: '',
+          leaveComment: '',
+        })
       })
       .catch((err) => {
         addToast(invalidToast)
@@ -85,6 +102,7 @@ function LeaveForm() {
               name="leaveTypeId"
               value={formData.leaveTypeId}
               onChange={handleInputChange}
+              required
             >
               <option value="">Select Leave Type</option>
               {leaveTypes.map((leaveTypes) => (

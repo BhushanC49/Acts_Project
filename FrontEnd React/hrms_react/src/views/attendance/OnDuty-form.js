@@ -24,6 +24,15 @@ const OnDutyForm = () => {
     </CToast>
   )
 
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>Your form has been submitted successfully.</CToastBody>
+    </CToast>
+  )
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -62,7 +71,15 @@ const OnDutyForm = () => {
     OnDutyApiService.insertOnDuty(formData)
       .then((response) => {
         console.log('Response from service:', response)
+        addToast(successToast)
         // Handle success response here
+        setFormData({
+          employeeId: '',
+          fromDate: '',
+          toDate: '',
+          onDutyType: '',
+          comment: '',
+        })
       })
       .catch((error) => {
         console.error('Error sending OnDutyRequest:', error)

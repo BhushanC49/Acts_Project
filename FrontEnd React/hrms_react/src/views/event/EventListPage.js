@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { EventApiService } from '../../services/event.api';
+import React, { useEffect, useState } from 'react'
+import { EventApiService } from '../../services/event.api'
 import '../../scss/eventList.css'
 const EventListPage = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents()
+  }, [])
 
   const fetchEvents = async () => {
     try {
-      const eventsData = await EventApiService.getAllEvents();
-      console.log('Fetched events:', eventsData);
-      setEvents(eventsData.data);
+      const eventsData = await EventApiService.getAllEvents()
+      console.log('Fetched events:', eventsData)
+      setEvents(eventsData.data)
     } catch (error) {
-      console.error('Error fetching events:', error);
+      console.error('Error fetching events:', error)
     }
-  };
+  }
 
   const getBannerFromLocalStorage = (eventTitle) => {
     // Retrieve image data from localStorage using event title as key
-    return localStorage.getItem(eventTitle);
-  };
+    return localStorage.getItem(eventTitle)
+  }
 
   return (
     <div>
@@ -50,7 +50,7 @@ const EventListPage = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EventListPage;
+export default EventListPage
