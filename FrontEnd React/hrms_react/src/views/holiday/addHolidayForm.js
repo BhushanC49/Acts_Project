@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCol, CContainer, CForm, CRow } from '@coreui/react'
 import HolidayService from '../../services/holiday.api'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import '../../scss/holiday.css' // Import the CSS file
 
 function HolidayForm() {
   const [errorMessage, setErrorMessage] = useState('')
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
   const [HolidayData, setHolidayData] = useState({
     holidayName: '',
     holidayFromDate: '',
@@ -17,6 +20,22 @@ function HolidayForm() {
       [e.target.name]: e.target.value,
     })
   }
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-success fs-4" >Success !</div>
+      </CToastHeader>
+      <CToastBody>Holiday is added successfully.</CToastBody>
+    </CToast>
+  )
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>Error in adding holiday!</CToastBody>
+    </CToast>
+  )
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -24,14 +43,17 @@ function HolidayForm() {
     // Reset form fields and error message after submission
     HolidayService.addHoliday(HolidayData)
       .then((res) => {
-        alert(`Your Holiday Form Submitted!`)
+        addToast(successToast)
       })
       .catch((err) => {
+        addToast(invalidToast)
         alert(`An Error Occured While Submitting your Request :  ${err}`)
       })
     setErrorMessage('')
   }
+
   return (
+  <>
     <div className="form-container">
       <CContainer>
         <CRow className="justify-content-center">
@@ -83,7 +105,7 @@ function HolidayForm() {
                     </CRow>
                     <div className="d-grid">
                       <CButton type="submit" color="success">
-                        Submit
+                        ADD
                       </CButton>
                     </div>
                     {errorMessage && <div className="error-message">{errorMessage}</div>}
@@ -95,6 +117,8 @@ function HolidayForm() {
         </CRow>
       </CContainer>
     </div>
+    <CToaster ref={toaster} push={toast} placement="top-end" />
+    </>
   )
 }
 
