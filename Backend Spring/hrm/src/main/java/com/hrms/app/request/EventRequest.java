@@ -16,7 +16,7 @@ public class EventRequest {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalTime eventTime;
+    private String eventTime;
     private String venue;
     private MultipartFile bannerFile;
     private String category;

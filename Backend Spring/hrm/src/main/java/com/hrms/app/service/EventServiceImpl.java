@@ -3,6 +3,7 @@ package com.hrms.app.service;
 import java.io.IOException;
 
 import java.io.InputStream;
+import java.time.LocalTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class EventServiceImpl {
 
     public EventDto addEvent(EventRequest eventRequest, MultipartFile bannerFile) throws IOException {
         Event event = modelMapper.map(eventRequest, Event.class);
-
+        event.setTime(LocalTime.parse(eventRequest.getEventTime()));
         if (bannerFile != null && !bannerFile.isEmpty()) {
             String fileId = saveBannerFile(bannerFile);
             event.setBannerId(fileId);
