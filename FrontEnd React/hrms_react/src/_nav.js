@@ -329,11 +329,6 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Add Employee',
-        to: '/register',
-      },
-      {
-        component: CNavItem,
         name: 'Add Company',
         to: '/Add-company',
       },
@@ -353,11 +348,6 @@ const _nav = [
         component: CNavItem,
         name: 'Add Department',
         to: '/registerDept',
-      },
-      {
-        component: CNavItem,
-        name: 'View all Departments',
-        to: '/departmentList',
       },
     ],
   },
@@ -449,23 +439,7 @@ const _nav = [
         name: 'Employee Dashboard',
         to: '/employee-dashboard',
       },
-      {
-        component: CNavItem,
-        name: 'Error 404',
-        to: '/404',
-      },
-      {
-        component: CNavItem,
-        name: 'Error 500',
-        to: '/500',
-      },
     ],
-  },
-  {
-    component: CNavItem,
-    name: 'Docs',
-    href: 'https://coreui.io/react/docs/templates/installation/',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 ]
 
