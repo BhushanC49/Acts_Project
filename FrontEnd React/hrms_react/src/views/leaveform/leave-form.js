@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import LeaveService from '../../services/leave.api'
 import '../../scss/leaveform.css'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
+import useRedirect from '../pages/login/useRedirect'
+import { useLocation } from 'react-router-dom'
 
 function LeaveForm() {
   // State variables
@@ -15,6 +17,8 @@ function LeaveForm() {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
 
+  let { pathname } = useLocation()
+  useRedirect(pathname)
   const invalidToast = (
     <CToast>
       <CToastHeader closeButton>

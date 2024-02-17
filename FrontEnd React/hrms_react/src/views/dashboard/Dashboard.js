@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   CAvatar,
@@ -54,9 +54,14 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import EmployeeList from '../employee/employee-list'
+import { useLocation, useNavigate } from 'react-router-dom'
+import useRedirect from '../pages/login/useRedirect'
 
 const Dashboard = () => {
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+  let nav = useNavigate()
+  let { pathname } = useLocation()
+  let data = useRedirect(pathname)
 
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
@@ -195,7 +200,15 @@ const Dashboard = () => {
           <CChartLine
             style={{ height: '300px', marginTop: '40px' }}
             data={{
-              labels: ['August', 'September', 'October', 'November', 'December', 'January', 'February'],
+              labels: [
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+                'January',
+                'February',
+              ],
               datasets: [
                 {
                   label: 'My First dataset',

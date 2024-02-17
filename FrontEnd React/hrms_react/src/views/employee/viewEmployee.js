@@ -11,7 +11,8 @@ import {
   CTabContent,
   CTabPane,
 } from '@coreui/react'
-
+import useRedirect from '../pages/login/useRedirect'
+import { useLocation } from 'react-router-dom'
 import EmployeeService from '../../services/Employee.api'
 
 const ViewEmployee = () => {
@@ -37,6 +38,8 @@ const ViewEmployee = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab)
   }
+  let { pathname } = useLocation()
+  useRedirect(pathname)
   useEffect(() => {
     EmployeeService.getSingleEmployees('65cf128cccdf6648e7860d6c')
       .then((data) => {

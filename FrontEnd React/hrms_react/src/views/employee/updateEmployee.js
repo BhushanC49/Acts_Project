@@ -19,6 +19,8 @@ import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
 import { getAllProjects } from '../../services/project.api'
+import useRedirect from '../pages/login/useRedirect'
+import { useLocation } from 'react-router-dom'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
@@ -42,6 +44,8 @@ const Register = () => {
     projects: [],
   })
   const { empId } = useParams()
+  let { pathname } = useLocation()
+  useRedirect(pathname)
   useEffect(() => {
     getAllProjects()
       .then((data) => {
