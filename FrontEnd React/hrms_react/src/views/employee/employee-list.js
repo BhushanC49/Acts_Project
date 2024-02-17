@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import EmployeeApiService from '../../services/Employee.api'
+import { useNavigate } from 'react-router-dom'
 import '../../scss/employeelist.css'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import {
@@ -20,34 +21,27 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
-  cilPeople,
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
+import { cilPeople } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 function EmployeeList() {
   const [employees, setEmployees] = useState([])
   const [toast, addToast] = useState(0)
   const toaster = useRef()
+  const navigate = useNavigate()
+
+  const updateEmployee = (empId) => {
+    navigate(`/update-employee/${empId}`)
+  }
+
+  const deleteEmployee = (empId) => {
+    EmployeeApiService.deleteEmployee(empId)
+      .then((data) => console.log(data))
+      .catch((error) => {
+        addToast(invalidToast)
+        console.error('Error setting employees:', error) // Log the error to the console
+      })
+  }
 
   useEffect(() => {
     //Fetch data from the server when the component mounts
@@ -70,43 +64,10 @@ function EmployeeList() {
 
   return (
     <>
-      {/* <div>
-        <h2 className="employee-list-heading">Employee List</h2>
-        <table className="employee-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Department</th>
-              <th>LeaveBalance</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.length > 0 ? ( // Check if the employee list is not empty
-              employees.map((employee) => (
-                <tr key={employee.empId}>
-                  <td>{employee.empId}</td>
-                  <td>{employee.firstName}</td>
-                  <td>{employee.lastName}</td>
-                  <td>{employee?.dept?.deptName}</td>
-                  <td>{employee.leaveBalance}</td>
-                  <td>{employee.email}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">Employee List empty</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div> */}
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Employee's</CCardHeader>
+            <CCardHeader>Employees</CCardHeader>
             <CCardBody>
               <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead color="light">
@@ -117,7 +78,7 @@ function EmployeeList() {
                     <CTableHeaderCell>Employee</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Department</CTableHeaderCell>
                     <CTableHeaderCell>Email</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Leave balance</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Leaves Remaining</CTableHeaderCell>
                     <CTableHeaderCell>Action</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
@@ -144,13 +105,25 @@ function EmployeeList() {
                       </CTableDataCell>
                       <CTableDataCell>
                         <span>
-                          <CButton type="submit" color="success">
-                            update
+                          <CButton
+                            type="button"
+                            color="success"
+                            onClick={() => {
+                              updateEmployee(employee.empId)
+                            }}
+                          >
+                            Update
                           </CButton>
                         </span>
                         <span>&nbsp;&nbsp;</span>
                         <span>
-                          <CButton type="submit" color="danger">
+                          <CButton
+                            type="button"
+                            color="danger"
+                            onClick={() => {
+                              deleteEmployee(employee.empId)
+                            }}
+                          >
                             Delete
                           </CButton>
                         </span>

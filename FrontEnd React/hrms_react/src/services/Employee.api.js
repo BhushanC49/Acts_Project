@@ -12,6 +12,16 @@ class EmployeeApiService {
       throw new Error('Employee registration failed. Please try again.')
     }
   }
+  async deleteEmployee(empId) {
+    try {
+      const url = EmployeeUrl.baseEmployeeUrl + '/' + `${empId}`
+      console.log(url)
+      const response = await HttpClientService.delete(url, empId)
+      return response.data // return the response data
+    } catch (error) {
+      throw new Error('Employee registration failed. Please try again.')
+    }
+  }
 
   async updateEmployee(employee) {
     try {
