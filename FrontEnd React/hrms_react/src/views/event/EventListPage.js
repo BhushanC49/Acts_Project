@@ -12,10 +12,10 @@ const EventListPage = () => {
     fetchEvents()
   }, [])
   const formatDate = (date) => {
-    if (!date) return '';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(date).toLocaleDateString(undefined, options);
-  };
+    if (!date) return ''
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(date).toLocaleDateString(undefined, options)
+  }
 
   const fetchEvents = async () => {
     try {
@@ -68,13 +68,26 @@ const EventListPage = () => {
             {selectedEvent && (
               <div className="modal">
                 <div className="modal-content">
-                 <span className="close" onClick={(e) => { e.stopPropagation(); closeModal(); }}>&times;</span>
+                  <span
+                    className="close"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      closeModal()
+                    }}
+                  >
+                    &times;
+                  </span>
                   {selectedEvent.title && (
                     <>
                       <div className="event-info">
                         <h2>{selectedEvent.title}</h2>
                         <p>Start Date: {selectedEvent.start && formatDate(selectedEvent.start)}</p>
-                        <p>End Date: {selectedEvent.extendedProps.endDate && formatDate(selectedEvent.extendedProps.endDate)}</p>
+                        <p>
+                          End Date:
+                          {selectedEvent.extendedProps.endDate &&
+                            formatDate(selectedEvent.extendedProps.endDate)}
+                        </p>
+                        <p>Time: {selectedEvent.extendedProps.time}</p>
                         <p>Venue: {selectedEvent.extendedProps.venue}</p>
                         <p>Category: {selectedEvent.extendedProps.category}</p>
                       </div>

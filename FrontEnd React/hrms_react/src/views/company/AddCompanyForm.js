@@ -1,35 +1,32 @@
-import React, { useState } from 'react';
-import CompanyApiService from '../../services/company.api';
+import React, { useState } from 'react'
+import CompanyApiService from '../../services/company.api'
 import '../../scss/addCompany.css'
 
-
 const AddCompanyForm = () => {
-  const [companyName, setCompanyName] = useState('');
-  const [companyEmail, setCompanyEmail] = useState('');
-  const [companyContact, setCompanyContact] = useState('');
-
+  const [companyName, setCompanyName] = useState('')
+  const [companyEmail, setCompanyEmail] = useState('')
+  const [companyContact, setCompanyContact] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const companyData = {
       companyName,
       companyEmail,
-      companyContact
-    };
-    try {
-      await CompanyApiService.addCompany(companyData);
-      setCompanyName('');
-      setCompanyEmail('');
-      setCompanyContact('');
-    } catch (error) {
-      console.error('Failed to add company:', error);
+      companyContact,
     }
-  };
+    try {
+      await CompanyApiService.addCompany(companyData)
+      setCompanyName('')
+      setCompanyEmail('')
+      setCompanyContact('')
+    } catch (error) {
+      console.error('Failed to add company:', error)
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit} className="add-company-form">
-    
-    <h3>Add Company</h3>
+      <h3>Add Company</h3>
       <input
         type="text"
         placeholder="Company Name"
@@ -53,7 +50,7 @@ const AddCompanyForm = () => {
       />
       <button type="submit">Add Company</button>
     </form>
-  );
-};
+  )
+}
 
-export default AddCompanyForm;
+export default AddCompanyForm
