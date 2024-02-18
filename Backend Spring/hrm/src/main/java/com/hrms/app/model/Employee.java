@@ -15,10 +15,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 //to generate getter and setters 
-@Data  
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "employees") 
+@Document(collection = "employees")
 @ToString
 public class Employee {
 	//primary key 

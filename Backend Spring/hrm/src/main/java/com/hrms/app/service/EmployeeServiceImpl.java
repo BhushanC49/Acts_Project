@@ -41,8 +41,8 @@ public class EmployeeServiceImpl {
 	@Autowired
 	private ModelMapper mapper;
 	
-//	@Autowired
-//	private PasswordEncoder encoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public EmployeeDto addEmployee(EmployeeRequest empReq) {
 		// validate password and confirm password 
@@ -56,6 +56,7 @@ public class EmployeeServiceImpl {
 			Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 			//empReq.setPassword(encoder.encode(empReq.getPassword()));
 			Employee emp = mapper.map(empReq, Employee.class);
+			emp.setPassword(passwordEncoder.encode(emp.getPassword()));
 			emp.setDept(dept);
 			emp.setUserName(emp.getEmail()); 
 			emp.setCreatedOn(LocalDateTime.now());
