@@ -66,7 +66,9 @@ public class EventServiceImpl {
                 .map(event -> modelMapper.map(event, EventDto.class))
                 .collect(Collectors.toList());
     }
-  
+    public void deleteEvent(String id) {
+        eventRepository.deleteById(id);
+    }
  
     
     
