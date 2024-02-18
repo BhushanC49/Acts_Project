@@ -42,8 +42,7 @@ public class Employee {
 	private String contactNo; 
 	private int noticePeriod; 
 	private LocalDate lastWorkingDay;
-	private boolean empStatus; 
-	private String empAccesRole; 
+	private boolean empStatus;  
 	private int leaveBalance; 
 	private String manager;
 	private String userName;

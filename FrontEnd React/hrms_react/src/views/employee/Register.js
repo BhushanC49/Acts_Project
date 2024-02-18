@@ -20,8 +20,8 @@ import SalaryStructureService from '../../services/SalaryStructure.api'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
+// import useRedirect from '../pages/login/useRedirect'
+// import { useLocation } from 'react-router-dom'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
@@ -60,8 +60,8 @@ const Register = () => {
     bankAccountId: '',
   })
 
-  let { pathname } = useLocation()
-  useRedirect(pathname)
+  // let { pathname } = useLocation()
+  // useRedirect(pathname)
 
   const invalidLoginTost = (
     <CToast>

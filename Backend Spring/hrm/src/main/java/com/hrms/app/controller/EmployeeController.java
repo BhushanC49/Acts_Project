@@ -55,11 +55,13 @@ public class EmployeeController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getAllEmployeesPaginated(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "10", required = false) int pageSize){
+	public ResponseEntity<?> getAllEmployeesPaginated(@RequestParam(defaultValue = "0", required = true) int pageNumber,
+			@RequestParam(defaultValue = "5", required = true) int pageSize){ 
+		System.out.println("pageNumber ="+pageNumber + "pageSize ="+ pageSize);
 //		JwtClaimsSet u = (JwtClaimsSet)authUtils.getUsername();
 		System.out.println("LoggedInUserName" +authUtils.getUsername()); 
-		List<EmployeeDto> list=empService.getAllEmployees(pageNumber, pageSize); 
+		List<EmployeeDto> list=empService.getAllEmployees(--pageNumber, pageSize);  
+		System.out.println(list);
 		if(list.isEmpty()){
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} 
