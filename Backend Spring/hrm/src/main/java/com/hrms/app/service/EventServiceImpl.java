@@ -69,7 +69,5 @@ public class EventServiceImpl {
   
  
     
-    public void deleteEvent(String id) {
-        eventRepository.deleteById(id);
-    }
+    
 }
