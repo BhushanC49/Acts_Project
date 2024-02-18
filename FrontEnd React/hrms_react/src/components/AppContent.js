@@ -4,6 +4,7 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
+import Auth from './Auth'
 
 const AppContent = () => {
   return (
@@ -13,13 +14,15 @@ const AppContent = () => {
           {routes.map((route, idx) => {
             return (
               route.element && (
-                <Route
-                  key={idx}
-                  path={route.path}
-                  exact={route.exact}
-                  name={route.name}
-                  element={<route.element />}
-                />
+                <Route key={idx} element={<Auth allowedRoles={route.allowedRoles} />}>
+                  <Route
+                    key={idx}
+                    path={route.path}
+                    exact={route.exact}
+                    name={route.name}
+                    element={<route.element />}
+                  />
+                </Route>
               )
             )
           })}
