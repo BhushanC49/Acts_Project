@@ -2,7 +2,6 @@ package com.hrms.app.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +50,9 @@ public class EmployeeController {
 
 	@GetMapping("/{empId}")
 	public ResponseEntity<?> getEmployee(@PathVariable String empId){
-		//call service method for fetching an employee info 
-		return ResponseEntity.ok(empService.getEmployee(empId));
+		//call service method for fetching an employee info  
+		String username=authUtils.getUsername();
+		return ResponseEntity.ok(empService.getEmployee(username));
 	}
 	
 	@GetMapping
@@ -60,8 +60,9 @@ public class EmployeeController {
 			@RequestParam(defaultValue = "5", required = true) int pageSize){ 
 		System.out.println("pageNumber ="+pageNumber + "pageSize ="+ pageSize);
 //		JwtClaimsSet u = (JwtClaimsSet)authUtils.getUsername();
-		System.out.println("LoggedInUserName" +authUtils.getUsername()); 
-		List<EmployeeDto> list=empService.getAllEmployees(--pageNumber, pageSize);  
+		System.out.println("LoggedInUserName" +authUtils.getUsername());  
+		String username=authUtils.getUsername();
+		List<EmployeeDto> list=empService.getAllEmployees(--pageNumber, pageSize,username);  
 		System.out.println(list);
 		if(list.isEmpty()){
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

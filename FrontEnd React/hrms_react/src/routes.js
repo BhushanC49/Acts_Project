@@ -60,7 +60,7 @@ const routes = [
     element: applyOnDuty,
     allowedRoles: ['employee', 'manager', 'hr'],
   },
-  { path: '/attendance', name: 'Attendance', element: attendance, allowedRoles: [] },
+  { path: '/attendance', name: 'Attendance', element: attendance, allowedRoles: ['manager'] },
   {
     path: '/employees',
     name: 'Employee List',
