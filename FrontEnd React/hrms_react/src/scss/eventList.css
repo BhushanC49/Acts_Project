@@ -1,10 +1,17 @@
-/* event.css */
 
+.event-list-page {
+  padding: 20px;
+}
+
+.calendar-container {
+  max-width: 800px; /* Adjust the max width of the calendar container */
+  margin: 0 auto; /* Center the calendar container */
+}
 .event-item {
   border: 2px solid #ccc;
   border-radius: 12px;
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 40px; /* Increase padding */
+  margin-bottom: 40px; /* Increase margin */
   display: flex;
   align-items: center;
 }
@@ -25,7 +32,7 @@
 .event-item .event-image {
   width: 180px;
   border-radius: 12px;
-  margin-left: 500px; /* Push image to the right */
+  margin-left: 20px; /* Adjust image margin */
 }
 
 .modal {

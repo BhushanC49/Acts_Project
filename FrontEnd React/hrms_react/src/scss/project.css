@@ -29,13 +29,14 @@ button {
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 25px; /* Increase padding to make the button bigger */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px; /* Increase font size */
 }
 
+
 button:hover {
-  background-color: #0056b3;
+  background-color: #11ba41;
 }
 
 .error {

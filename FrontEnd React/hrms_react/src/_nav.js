@@ -400,6 +400,12 @@ const _nav = [
         name: 'View All Events',
         to: '/All-event',
       },
+      {
+        component: CNavItem,
+        name: 'Delete Event',
+        to: '/delete-event',
+      },
+
     ],
   },
   {

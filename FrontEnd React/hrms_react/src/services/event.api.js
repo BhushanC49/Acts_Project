@@ -24,11 +24,11 @@ export class EventApiService {
   }
   static async deleteEvent(eventId) {
     try {
-      await HttpClientService.delete(EventUrl.deleteEventUrl);
-      console.log(`Event with ID ${eventId} deleted successfully`);
+      await HttpClientService.delete(`${EventUrl.deleteEventUrl}/${eventId}`)
+      console.log(`Event with ID ${eventId} deleted successfully`)
     } catch (error) {
-      console.error(`Error deleting event with ID ${eventId}:`, error);
-      throw error;
+      console.error(`Error deleting event with ID ${eventId}:`, error)
+      throw error
     }
   }
 }

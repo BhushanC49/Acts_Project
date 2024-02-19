@@ -1,0 +1,49 @@
+
+
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; 
+}
+
+.event-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px; 
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.event-item p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.event-item img {
+  width: 100%;
+  max-height: 200px; /* Adjust the max height of the banner image */
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

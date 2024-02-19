@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { EventApiService } from '../../services/event.api';
-import Calendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import '../../scss/eventList.css';
+import React, { useEffect, useState } from 'react'
+import { EventApiService } from '../../services/event.api'
+import Calendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import '../../scss/eventList.css'
 
 const EventListPage = () => {
-  const [events, setEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [events, setEvents] = useState([])
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents()
+  }, [])
 
   const formatDate = (date) => {
-    if (!date) return '';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(date).toLocaleDateString(undefined, options);
-  };
+    if (!date) return ''
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(date).toLocaleDateString(undefined, options)
+  }
 
   const fetchEvents = async () => {
     try {
-      const eventsData = await EventApiService.getAllEvents();
-      console.log('Fetched events:', eventsData);
-      setEvents(eventsData.data);
+      const eventsData = await EventApiService.getAllEvents()
+      console.log('Fetched events:', eventsData)
+      setEvents(eventsData.data)
     } catch (error) {
-      console.error('Error fetching events:', error);
+      console.error('Error fetching events:', error)
     }
-  };
+  }
 
   const getBannerFromLocalStorage = (event) => {
     // Retrieve image data from localStorage using the unique key
-    const matchingKey = `event_${event.title}_${event.startDate}`;
-    const storedImage = localStorage.getItem(matchingKey);
-    return storedImage ? storedImage : null;
-  };
+    const matchingKey = `event_${event.title}_${event.startDate}`
+    const storedImage = localStorage.getItem(matchingKey)
+    return storedImage ? storedImage : null
+  }
 
   const eventArray = events.map((event) => ({
     title: event.title,
@@ -43,15 +43,15 @@ const EventListPage = () => {
     category: event.category,
     banner: event.bannerId ? getBannerFromLocalStorage(event) : null,
     ...event, // Add the rest of the event properties to access in the modal
-  }));
+  }))
 
   const handleEventClick = (eventClickInfo) => {
-    setSelectedEvent(eventClickInfo.event); // Set the selected event
-  };
+    setSelectedEvent(eventClickInfo.event) // Set the selected event
+  }
 
   const closeModal = () => {
-    setSelectedEvent(null); // Close the modal
-  };
+    setSelectedEvent(null) // Close the modal
+  }
 
   return (
     <div>
@@ -59,12 +59,14 @@ const EventListPage = () => {
       <div className="event-list">
         {events.length > 0 ? (
           <>
-            <Calendar
-              plugins={[dayGridPlugin]}
-              initialView="dayGridMonth"
-              events={eventArray}
-              eventClick={handleEventClick} // Handle event click
-            />
+            <div className="calendar-container">
+              <Calendar
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
+                events={eventArray}
+                eventClick={handleEventClick} // Handle event click
+              />
+            </div>
             {/* Modal or card to display event details */}
             {selectedEvent && (
               <div className="modal">
@@ -72,8 +74,8 @@ const EventListPage = () => {
                   <span
                     className="close"
                     onClick={(e) => {
-                      e.stopPropagation();
-                      closeModal();
+                      e.stopPropagation()
+                      closeModal()
                     }}
                   >
                     &times;
@@ -83,7 +85,12 @@ const EventListPage = () => {
                       <div className="event-info">
                         <h2>{selectedEvent.title}</h2>
                         <p>Start Date: {selectedEvent.start && formatDate(selectedEvent.start)}</p>
-                        <p>End Date: {selectedEvent.extendedProps.endDate && formatDate(selectedEvent.extendedProps.endDate)}</p>
+                        <p>
+                          End Date:
+                          {selectedEvent.extendedProps.endDate &&
+                            formatDate(selectedEvent.extendedProps.endDate)}
+                        </p>
+                        <p>Description: {selectedEvent.extendedProps.description}</p>
                         <p>Time: {selectedEvent.extendedProps.time}</p>
                         <p>Venue: {selectedEvent.extendedProps.venue}</p>
                         <p>Category: {selectedEvent.extendedProps.category}</p>
@@ -109,7 +116,7 @@ const EventListPage = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EventListPage;
+export default EventListPage

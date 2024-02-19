@@ -58,6 +58,7 @@ const AddEventForm = React.lazy(() => import('./views/event/AddEventForm'))
 const AddCompanyForm = React.lazy(() => import('./views/company/AddCompanyForm'))
 const ViewCompaniesPage = React.lazy(() => import('./views/company/ViewAllCompanies'))
 const EventListPage = React.lazy(() => import('./views/event/EventListPage'))
+const allEvents = React.lazy(() => import('./views/event/AllEvents'))
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
@@ -167,16 +168,46 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/leave', name: 'leave-form', element: leaveForm },
   { path: '/leave/leaveType', name: 'leave-form', element: leaveTypeForm },
-  { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
-  { path: '/Add-event', name: 'Event-form', element: AddEventForm },
-  { path: '/All-event', name: 'Event-form', element: EventListPage },
-  { path: '/update-employee/:empId', name: 'update-employee', element: updateEmployee },
+  {
+    path: '/Add-project',
+    name: 'Project-form',
+    element: AddProjectForm,
+    allowedRoles: ['manager', 'hr'],
+  },
+  {
+    path: '/Add-event',
+    name: 'Event-form',
+    element: AddEventForm,
+    allowedRoles: ['manager', 'hr', 'teamlead'],
+  },
+  {
+    path: '/All-event',
+    name: 'Event-form',
+    element: EventListPage,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
+  {
+    path: '/update-employee/:empId',
+    name: 'update-employee',
+    element: updateEmployee,
+  },
   { path: '/addHoliday', name: 'Add-Holiday', element: addHoliday },
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
-  { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
-  { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
+  {
+    path: '/Add-company',
+    name: 'Company-form',
+    element: AddCompanyForm,
+    allowedRoles: ['manager', 'hr', 'teamlead'],
+  },
+  {
+    path: '/All-companies',
+    name: 'Company-form',
+    element: ViewCompaniesPage,
+    allowedRoles: ['manager', 'hr', 'teamlead'],
+  },
   { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
   { path: '/Payslip', name: 'Payslip', element: Payslip },
+  { path: '/delete-event', name: 'Delete-Event', element: allEvents, allowedRoles: ['hr'] },
 ]
 
 export default routes
