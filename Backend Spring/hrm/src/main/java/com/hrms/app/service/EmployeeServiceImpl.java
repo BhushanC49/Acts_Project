@@ -1,7 +1,6 @@
 package com.hrms.app.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +27,7 @@ import com.hrms.app.request.LoginRequest;
 import com.hrms.app.request.UpdateEmpRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.EmployeeDto;
+import com.hrms.app.response.EmployeePageDto;
 
 @Service
 public class EmployeeServiceImpl {
@@ -76,11 +76,19 @@ public class EmployeeServiceImpl {
 
 	}
 
-	public EmployeeDto getEmployee(String userName) {
-		// get Employee by using empId 
+	public EmployeeDto getEmployee(String empId,String userName) {
+		// get Employee by using empId  
+		if(empId.equals("empId"))
+		{
 		System.out.println(userName);
 		Employee emp = empRepo.findByUserName(userName).orElseThrow(() -> new RuntimeException("Invalid Emp login!!!"));
 		return mapper.map(emp, EmployeeDto.class);
+		} 
+		else {
+			Employee emp = empRepo.findById(empId).orElseThrow(() -> new RuntimeException("Invalid Emp login!!!"));
+			return mapper.map(emp, EmployeeDto.class);
+		}
+		
 	}
 
 	public ApiResponse removeEmployee(String empId) {
@@ -112,7 +120,7 @@ public class EmployeeServiceImpl {
 		return mapper.map(emp, EmployeeDto.class);
 	}
 
-	public List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize, String username) {
+	public EmployeePageDto getAllEmployees(int pageNumber, int pageSize, String username) {
 		// Creates a PageRequest(imple class of Pageable : i/f for pagination)
 		// based upon page no n size
 		Optional<Employee> o = empRepo.findByUserName(username);
@@ -120,23 +128,30 @@ public class EmployeeServiceImpl {
 			Employee employee = o.get();
 			String desig = employee.getDesig(); 
 			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("createdOn").descending());
-			List<Employee> empList =null;
+			List<Employee> empList =null; 
+			long totalPages = 0;
 			// fetches the Page of Emps --> getContent() --> List<Emp> 
 			if("Manager".equalsIgnoreCase(desig)) { 
 				String managerId = employee.getEmpId();
 				Page<Employee> empl= empRepo.findByManager(managerId,pageable); 
 				empList=empl.getContent(); 
-				empl.getTotalPages();
+				totalPages=empl.getTotalPages();
 			}
-			else {
-				empList = empRepo.findAll(pageable).getContent();
-			}
-			return empList.stream().map((Employee emp) -> {
+			else { 
+				Page<Employee> empl= empRepo.findAll(pageable);
+				empList=empl.getContent(); 
+				totalPages=empl.getTotalPages();
+			} 
+			List<EmployeeDto> list= empList.stream().map((Employee emp) -> {
 				// Department dept=emp.getDept();
 				EmployeeDto empDto = mapper.map(emp, EmployeeDto.class);
 				// empDto.setDept(dept.getDeptName());
 				return empDto;
-			}).collect(Collectors.toList());
+			}).collect(Collectors.toList()); 
+			EmployeePageDto paginatedEmployees=new EmployeePageDto(); 
+			paginatedEmployees.setEmployeeList(list); 
+			paginatedEmployees.setTotalPages((int)totalPages);
+			return paginatedEmployees;
 		}
 		else {
 			throw new ResourceNotFoundException("employee not found");

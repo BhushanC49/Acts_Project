@@ -23,6 +23,7 @@ import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.request.UpdateEmpRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.EmployeeDto;
+import com.hrms.app.response.EmployeePageDto;
 import com.hrms.app.service.EmployeeServiceImpl;
 import com.hrms.app.utils.AuthUtils;
 
@@ -52,7 +53,7 @@ public class EmployeeController {
 	public ResponseEntity<?> getEmployee(@PathVariable String empId){
 		//call service method for fetching an employee info  
 		String username=authUtils.getUsername();
-		return ResponseEntity.ok(empService.getEmployee(username));
+		return ResponseEntity.ok(empService.getEmployee(empId,username));
 	}
 	
 	@GetMapping
@@ -62,12 +63,12 @@ public class EmployeeController {
 //		JwtClaimsSet u = (JwtClaimsSet)authUtils.getUsername();
 		System.out.println("LoggedInUserName" +authUtils.getUsername());  
 		String username=authUtils.getUsername();
-		List<EmployeeDto> list=empService.getAllEmployees(--pageNumber, pageSize,username);  
-		System.out.println(list);
-		if(list.isEmpty()){
+		EmployeePageDto paginatedEmployees=empService.getAllEmployees(--pageNumber, pageSize,username);  
+		System.out.println(paginatedEmployees);
+		if(paginatedEmployees==null){
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} 
-		return ResponseEntity.ok(list);
+		return ResponseEntity.ok(paginatedEmployees);
 	}
 	
 	@PutMapping("/{empId}")

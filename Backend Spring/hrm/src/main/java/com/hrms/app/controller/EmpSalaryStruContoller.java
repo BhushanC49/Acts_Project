@@ -25,6 +25,7 @@ public class EmpSalaryStruContoller {
 	@PostMapping
 	public ResponseEntity<?> createEmpSalaryStru(@RequestBody EmpSalaryStruRequest salReq) {
 		System.out.println("in EmpSalaryStru controller");
+		System.out.println(salService.addEmpSalaryStru(salReq));
 		return ResponseEntity.status(HttpStatus.CREATED).body(salService.addEmpSalaryStru(salReq));
 	}
 

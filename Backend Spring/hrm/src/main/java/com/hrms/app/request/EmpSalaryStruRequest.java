@@ -10,13 +10,16 @@ public class EmpSalaryStruRequest {
 	
 	private String salId;
 	private String empId;
-	private String bankAccId; 
+	private String bankAccountId; 
 	private double basicSalary;
 	private double medicalAllowance; 
 	private double conventionalAllowance; 
-	private double deduction;
-	private double iTax;
+	private double professionTax; 
+	private double providuntFund;
+	private double tds; 
+	private double hra;
 	private double grossSalary;
 	private double netSalary;
-	private LocalDate effectiveFromDate;
+	
+	
 }

@@ -31,6 +31,7 @@ import avatar8 from './../../assets/images/avatars/8.jpg'
 function EmployeeList(props) {
   const [employees, setEmployees] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const [pageSize, setPageSize] = useState(5)
   const [toast, addToast] = useState(0)
   const toaster = useRef()
@@ -54,7 +55,10 @@ function EmployeeList(props) {
   }
   const fetchEmployees = (pageNumber, pageCount) => {
     EmployeeApiService.fetchEmployees(pageNumber, pageCount)
-      .then((data) => setEmployees(data))
+      .then((data) => {
+        setEmployees(data.employeeList)
+        setTotalPages(data.totalPages)
+      })
       .catch((error) => {
         addToast(invalidToast)
         console.error('Error setting employees:', error)
@@ -165,29 +169,33 @@ function EmployeeList(props) {
           </CCard>
         </CCol>
       </CRow>
-      <CPagination aria-label="Page navigation example">
-        <CPaginationItem
-          onClick={() => handlePaginationClick(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </CPaginationItem>
-        {[1, 2, 3].map((page) => (
+      {!props.flag ? (
+        <CPagination aria-label="Page navigation example">
           <CPaginationItem
-            key={page}
-            onClick={() => handlePaginationClick(page)}
-            active={page === currentPage}
+            onClick={() => handlePaginationClick(currentPage - 1)}
+            disabled={currentPage === 1}
           >
-            {page}
+            Previous
           </CPaginationItem>
-        ))}
-        <CPaginationItem
-          onClick={() => handlePaginationClick(currentPage + 1)}
-          disabled={currentPage === 3}
-        >
-          Next
-        </CPaginationItem>
-      </CPagination>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+            <CPaginationItem
+              key={page}
+              onClick={() => handlePaginationClick(page)}
+              active={page === currentPage}
+            >
+              {page}
+            </CPaginationItem>
+          ))}
+          <CPaginationItem
+            onClick={() => handlePaginationClick(currentPage + 1)}
+            disabled={currentPage === 3}
+          >
+            Next
+          </CPaginationItem>
+        </CPagination>
+      ) : (
+        ''
+      )}
       <CToaster ref={toaster} push={toast} placement="top-end" />
     </>
   )

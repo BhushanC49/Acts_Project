@@ -69,15 +69,15 @@ const Register = () => {
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
       </CToastHeader>
-      <CToastBody> {success} </CToastBody>
+      <CToastBody> {errors} </CToastBody>
     </CToast>
   )
   const successToast = (
     <CToast>
       <CToastHeader closeButton>
-        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+        <div className="text-center fw-bold me-auto text-success fs-4">Success !</div>
       </CToastHeader>
-      <CToastBody>{errors}</CToastBody>
+      <CToastBody>{success}</CToastBody>
     </CToast>
   )
 

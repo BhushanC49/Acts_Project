@@ -21,16 +21,16 @@ public class EmpSalaryStructure {
 	@DBRef 
 	@Field("emp_id")
 	private Employee emp; 
-	private String bankAccId; 
+	private String bankAccountId; 
 	private double basicSalary;
 	private double medicalAllowance; 
 	private double conventionalAllowance; 
-	private double Tds;
+	private double tds;
 	private double professionTax;
 	private double grossSalary;
 	private double netSalary;
 	private double providuntFund;
 	private boolean recordStatus; 
-	private double HRA;
+	private double hra;
 	
 }
