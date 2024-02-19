@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import OnDutyService from '../../services/onduty.api'
 import '../../scss/onDutyList.css'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
 
 const OnDutyList = () => {
   const [onDutyList, setOnDutyList] = useState([])
   const [error, setError] = useState('')
-
-  let { pathname } = useLocation()
-  useRedirect(pathname)
 
   useEffect(() => {
     // const managerId = '65c859833a567a2bd3da2559'

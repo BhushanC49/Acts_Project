@@ -20,14 +20,15 @@ import SalaryStructureService from '../../services/SalaryStructure.api'
 import DepartmentService from '../../services/Department.api'
 import EmployeeService from '../../services/Employee.api'
 import DesiginationApiService from '../../services/Designation.api'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
+// import useRedirect from '../pages/login/useRedirect'
+// import { useLocation } from 'react-router-dom'
 
 const Register = () => {
   const [departmet, setDepartment] = useState([])
   const [flag, setflag] = useState(true)
   const [mangers, setMangers] = useState([])
   const [toast, addToast] = useState(0)
+  const [success, setSuccess] = useState('')
   const [errors, setErrors] = useState('')
   const toaster = useRef()
   const [designation, setdesignation] = useState([])
@@ -60,15 +61,23 @@ const Register = () => {
     bankAccountId: '',
   })
 
-  let { pathname } = useLocation()
-  useRedirect(pathname)
+  // let { pathname } = useLocation()
+  // useRedirect(pathname)
 
-  const invalidLoginTost = (
+  const invalidToast = (
     <CToast>
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
       </CToastHeader>
-      <CToastBody> {errors} </CToastBody>
+      <CToastBody> {success} </CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>{errors}</CToastBody>
     </CToast>
   )
 
@@ -143,11 +152,13 @@ const Register = () => {
           empId: responseData.empId || '', // Use responseData.empId if it exists, or an empty string if not
         }))
         alert(`Employee Added Successfully!`)
+        setSuccess('Employee added successfully')
+        addToast(successToast)
         setflag(false)
       })
       .catch((error) => {
         console.error('Error adding employee:', error.message)
-        addToast(invalidLoginTost)
+        addToast(invalidToast)
         setErrors(error.message)
         alert(`Oops! Error in Adding Employee`)
       })
@@ -159,11 +170,13 @@ const Register = () => {
     SalaryStructureService.addSalaryStru(salaryform)
       .then((responseData) => {
         console.log('Employee salary structure added successfully:', responseData)
+        setSuccess('EMployee salary structure added successfully')
+        addToast(successToast)
         alert(`Employee salary structure Added Successfully!`)
       })
       .catch((error) => {
         console.error('Error adding employee salary structure:', error.message)
-        addToast(invalidLoginTost)
+        addToast(invalidToast)
         setErrors(error.message)
         alert(`Oops! Error in Adding Employee salary structure`)
       })

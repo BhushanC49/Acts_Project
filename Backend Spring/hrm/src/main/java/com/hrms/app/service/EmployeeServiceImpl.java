@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,36 +33,36 @@ import com.hrms.app.response.EmployeeDto;
 public class EmployeeServiceImpl {
 	@Autowired
 	private IEmployeeRepository empRepo;
-	
+
 	@Autowired
 	private IDepartmentRepository deptRepo;
-	
+
 	@Autowired
 	private IProjectRepository proRepo;
 
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public EmployeeDto addEmployee(EmployeeRequest empReq) {
-		// validate password and confirm password 
-		Optional<Employee>  e=empRepo.findByUserName(empReq.getEmail()); 
-		if(e.isPresent())
-		{
-			throw new ApiException("Employee with Email id: "+ empReq.getEmail()+" Already registered");
+		// validate password and confirm password
+		Optional<Employee> e = empRepo.findByUserName(empReq.getEmail());
+		if (e.isPresent()) {
+			throw new ApiException("Employee with Email id: " + empReq.getEmail() + " Already registered");
 		}
 		if (empReq.getConfirmPassword().equals(empReq.getPassword())) {
-			// convert EmployeeRequest object to Employee 
-			Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
-			//empReq.setPassword(encoder.encode(empReq.getPassword()));
+			// convert EmployeeRequest object to Employee
+			Department dept = deptRepo.findById(empReq.getDept())
+					.orElseThrow(() -> new ResourceNotFoundException("invalid department"));
+			// empReq.setPassword(encoder.encode(empReq.getPassword()));
 			Employee emp = mapper.map(empReq, Employee.class);
 			emp.setPassword(passwordEncoder.encode(emp.getPassword()));
 			emp.setDept(dept);
-			emp.setUserName(emp.getEmail()); 
+			emp.setUserName(emp.getEmail());
 			emp.setCreatedOn(LocalDateTime.now());
-			emp.setUpdatedOn(LocalDateTime.now()); 
+			emp.setUpdatedOn(LocalDateTime.now());
 			emp.setLeaveBalance(24);
 			emp.setEmpStatus(true);
 			// save emp object in database
@@ -74,9 +76,10 @@ public class EmployeeServiceImpl {
 
 	}
 
-	public EmployeeDto getEmployee(String empId) {
-		// get Employee by using empId
-		Employee emp = empRepo.findById(empId).orElseThrow(() -> new RuntimeException("Invalid Emp ID!!!"));
+	public EmployeeDto getEmployee(String userName) {
+		// get Employee by using empId 
+		System.out.println(userName);
+		Employee emp = empRepo.findByUserName(userName).orElseThrow(() -> new RuntimeException("Invalid Emp login!!!"));
 		return mapper.map(emp, EmployeeDto.class);
 	}
 
@@ -90,18 +93,16 @@ public class EmployeeServiceImpl {
 	public EmployeeDto updateEmployee(UpdateEmpRequest empReq) {
 		// convert the empReq to employee
 		System.out.println(empReq);
-		Department dept=deptRepo.findById(empReq.getDept()).orElseThrow(() -> new ResourceNotFoundException("invalid department"));
+		Department dept = deptRepo.findById(empReq.getDept())
+				.orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 		Employee emp = mapper.map(empReq, Employee.class);
-		emp.setDept(dept); 
-		List<String> projectIds = empReq.getProjects();  
-		List<Project> projectList = projectIds.stream()
-				.map(proRepo::findById)
-				.filter(Optional::isPresent)
-				.map(Optional::get)
-				.collect(Collectors.toList()); 
+		emp.setDept(dept);
+		List<String> projectIds = empReq.getProjects();
+		List<Project> projectList = projectIds.stream().map(proRepo::findById).filter(Optional::isPresent)
+				.map(Optional::get).collect(Collectors.toList());
 		emp.setProjects(projectList);
-		emp.setUserName(emp.getEmail()); 
-		emp.setUpdatedOn(LocalDateTime.now()); 
+		emp.setUserName(emp.getEmail());
+		emp.setUpdatedOn(LocalDateTime.now());
 		emp.setLeaveBalance(24);
 		emp.setEmpStatus(true);
 		// update the emp using save method
@@ -111,23 +112,35 @@ public class EmployeeServiceImpl {
 		return mapper.map(emp, EmployeeDto.class);
 	}
 
-	public List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize) {
+	public List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize, String username) {
 		// Creates a PageRequest(imple class of Pageable : i/f for pagination)
 		// based upon page no n size
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		// fetches the Page of Emps --> getContent() --> List<Emp>
-		List<Employee> empList = empRepo.findAll(pageable).getContent();
-		return empList.stream().
-				map(
-						(Employee emp) -> 
-						{
-							//Department dept=emp.getDept();
-							EmployeeDto empDto=mapper.map(emp, EmployeeDto.class); 
-							//empDto.setDept(dept.getDeptName());
-							return empDto;
-						}
-					)
-				.collect(Collectors.toList());
+		Optional<Employee> o = empRepo.findByUserName(username);
+		if (o.isPresent()) {
+			Employee employee = o.get();
+			String desig = employee.getDesig(); 
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("createdOn").descending());
+			List<Employee> empList =null;
+			// fetches the Page of Emps --> getContent() --> List<Emp> 
+			if("Manager".equalsIgnoreCase(desig)) { 
+				String managerId = employee.getEmpId();
+				Page<Employee> empl= empRepo.findByManager(managerId,pageable); 
+				empList=empl.getContent(); 
+				empl.getTotalPages();
+			}
+			else {
+				empList = empRepo.findAll(pageable).getContent();
+			}
+			return empList.stream().map((Employee emp) -> {
+				// Department dept=emp.getDept();
+				EmployeeDto empDto = mapper.map(emp, EmployeeDto.class);
+				// empDto.setDept(dept.getDeptName());
+				return empDto;
+			}).collect(Collectors.toList());
+		}
+		else {
+			throw new ResourceNotFoundException("employee not found");
+		}
 	}
 
 	public EmployeeDto authenticateUser(LoginRequest loginReq) {
@@ -140,15 +153,15 @@ public class EmployeeServiceImpl {
 //			return null;
 //		}
 		return mapper.map(emp, EmployeeDto.class);
-	} 
+	}
 //	public List<EmployeeDto> getEmployeeByDept(@PathVariable String deptId){
 //		return null;
 //	}
-	 
-	public List<EmployeeDto> getAllMangers(){
-		List<Employee> empList = empRepo.findByDesig("Manager"); 
+
+	public List<EmployeeDto> getAllMangers() {
+		List<Employee> empList = empRepo.findByDesig("Manager");
 		System.out.println(empList);
 		return empList.stream().map(emp -> mapper.map(emp, EmployeeDto.class)).collect(Collectors.toList());
 	}
-	
+
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import EmployeeApiService from '../../services/Employee.api'
 import { useNavigate } from 'react-router-dom'
 import '../../scss/employeelist.css'
@@ -20,23 +21,27 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CPagination,
+  CPaginationItem,
 } from '@coreui/react'
 import { cilPeople } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
+
 import avatar8 from './../../assets/images/avatars/8.jpg'
-function EmployeeList() {
+function EmployeeList(props) {
   const [employees, setEmployees] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(5)
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const navigate = useNavigate()
 
-  let { pathname } = useLocation()
-  useRedirect(pathname)
-
   const updateEmployee = (empId) => {
     navigate(`/update-employee/${empId}`)
+  }
+
+  const viewEmployee = (empId) => {
+    navigate(`/view-employee/${empId}`)
   }
 
   const deleteEmployee = (empId) => {
@@ -47,16 +52,17 @@ function EmployeeList() {
         console.error('Error setting employees:', error) // Log the error to the console
       })
   }
-
-  useEffect(() => {
-    //Fetch data from the server when the component mounts
-    EmployeeApiService.fetchEmployees()
+  const fetchEmployees = (pageNumber, pageCount) => {
+    EmployeeApiService.fetchEmployees(pageNumber, pageCount)
       .then((data) => setEmployees(data))
       .catch((error) => {
         addToast(invalidToast)
-        console.error('Error setting employees:', error) // Log the error to the console
+        console.error('Error setting employees:', error)
       })
-  }, [])
+  }
+  useEffect(() => {
+    fetchEmployees(currentPage, pageSize)
+  }, [currentPage, pageSize])
 
   const invalidToast = (
     <CToast>
@@ -66,7 +72,9 @@ function EmployeeList() {
       <CToastBody>Couldn&rsquo;t Fetch Details ! </CToastBody>
     </CToast>
   )
-
+  const handlePaginationClick = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
   return (
     <>
       <CRow>
@@ -109,29 +117,45 @@ function EmployeeList() {
                         <div>{employee.leaveBalance}</div>
                       </CTableDataCell>
                       <CTableDataCell>
-                        <span>
-                          <CButton
-                            type="button"
-                            color="success"
-                            onClick={() => {
-                              updateEmployee(employee.empId)
-                            }}
-                          >
-                            Update
-                          </CButton>
-                        </span>
-                        <span>&nbsp;&nbsp;</span>
-                        <span>
-                          <CButton
-                            type="button"
-                            color="danger"
-                            onClick={() => {
-                              deleteEmployee(employee.empId)
-                            }}
-                          >
-                            Delete
-                          </CButton>
-                        </span>
+                        {props.flag ? (
+                          <span>
+                            <CButton
+                              type="button"
+                              color="primary"
+                              onClick={() => {
+                                viewEmployee(employee.empId)
+                              }}
+                            >
+                              View
+                            </CButton>
+                          </span>
+                        ) : (
+                          <span>
+                            <span>
+                              <CButton
+                                type="button"
+                                color="success"
+                                onClick={() => {
+                                  updateEmployee(employee.empId)
+                                }}
+                              >
+                                Update
+                              </CButton>
+                            </span>
+                            <span>&nbsp;&nbsp;</span>
+                            <span>
+                              <CButton
+                                type="button"
+                                color="danger"
+                                onClick={() => {
+                                  deleteEmployee(employee.empId)
+                                }}
+                              >
+                                Delete
+                              </CButton>
+                            </span>
+                          </span>
+                        )}
                       </CTableDataCell>
                     </CTableRow>
                   ))}
@@ -141,9 +165,36 @@ function EmployeeList() {
           </CCard>
         </CCol>
       </CRow>
+      <CPagination aria-label="Page navigation example">
+        <CPaginationItem
+          onClick={() => handlePaginationClick(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </CPaginationItem>
+        {[1, 2, 3].map((page) => (
+          <CPaginationItem
+            key={page}
+            onClick={() => handlePaginationClick(page)}
+            active={page === currentPage}
+          >
+            {page}
+          </CPaginationItem>
+        ))}
+        <CPaginationItem
+          onClick={() => handlePaginationClick(currentPage + 1)}
+          disabled={currentPage === 3}
+        >
+          Next
+        </CPaginationItem>
+      </CPagination>
       <CToaster ref={toaster} push={toast} placement="top-end" />
     </>
   )
+}
+
+EmployeeList.propTypes = {
+  flag: PropTypes.bool.isRequired,
 }
 
 export default EmployeeList

@@ -34,12 +34,10 @@ class EmployeeApiService {
     }
   }
 
-  async fetchEmployees() {
+  async fetchEmployees(pageNumber, pageSize) {
     try {
-      const url = EmployeeUrl.baseEmployeeUrl
-      let pageNumber = 1
-      let pageSize = 20
-      const response = await HttpClientService.get(url, pageNumber, pageSize)
+      const url = `${EmployeeUrl.baseEmployeeUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      const response = await HttpClientService.get(url, { pageNumber, pageSize })
       return response.data
     } catch (error) {
       console.error('Error fetching employees', error)

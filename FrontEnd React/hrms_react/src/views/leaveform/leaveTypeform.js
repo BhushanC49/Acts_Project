@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import '../../scss/leaveTypeform.css'
 import leaveTypeApi from 'src/services/leaveType.api'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
 
 const AddLeaveTypeForm = () => {
   const [leaveType, setLeaveType] = useState('')
   const [maxLeaves, setMaxLeaves] = useState('')
-
-  let { pathname } = useLocation()
-  useRedirect(pathname)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
