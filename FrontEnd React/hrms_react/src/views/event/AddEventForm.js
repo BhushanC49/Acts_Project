@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { EventUrl } from '../../urls/Event.url'
 import HttpClientService from '../../services/http-client.service'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import '../../scss/event.css'
 
 const AddEventForm = () => {
@@ -14,6 +15,27 @@ const AddEventForm = () => {
     category: '',
   })
   const [bannerFile, setBannerFile] = useState(null)
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>
+        Couldn&rsquo;t submit Form ! Please Check Details Before Submitting .{' '}
+      </CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>Your form has been submitted successfully.</CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
     // Load banner image from localStorage when component mounts
@@ -69,8 +91,10 @@ const AddEventForm = () => {
           'Content-Type': 'multipart/form-data', // Set Content-Type to multipart/form-data
         },
       })
+      addToast(successToast)
       console.log('Event added successfully')
     } catch (error) {
+      addToast(invalidToast)
       console.error('Failed to add event:', error)
     }
   }
@@ -90,105 +114,108 @@ const AddEventForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="main-form">
-      <fieldset className="event-form">
-        <h2>Add Event</h2>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={eventData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={eventData.description}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            value={eventData.startDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={eventData.endDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Event Time:</label>
-          <select id="time" name="time" value={eventData.time} onChange={handleChange} required>
-            <option value="">Select Time</option>
-            {generateTimeSlots().map((time, index) => (
-              <option key={index} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="venue">Event Venue:</label>
-          <input
-            type="text"
-            id="venue"
-            name="venue"
-            value={eventData.venue}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="category">Event Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={eventData.category}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="bannerFile">Upload Banner:</label>
-          <input
-            type="file"
-            id="bannerFile"
-            name="bannerFile"
-            onChange={handleFileChange}
-            accept="image/*"
-          />
-          {bannerFile && (
-            <img
-              src={typeof bannerFile === 'string' ? bannerFile : URL.createObjectURL(bannerFile)}
-              alt="Banner Preview"
-              style={{ width: '100px', height: '100px', marginTop: '10px' }}
+    <div>
+      <form onSubmit={handleSubmit} className="main-form">
+        <fieldset className="event-form">
+          <h2>Add Event</h2>
+          <div className="form-group">
+            <label htmlFor="title">Title:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={eventData.title}
+              onChange={handleChange}
+              required
             />
-          )}
-        </div>
-        <button type="submit">Add Event</button>
-      </fieldset>
-    </form>
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={eventData.description}
+              onChange={handleChange}
+              required
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="startDate">Start Date:</label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              value={eventData.startDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="endDate">End Date:</label>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              value={eventData.endDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="time">Event Time:</label>
+            <select id="time" name="time" value={eventData.time} onChange={handleChange} required>
+              <option value="">Select Time</option>
+              {generateTimeSlots().map((time, index) => (
+                <option key={index} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="venue">Event Venue:</label>
+            <input
+              type="text"
+              id="venue"
+              name="venue"
+              value={eventData.venue}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="category">Event Category:</label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              value={eventData.category}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="bannerFile">Upload Banner:</label>
+            <input
+              type="file"
+              id="bannerFile"
+              name="bannerFile"
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+            {bannerFile && (
+              <img
+                src={typeof bannerFile === 'string' ? bannerFile : URL.createObjectURL(bannerFile)}
+                alt="Banner Preview"
+                style={{ width: '100px', height: '100px', marginTop: '10px' }}
+              />
+            )}
+          </div>
+          <button type="submit">Add Event</button>
+        </fieldset>
+      </form>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
+    </div>
   )
 }
 

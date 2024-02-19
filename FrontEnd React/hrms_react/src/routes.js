@@ -10,6 +10,7 @@ const AddEventForm = React.lazy(() => import('./views/event/AddEventForm'))
 const AddCompanyForm = React.lazy(() => import('./views/company/AddCompanyForm'))
 const ViewCompaniesPage = React.lazy(() => import('./views/company/ViewAllCompanies'))
 const EventListPage = React.lazy(() => import('./views/event/EventListPage'))
+const allEvents = React.lazy(() => import('./views/event/AllEvents'))
 const employeeList = React.lazy(() => import('./views/employee/employee-list'))
 const Register = React.lazy(() => import('./views/employee/Register'))
 const attendance = React.lazy(() => import('./views/attendance/attendance-form'))
@@ -52,7 +53,7 @@ const routes = [
     path: '/leave/leave-approval',
     name: 'Leave Approval',
     element: leaveApproval,
-    allowedRoles: [],
+    allowedRoles: ['manager', 'hr', 'teamlead'],
   },
   {
     path: '/onduty',
@@ -73,7 +74,12 @@ const routes = [
     element: Register,
     allowedRoles: ['manager', 'hr', 'admin'],
   },
-  { path: '/registerDept', name: 'Add Department', element: addDepartment },
+  {
+    path: '/registerDept',
+    name: 'Add Department',
+    element: addDepartment,
+    allowedRoles: ['hr', 'admin'],
+  },
   {
     path: '/dashboard',
     name: 'Dashboard',
@@ -81,24 +87,84 @@ const routes = [
     allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
   },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/leave', name: 'leave-form', element: leaveForm },
-  { path: '/leave/leaveType', name: 'leave-form', element: leaveTypeForm },
-  { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/Add-project', name: 'Project-form', element: AddProjectForm },
-  { path: '/Add-event', name: 'Event-form', element: AddEventForm },
-  { path: '/All-event', name: 'Event-form', element: EventListPage },
-  { path: '/update-employee/:empId', name: 'update-employee', element: updateEmployee },
-  { path: '/addHoliday', name: 'Add-Holiday', element: addHoliday },
-  { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
-  { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
-  { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
   {
-    path: '/view-employee/:empId',
-    name: 'view-employee',
-    element: viewEmployee,
+    path: '/leave',
+    name: 'leave-form',
+    element: leaveForm,
     allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
   },
-  { path: '/Payslip', name: 'Payslip', element: Payslip },
+  {
+    path: '/leave/leaveType',
+    name: 'leave-form',
+    element: leaveTypeForm,
+    allowedRoles: ['hr'],
+  },
+  {
+    path: '/Add-project',
+    name: 'Project-form',
+    element: AddProjectForm,
+    allowedRoles: ['manager'],
+  },
+  {
+    path: '/Add-event',
+    name: 'Event-form',
+    element: AddEventForm,
+    allowedRoles: ['hr'],
+  },
+  {
+    path: '/All-event',
+    name: 'Event-form',
+    element: EventListPage,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
+  {
+    path: '/update-employee/:empId',
+    name: 'update-employee',
+    element: updateEmployee,
+    allowedRoles: ['manager', 'hr', 'employee'],
+  },
+  {
+    path: '/addHoliday',
+    name: 'Add-Holiday',
+    element: addHoliday,
+    allowedRoles: ['hr'],
+  },
+  {
+    path: '/getHolidays',
+    name: 'Get-Holidays',
+    element: getHolidays,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
+  {
+    path: '/Add-company',
+    name: 'Company-form',
+    element: AddCompanyForm,
+    allowedRoles: ['manager', 'hr', 'admin'],
+  },
+  {
+    path: '/All-companies',
+    name: 'Company-form',
+    element: ViewCompaniesPage,
+    allowedRoles: ['manager', 'hr', 'teamlead', 'admin'],
+  },
+  {
+    path: '/view-employee',
+    name: 'view-employee',
+    element: viewEmployee,
+    allowedRoles: ['manager', 'hr', 'admin'],
+  },
+  {
+    path: '/Payslip',
+    name: 'Payslip',
+    element: Payslip,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
+  {
+    path: '/delete-event',
+    name: 'Delete-Event',
+    element: allEvents,
+    allowedRoles: ['hr'],
+  },
 ]
 
 export default routes

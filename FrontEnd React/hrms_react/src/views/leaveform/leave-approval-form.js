@@ -17,6 +17,7 @@ const LeaveApproval = () => {
 
     LeaveService.fetchLeaves()
       .then((data) => {
+        console.log(data)
         setLeaveData(data)
       })
       .catch((error) => {

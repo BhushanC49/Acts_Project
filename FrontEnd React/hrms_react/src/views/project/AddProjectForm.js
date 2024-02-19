@@ -31,23 +31,7 @@ const ProjectForm = () => {
     </CToast>
   )
   useEffect(() => {
-    // // Fetch companies from API
-    // const fetchCompanies = async () => {
-    //   try {
-    //     // Fetch companies from API
-    //     const response = await fetch(CompanyUrl.getAllCompanyUrl())
-    //     if (response.ok) {
-    //       const data = await response.json()
-    //       // Update state with fetched companies
-    //       setCompanies(data)
-    //     } else {
-    //       console.error('Failed to fetch companies')
-    //     }
-    //   } catch (error) {
-    //     console.error('An error occurred while fetching companies:', error)
-    //   }
-    // }
-    // fetchCompanies()
+   
     CompanyApiService.getCompaniesList()
       .then((data) => {
         console.log(data)

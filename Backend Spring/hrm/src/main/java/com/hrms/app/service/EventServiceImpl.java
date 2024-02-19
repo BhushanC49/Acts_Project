@@ -1,22 +1,15 @@
 package com.hrms.app.service;
 
 import java.io.IOException;
-
 import java.io.InputStream;
 import java.time.LocalTime;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hrms.app.model.Event;
@@ -66,6 +59,7 @@ public class EventServiceImpl {
                 .map(event -> modelMapper.map(event, EventDto.class))
                 .collect(Collectors.toList());
     }
+    
     public void deleteEvent(String id) {
         eventRepository.deleteById(id);
     }

@@ -1,39 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { EventApiService } from '../../services/event.api';
-import '../../scss/eventList.css';
+import React, { useEffect, useState, useRef } from 'react'
+import { EventApiService } from '../../services/event.api'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
+import '../../scss/allEvents.css'
 
 const AllEvents = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([])
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>Couldn&rsquo;t submit Form! Please check details before submitting.</CToastBody>
+    </CToast>
+  )
+
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success!</div>
+      </CToastHeader>
+      <CToastBody>Your form has been submitted successfully.</CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents()
+  }, [])
 
   const fetchEvents = async () => {
     try {
-      const eventsData = await EventApiService.getAllEvents();
-      console.log('Fetched events:', eventsData);
-      setEvents(eventsData.data);
+      const eventsData = await EventApiService.getAllEvents()
+      console.log('Fetched events:', eventsData)
+      setEvents(eventsData.data)
     } catch (error) {
-      console.error('Error fetching events:', error);
+      console.error('Error fetching events:', error)
     }
-  };
-
-  const getBannerFromLocalStorage = (eventTitle) => {
-    // Retrieve image data from localStorage using event title as key
-    return localStorage.getItem(eventTitle);
-  };
+  }
 
   const handleDeleteEvent = async (eventId) => {
     try {
       // Make API call to delete the event by its ID
-      await EventApiService.deleteEvent(eventId);
+      await EventApiService.deleteEvent(eventId)
       // Remove the deleted event from the state
-      setEvents(events.filter(event => event.id !== eventId));
+      setEvents(events.filter((event) => event.id !== eventId))
+      addToast(successToast)
     } catch (error) {
-      console.error('Error deleting event:', error);
+      console.error('Error deleting event:', error)
+      addToast(invalidToast)
     }
-  };
+  }
 
   return (
     <div>
@@ -48,12 +66,6 @@ const AllEvents = () => {
               <p>End Date: {event.endDate}</p>
               <p>Venue: {event.venue}</p>
               <p>Category: {event.category}</p>
-              {event.bannerId && (
-                <img
-                  src={getBannerFromLocalStorage(event.title)}
-                  alt={event.title}
-                />
-              )}
               <button className="delete-btn" onClick={() => handleDeleteEvent(event.id)}>
                 Delete
               </button>
@@ -63,8 +75,9 @@ const AllEvents = () => {
           <p>No events found</p>
         )}
       </div>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
     </div>
-  );
-};
+  )
+}
 
-export default AllEvents;
+export default AllEvents

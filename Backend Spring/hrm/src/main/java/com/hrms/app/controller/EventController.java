@@ -47,7 +47,7 @@ public class EventController {
     @DeleteMapping("/{eventId}")
     public ResponseEntity<?> deleteEvent(@PathVariable String eventId) {
         eventService.deleteEvent(eventId);
-        return ResponseEntity.noContent().build();
+       return ResponseEntity.noContent().build();
     }
     
  

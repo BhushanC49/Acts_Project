@@ -86,6 +86,7 @@ public class LeaveServiceImpl {
 					System.out.println("Exception in fetching leave list !");
 					throw new ResourceNotFoundException("Exception in fetching leave list !");
 				}
+				System.out.println(leaveList.get(0));
 				return leaveList;
 			} else {
 				// Handle non-manager or if leaves not scheduled here

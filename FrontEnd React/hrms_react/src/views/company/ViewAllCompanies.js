@@ -1,10 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import CompanyApiService from '../../services/company.api'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import '../../scss/companyList.css'
 
 const CompanyList = () => {
   const [companies, setCompanies] = useState([])
   const [selectedCompany, setSelectedCompany] = useState(null)
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>Failed Company deleted successfully.</CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody> Company deleted successfully.</CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
     fetchCompanies()
@@ -24,8 +44,10 @@ const CompanyList = () => {
       await CompanyApiService.removeCompany(companyId)
       const updatedCompanies = companies.filter((company) => company.id !== companyId)
       setCompanies(updatedCompanies)
+      addToast(successToast)
       fetchCompanies()
     } catch (error) {
+      addToast(invalidToast)
       console.error('Failed to delete company:', error)
     }
   }
@@ -35,7 +57,9 @@ const CompanyList = () => {
       await CompanyApiService.updateCompany(selectedCompany.comapanyId, selectedCompany)
       await fetchCompanies() // Wait for fetchCompanies to complete
       setSelectedCompany(null) // Set selectedCompany to null after updating the list
+      addToast(successToast)
     } catch (error) {
+      addToast(invalidToast)
       console.error('Failed to update company:', error)
     }
   }
@@ -111,6 +135,7 @@ const CompanyList = () => {
               Update
             </button>
           </form>
+          <CToaster ref={toaster} push={toast} placement="top-end" />
         </div>
       )}
     </div>

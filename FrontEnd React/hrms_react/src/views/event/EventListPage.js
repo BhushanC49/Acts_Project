@@ -7,6 +7,7 @@ import '../../scss/eventList.css'
 const EventListPage = () => {
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchEvents()
@@ -22,9 +23,14 @@ const EventListPage = () => {
     try {
       const eventsData = await EventApiService.getAllEvents()
       console.log('Fetched events:', eventsData)
-      setEvents(eventsData.data)
+      if (eventsData.data.length === 0) {
+        setError('No events found')
+      } else {
+        setEvents(eventsData.data)
+      }
     } catch (error) {
       console.error('Error fetching events:', error)
+      setError('Error fetching events')
     }
   }
 
@@ -57,8 +63,10 @@ const EventListPage = () => {
     <div>
       <h1>All Events</h1>
       <div className="event-list">
-        {events.length > 0 ? (
-          <>
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="calendar-container">
             <Calendar
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
@@ -84,10 +92,11 @@ const EventListPage = () => {
                         <h2>{selectedEvent.title}</h2>
                         <p>Start Date: {selectedEvent.start && formatDate(selectedEvent.start)}</p>
                         <p>
-                          End Date:{' '}
+                          End Date:
                           {selectedEvent.extendedProps.endDate &&
                             formatDate(selectedEvent.extendedProps.endDate)}
                         </p>
+                        <p>Description: {selectedEvent.extendedProps.description}</p>
                         <p>Time: {selectedEvent.extendedProps.time}</p>
                         <p>Venue: {selectedEvent.extendedProps.venue}</p>
                         <p>Category: {selectedEvent.extendedProps.category}</p>
@@ -107,9 +116,7 @@ const EventListPage = () => {
                 </div>
               </div>
             )}
-          </>
-        ) : (
-          <p>No events found</p>
+          </div>
         )}
       </div>
     </div>
