@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import EmployeeApiService from '../../services/Employee.api'
 import { useNavigate } from 'react-router-dom'
 import '../../scss/employeelist.css'
@@ -28,7 +29,7 @@ import CIcon from '@coreui/icons-react'
 import useRedirect from '../pages/login/useRedirect'
 import { useLocation } from 'react-router-dom'
 import avatar8 from './../../assets/images/avatars/8.jpg'
-function EmployeeList() {
+function EmployeeList(props) {
   const [employees, setEmployees] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
@@ -41,6 +42,10 @@ function EmployeeList() {
 
   const updateEmployee = (empId) => {
     navigate(`/update-employee/${empId}`)
+  }
+
+  const viewEmployee = (empId) => {
+    navigate(`/view-employee/${empId}`)
   }
 
   const deleteEmployee = (empId) => {
@@ -116,29 +121,45 @@ function EmployeeList() {
                         <div>{employee.leaveBalance}</div>
                       </CTableDataCell>
                       <CTableDataCell>
-                        <span>
-                          <CButton
-                            type="button"
-                            color="success"
-                            onClick={() => {
-                              updateEmployee(employee.empId)
-                            }}
-                          >
-                            Update
-                          </CButton>
-                        </span>
-                        <span>&nbsp;&nbsp;</span>
-                        <span>
-                          <CButton
-                            type="button"
-                            color="danger"
-                            onClick={() => {
-                              deleteEmployee(employee.empId)
-                            }}
-                          >
-                            Delete
-                          </CButton>
-                        </span>
+                        {props.flag ? (
+                          <span>
+                            <CButton
+                              type="button"
+                              color="primary"
+                              onClick={() => {
+                                viewEmployee(employee.empId)
+                              }}
+                            >
+                              View
+                            </CButton>
+                          </span>
+                        ) : (
+                          <span>
+                            <span>
+                              <CButton
+                                type="button"
+                                color="success"
+                                onClick={() => {
+                                  updateEmployee(employee.empId)
+                                }}
+                              >
+                                Update
+                              </CButton>
+                            </span>
+                            <span>&nbsp;&nbsp;</span>
+                            <span>
+                              <CButton
+                                type="button"
+                                color="danger"
+                                onClick={() => {
+                                  deleteEmployee(employee.empId)
+                                }}
+                              >
+                                Delete
+                              </CButton>
+                            </span>
+                          </span>
+                        )}
                       </CTableDataCell>
                     </CTableRow>
                   ))}
@@ -174,6 +195,10 @@ function EmployeeList() {
       <CToaster ref={toaster} push={toast} placement="top-end" />
     </>
   )
+}
+
+EmployeeList.propTypes = {
+  flag: PropTypes.bool.isRequired,
 }
 
 export default EmployeeList

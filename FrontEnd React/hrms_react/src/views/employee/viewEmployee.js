@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   CRow,
   CCol,
@@ -21,6 +22,7 @@ const ViewEmployee = () => {
   const boldTextStyle = {
     fontWeight: 'bold',
   }
+  const { empId } = useParams()
   const [employee, setEmployee] = useState({
     firstName: '',
     middleName: '',
@@ -38,10 +40,8 @@ const ViewEmployee = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab)
   }
-  let { pathname } = useLocation()
-  useRedirect(pathname)
   useEffect(() => {
-    EmployeeService.getSingleEmployees('65cf128cccdf6648e7860d6c')
+    EmployeeService.getSingleEmployees(empId)
       .then((data) => {
         console.log(data)
         setEmployee(data)

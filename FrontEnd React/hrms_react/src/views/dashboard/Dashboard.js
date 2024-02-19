@@ -294,7 +294,7 @@ const Dashboard = () => {
 
       <WidgetsBrand withCharts />
 
-      <EmployeeList></EmployeeList>
+      <EmployeeList flag={true}></EmployeeList>
     </>
   )
 }

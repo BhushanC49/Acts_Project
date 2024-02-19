@@ -67,7 +67,12 @@ const routes = [
     element: employeeList,
     allowedRoles: ['manager', 'hr'],
   },
-  { path: '/register', name: 'Add Employee', element: Register },
+  {
+    path: '/register',
+    name: 'Add Employee',
+    element: Register,
+    allowedRoles: ['manager', 'hr', 'admin'],
+  },
   { path: '/registerDept', name: 'Add Department', element: addDepartment },
   {
     path: '/dashboard',
@@ -87,7 +92,12 @@ const routes = [
   { path: '/getHolidays', name: 'Get-Holidays', element: getHolidays },
   { path: '/Add-company', name: 'Company-form', element: AddCompanyForm },
   { path: '/All-companies', name: 'Company-form', element: ViewCompaniesPage },
-  { path: '/view-employee', name: 'Get-Holidays', element: viewEmployee },
+  {
+    path: '/view-employee/:empId',
+    name: 'view-employee',
+    element: viewEmployee,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
   { path: '/Payslip', name: 'Payslip', element: Payslip },
 ]
 
