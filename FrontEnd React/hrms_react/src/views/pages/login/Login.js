@@ -22,7 +22,6 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { StorageService } from 'src/services'
-import useRedirect from './useRedirect'
 
 function Login() {
   const [username, setUsername] = useState('')
@@ -30,9 +29,6 @@ function Login() {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const navigate = useNavigate()
-
-  let { pathname } = useLocation()
-  let data = useRedirect(pathname)
 
   const navigateToDashboard = () => {
     navigate('/dashboard')

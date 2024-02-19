@@ -26,8 +26,7 @@ import {
 } from '@coreui/react'
 import { cilPeople } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
+
 import avatar8 from './../../assets/images/avatars/8.jpg'
 function EmployeeList(props) {
   const [employees, setEmployees] = useState([])
@@ -36,9 +35,6 @@ function EmployeeList(props) {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const navigate = useNavigate()
-
-  let { pathname } = useLocation()
-  useRedirect(pathname)
 
   const updateEmployee = (empId) => {
     navigate(`/update-employee/${empId}`)

@@ -12,8 +12,6 @@ import {
   CTabContent,
   CTabPane,
 } from '@coreui/react'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
 import EmployeeService from '../../services/Employee.api'
 
 const ViewEmployee = () => {

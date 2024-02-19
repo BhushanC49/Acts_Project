@@ -2,16 +2,12 @@ import React, { useRef, useState, useEffect } from 'react'
 import '../../scss/attendanceform.css'
 import AttendanceService from 'src/services/attendance.api'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
+
 export default function AttendanceForm() {
   const [currentDate, setCurrentDate] = useState('')
   const [presentDays, setPresentDays] = useState([])
   const [toast, addToast] = useState(0)
   const toaster = useRef()
-
-  let { pathname } = useLocation()
-  useRedirect(pathname)
 
   const successToast = (
     <CToast>
