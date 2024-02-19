@@ -61,7 +61,12 @@ const routes = [
     element: applyOnDuty,
     allowedRoles: ['employee', 'manager', 'hr'],
   },
-  { path: '/attendance', name: 'Attendance', element: attendance, allowedRoles: ['manager'] },
+  {
+    path: '/attendance',
+    name: 'Attendance',
+    element: attendance,
+    allowedRoles: ['manager', 'hr', 'admin', 'employee', 'teamlead'],
+  },
   {
     path: '/employees',
     name: 'Employee List',
@@ -148,7 +153,7 @@ const routes = [
     allowedRoles: ['manager', 'hr', 'teamlead', 'admin'],
   },
   {
-    path: '/view-employee',
+    path: '/view-employee/:empId',
     name: 'view-employee',
     element: viewEmployee,
     allowedRoles: ['manager', 'hr', 'admin'],

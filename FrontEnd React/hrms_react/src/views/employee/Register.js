@@ -69,7 +69,7 @@ const Register = () => {
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
       </CToastHeader>
-      <CToastBody> {errors} </CToastBody>
+      <CToastBody>Error Adding employee data</CToastBody>
     </CToast>
   )
   const successToast = (
@@ -77,7 +77,7 @@ const Register = () => {
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-success fs-4">Success !</div>
       </CToastHeader>
-      <CToastBody>{success}</CToastBody>
+      <CToastBody>Employee data added successfully</CToastBody>
     </CToast>
   )
 
@@ -151,13 +151,11 @@ const Register = () => {
           ...prevSalaryForm,
           empId: responseData.empId || '', // Use responseData.empId if it exists, or an empty string if not
         }))
-        alert(`Employee Added Successfully!`)
         setSuccess('Employee added successfully')
         addToast(successToast)
         setflag(false)
       })
       .catch((error) => {
-        console.error('Error adding employee:', error.message)
         addToast(invalidToast)
         setErrors(error.message)
         alert(`Oops! Error in Adding Employee`)
@@ -172,13 +170,11 @@ const Register = () => {
         console.log('Employee salary structure added successfully:', responseData)
         setSuccess('EMployee salary structure added successfully')
         addToast(successToast)
-        alert(`Employee salary structure Added Successfully!`)
       })
       .catch((error) => {
         console.error('Error adding employee salary structure:', error.message)
         addToast(invalidToast)
         setErrors(error.message)
-        alert(`Oops! Error in Adding Employee salary structure`)
       })
     console.log('Form submitted:', salaryform)
   }

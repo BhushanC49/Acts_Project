@@ -2,7 +2,7 @@ package com.hrms.app.model;
 
 public enum Designation {
 	TeamLead, 
-	DepartmentHead,
+	Admin,
 	Manager,
 	CEO,
 	Trainee,

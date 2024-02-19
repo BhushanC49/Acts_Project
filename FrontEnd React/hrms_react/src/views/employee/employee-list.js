@@ -33,6 +33,7 @@ function EmployeeList(props) {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [pageSize, setPageSize] = useState(5)
+  const [state, setState] = useState(0)
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const navigate = useNavigate()
@@ -47,7 +48,10 @@ function EmployeeList(props) {
 
   const deleteEmployee = (empId) => {
     EmployeeApiService.deleteEmployee(empId)
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data)
+        setState(state + 1)
+      })
       .catch((error) => {
         addToast(invalidToast)
         console.error('Error setting employees:', error) // Log the error to the console
@@ -66,7 +70,7 @@ function EmployeeList(props) {
   }
   useEffect(() => {
     fetchEmployees(currentPage, pageSize)
-  }, [currentPage, pageSize])
+  }, [currentPage, pageSize, state])
 
   const invalidToast = (
     <CToast>
