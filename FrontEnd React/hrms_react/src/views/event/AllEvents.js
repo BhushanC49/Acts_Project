@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { EventApiService } from '../../services/event.api'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import '../../scss/allEvents.css'
+
 const AllEvents = () => {
   const [events, setEvents] = useState([])
   const [toast, addToast] = useState(0)
@@ -12,15 +13,14 @@ const AllEvents = () => {
       <CToastHeader closeButton>
         <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
       </CToastHeader>
-      <CToastBody>
-        Couldn&rsquo;t submit Form ! Please Check Details Before Submitting .{' '}
-      </CToastBody>
+      <CToastBody>Couldn&rsquo;t submit Form! Please check details before submitting.</CToastBody>
     </CToast>
   )
+
   const successToast = (
     <CToast>
       <CToastHeader closeButton>
-        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success!</div>
       </CToastHeader>
       <CToastBody>Your form has been submitted successfully.</CToastBody>
     </CToast>
