@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react'
 import '../../scss/onDuty.css' // Import the CSS file
 import OnDutyApiService from 'src/services/onduty.api' // Import your API service
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
-import useRedirect from '../pages/login/useRedirect'
-import { useLocation } from 'react-router-dom'
 
 const OnDutyForm = () => {
   const [error, setError] = useState('')
@@ -16,9 +14,6 @@ const OnDutyForm = () => {
   })
   const [toast, addToast] = useState(0)
   const toaster = useRef()
-
-  let { pathname } = useLocation()
-  useRedirect(pathname)
 
   const invalidToast = (
     <CToast>
