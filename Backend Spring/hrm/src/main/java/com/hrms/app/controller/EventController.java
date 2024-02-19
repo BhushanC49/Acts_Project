@@ -44,6 +44,11 @@ public class EventController {
         List<EventDto> eventDtoList = eventService.getAllEvents();
         return eventDtoList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(eventDtoList);
     }
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<?> deleteEvent(@PathVariable String eventId) {
+        eventService.deleteEvent(eventId);
+        return ResponseEntity.noContent().build();
+    }
     
  
 
