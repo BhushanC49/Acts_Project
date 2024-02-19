@@ -1,9 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { EventApiService } from '../../services/event.api'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 import '../../scss/allEvents.css'
-
 const AllEvents = () => {
   const [events, setEvents] = useState([])
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>
+        Couldn&rsquo;t submit Form ! Please Check Details Before Submitting .{' '}
+      </CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>Your form has been submitted successfully.</CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
     fetchEvents()
@@ -25,8 +46,10 @@ const AllEvents = () => {
       await EventApiService.deleteEvent(eventId)
       // Remove the deleted event from the state
       setEvents(events.filter((event) => event.id !== eventId))
+      addToast(successToast)
     } catch (error) {
       console.error('Error deleting event:', error)
+      addToast(invalidToast)
     }
   }
 
@@ -52,6 +75,7 @@ const AllEvents = () => {
           <p>No events found</p>
         )}
       </div>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
     </div>
   )
 }

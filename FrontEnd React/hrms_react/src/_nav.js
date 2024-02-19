@@ -272,7 +272,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Employee',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
-    items: [ 
+    items: [
       {
         component: CNavItem,
         name: 'Add Employee',
@@ -400,7 +400,6 @@ const _nav = [
         name: 'Delete Event',
         to: '/delete-event',
       },
-
     ],
   },
   {
