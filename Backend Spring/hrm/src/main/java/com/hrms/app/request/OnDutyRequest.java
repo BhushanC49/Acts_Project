@@ -10,8 +10,7 @@ import lombok.Data;
 @Data
 public class OnDutyRequest {
 
-	@NotBlank
-	private String employeeId;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fromDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

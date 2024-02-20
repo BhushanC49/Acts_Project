@@ -92,7 +92,7 @@ public class OnDutyServiceImpl {
 		return new ApiResponse("Attendance marked for On Duty Form");
 	}
 
-	public ApiResponse recordOnDuty(OnDutyRequest onDutyReq) {
+	public ApiResponse recordOnDuty(String username, OnDutyRequest onDutyReq) {
 
 //		List<Optional<Attendance>> attendanceList = attendanceRepository
 //				.findByEmpidAndDateBetween(onDutyReq.getEmployeeId(), onDutyReq.getFromDate(), onDutyReq.getToDate());
@@ -105,7 +105,13 @@ public class OnDutyServiceImpl {
 //			});
 //		}
 		OnDuty onduty = new OnDuty();
-		onduty.setEmpId(onDutyReq.getEmployeeId());
+		Optional<Employee> o = empRepo.findByUserName(username);
+		if (o.isPresent()) {
+			Employee employee = o.get();
+			onduty.setEmpId(employee.getEmpId());
+
+		}
+
 		onduty.setFromDate(onDutyReq.getFromDate());
 		onduty.setToDate(onDutyReq.getToDate());
 		onduty.setComment(onDutyReq.getComment());
