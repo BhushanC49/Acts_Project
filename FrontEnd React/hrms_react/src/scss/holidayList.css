@@ -26,3 +26,10 @@ html, body {
 .holiday-name {
   text-align: center;
 }
+.holiday-marker {
+  background-color: red;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+

@@ -1,6 +1,5 @@
 package com.hrms.app.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hrms.app.model.Employee;
-import com.hrms.app.model.Leave;
-import com.hrms.app.request.EmployeeRequest;
 import com.hrms.app.request.LeaveRequest;
 import com.hrms.app.response.LeaveDto;
 import com.hrms.app.response.LeaveTypeDto;
@@ -36,7 +32,7 @@ public class LeaveController {
 	@Autowired
 	private AuthUtils authUtils;
 
-	@PutMapping("/leave-approval/{leaveId}")
+	@PutMapping("/{leaveId}")
 	public ResponseEntity<String> approveLeave(@PathVariable String leaveId) {
 		try {
 			leaveService.approveLeave(leaveId);
@@ -48,13 +44,15 @@ public class LeaveController {
 		}
 	}
 
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<?> getLeaveByManagerId() {
 		try {
+			System.out.println("fetching all leaves from controller");
 			String username=authUtils.getUsername();
 			List<LeaveDto> leaveList = leaveService.getLeavesList(username);
 			return new ResponseEntity<>(leaveList, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 

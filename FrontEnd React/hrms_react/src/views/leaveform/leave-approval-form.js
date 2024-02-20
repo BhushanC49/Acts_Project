@@ -1,11 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import LeaveService from 'src/services/leave.api'
 import '../../scss/leaveApproval.css'
+import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 
 const LeaveApproval = () => {
   const [leaveData, setLeaveData] = useState([])
   const [error, setError] = useState('')
   // const [managerId, setManagerId] = useState('')
+  const [toast, addToast] = useState(0)
+  const toaster = useRef()
+
+  const invalidToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>
+        Couldn&rsquo;t submit Form ! Please Check Details Before Submitting .{' '}
+      </CToastBody>
+    </CToast>
+  )
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+      </CToastHeader>
+      <CToastBody>Leave Approved!!</CToastBody>
+    </CToast>
+  )
 
   useEffect(() => {
     // Fetch leave data from the API when the component mounts
@@ -14,11 +36,14 @@ const LeaveApproval = () => {
 
   const fetchLeaveData = () => {
     // Call your API service to fetch leave data with managerId as a parameter
-
     LeaveService.fetchLeaves()
       .then((data) => {
-        console.log(data)
-        setLeaveData(data)
+        if (data.length === 0) {
+          setError('No leaves to Approve')
+        } else {
+          console.log(data)
+          setLeaveData(data)
+        }
       })
       .catch((error) => {
         setError('Error fetching leave data')
@@ -33,8 +58,11 @@ const LeaveApproval = () => {
         console.log('Leave approved:', response)
         // If you want to update the UI after approval, you can remove the approved leave from the list
         setLeaveData(leaveData.filter((leave) => leave.leaveId !== leaveId))
+        addToast(successToast)
+        setError('')
       })
       .catch((error) => {
+        addToast(invalidToast)
         setError('Error approving leave')
         console.error('Error approving leave:', error)
       })
@@ -58,7 +86,7 @@ const LeaveApproval = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Leave ID</th>
+              {/* <th>Leave ID</th> */}
               <th>Leave Type</th>
               <th>Leave Start Date</th>
               <th>Leave End Date</th>
@@ -71,8 +99,8 @@ const LeaveApproval = () => {
                 <td>
                   {leave.firstName} {leave.lastName}
                 </td>
-                <td>{leave.leaveId}</td>
-                <td>{leave.leaveType}</td>
+                {/* <td>{leave.leaveId}</td> */}
+                <td>{leave.leaveTypeId?.leaveType}</td>
                 <td>{leave.leaveStartOn}</td>
                 <td>{leave.leaveEndOn}</td>
                 <td>
@@ -83,6 +111,7 @@ const LeaveApproval = () => {
           </tbody>
         </table>
       </div>
+      <CToaster ref={toaster} push={toast} placement="top-end" />
     </div>
   )
 }
