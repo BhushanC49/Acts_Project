@@ -14,7 +14,7 @@ public class LeaveDto {
 
 	private String leaveId;
 
-	private String leaveType;
+	private LeaveType leaveTypeId;
 
 	private LocalDate leaveStartOn;
 

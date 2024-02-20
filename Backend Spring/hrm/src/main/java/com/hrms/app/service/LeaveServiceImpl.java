@@ -44,6 +44,7 @@ public class LeaveServiceImpl {
 			if (leave.isPresent()) {
 				Leave l = leave.get();
 				l.setLeaveStatus(true);
+				leaveRepository.save(l);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -65,29 +66,40 @@ public class LeaveServiceImpl {
 	}
 
 	public List<LeaveDto> getLeavesList(String username) {
+		System.out.println(username);
 		Optional<Employee> o = empRepo.findByUserName(username);
 		if (o.isPresent()) {
 			Employee employee = o.get();
 			String desig = employee.getDesig();
 			String managerId = employee.getEmpId();
+			
 			if ("MANAGER".equalsIgnoreCase(desig)) {
 				List<LeaveDto> leaveList = new ArrayList<>();
 				try {
+					System.out.println("inside try");
 					List<Employee> empList = empRepo.findByManager(managerId);
+					System.out.println(empList);
 					for (Employee emp : empList) {
 						String empId = emp.getEmpId();
-						Optional<Leave> leaveOpt = leaveRepository.findByEmpId(empId);
-						leaveOpt.ifPresent(leave -> {
+						System.out.println(empId);
+						 List<Leave> allLeaves = leaveRepository.findAllByEmpId(empId);
+						System.out.println(allLeaves);
+						allLeaves.forEach(leave -> {
 							LeaveDto leaveDto = mapper.map(leave, LeaveDto.class);
-							leaveList.add(leaveDto);
+							leaveDto.setFirstName(emp.getFirstName());
+						    leaveDto.setLastName(emp.getLastName());
+						    if(!leave.isLeaveStatus()) {
+						    	leaveList.add(leaveDto);
+						} 
 						});
 					}
 				} catch (Exception e) {
-					System.out.println("Exception in fetching leave list !");
+					//System.out.println("Exception in fetching leave list !");
+				
 					throw new ResourceNotFoundException("Exception in fetching leave list !");
 				}
-				System.out.println(leaveList.get(0));
-				return leaveList;
+				if(!leaveList.isEmpty())
+					return leaveList;
 			} else {
 				// Handle non-manager or if leaves not scheduled here
 				return Collections.emptyList();
