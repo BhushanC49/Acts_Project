@@ -23,7 +23,7 @@ import com.hrms.app.utils.AuthUtils;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/attendance")
+@RequestMapping("/attendance/")
 
 public class AttendanceController {
 
