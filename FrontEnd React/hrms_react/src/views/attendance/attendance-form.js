@@ -29,7 +29,7 @@ export default function AttendanceForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // Send data to backend
-    AttendanceService.markAttendance(currentDate)
+    AttendanceService.markAttendance(data)
       .then((res) => {
         // alert(`Your Attendance Is marked Successfully!`)
         addToast(successToast)
@@ -47,7 +47,9 @@ export default function AttendanceForm() {
     const formattedDate = date.toISOString().split('T')[0]
     setCurrentDate(formattedDate)
   }
-
+  const data = {
+    date: currentDate,
+  }
   // Fetch present days data when component mounts
   useEffect(() => {
     getCurrentDate()

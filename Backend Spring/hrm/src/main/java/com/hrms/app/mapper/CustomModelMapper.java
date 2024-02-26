@@ -19,7 +19,7 @@ public class CustomModelMapper {
     public ProjectDTO mapProjectToDTO(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setId(project.getProjectId());
-        projectDTO.setCompanyName(project.getCompany().getCompanyName());
+        //projectDTO.setCompanyName(project.getCompany().getCompanyName());
         projectDTO.setProjectTitle(project.getProjectTitle());
         // Map other fields as needed
         return projectDTO;

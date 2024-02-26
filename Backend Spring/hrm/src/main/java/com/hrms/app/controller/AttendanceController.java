@@ -33,11 +33,13 @@ public class AttendanceController {
 	@Autowired
 	private AuthUtils authUtils;
 
-	@PostMapping
-	public ResponseEntity<?> addAttendance(@Valid AttendanceRequest attendance) {
+	@PostMapping("/mark-attendance")
+	public ResponseEntity<?> addAttendance(AttendanceRequest attendance) {
 		try {
 			// calling LeaveService method for adding leave in db
-			LocalDate dt = attendance.getDate();
+			System.out.println("attendance");
+			LocalDate dt = attendance.getDate(); 
+			
 			String username = authUtils.getUsername();
 			return new ResponseEntity<>(attendanceService.markAttendance(dt, username), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -48,10 +50,11 @@ public class AttendanceController {
 
 	}
 
-	@GetMapping
-	public ResponseEntity<?> getAttendanceData(@Valid AttendanceRequest attendance) {
-		try {
-			LocalDate dt = attendance.getDate();
+	@GetMapping("/get-attendance")
+	public ResponseEntity<?> getAttendanceData() {
+		try { 
+			System.out.println("in get attendance");
+			LocalDate dt = LocalDate.now();
 			String username = authUtils.getUsername();
 			List<AttendanceDto> attendanceList = attendanceService.getAttendanceDate(dt, username);
 			return new ResponseEntity<>(attendanceList, HttpStatus.OK);
