@@ -30,12 +30,15 @@ public class OnDutyController {
 
 	@Autowired
 	private AuthUtils authUtils;
+	
+	
 
 	@PostMapping
 	public ResponseEntity<ApiResponse> insertOnDuty(@RequestBody @Valid OnDutyRequest onDutyReq) {
 		try {
 			// calling LeaveService method for adding leave in database
-			ApiResponse response = onDutyService.recordOnDuty(onDutyReq);
+			String username=authUtils.getUsername();
+			ApiResponse response = onDutyService.recordOnDuty(username, onDutyReq);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			System.out.println("Error in controller: " + e);

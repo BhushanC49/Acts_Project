@@ -6,7 +6,6 @@ import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 const OnDutyForm = () => {
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({
-    employeeId: '',
     fromDate: '',
     toDate: '',
     onDutyType: '',
@@ -45,7 +44,7 @@ const OnDutyForm = () => {
     e.preventDefault()
 
     // Validation
-    if (!formData.fromDate || !formData.toDate || !formData.onDutyType || !formData.employeeId) {
+    if (!formData.fromDate || !formData.toDate || !formData.onDutyType) {
       setError('All fields are required.')
       addToast(invalidToast)
       return
@@ -74,7 +73,6 @@ const OnDutyForm = () => {
         addToast(successToast)
         // Handle success response here
         setFormData({
-          employeeId: '',
           fromDate: '',
           toDate: '',
           onDutyType: '',
@@ -88,24 +86,13 @@ const OnDutyForm = () => {
       })
   }
 
-  const { employeeId, fromDate, toDate, onDutyType, comment } = formData
+  const { fromDate, toDate, onDutyType, comment } = formData
 
   return (
     <>
       <div className="form-box">
         <h1 className="form-title">Apply for On Duty</h1>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="employeeId">Employee ID:</label>
-            <input
-              type="text"
-              id="employeeId"
-              name="employeeId"
-              value={employeeId}
-              onChange={handleInputChange}
-            />
-          </div>
-
           <div className="form-group">
             <label htmlFor="fromDate">From Date:</label>
             <input
