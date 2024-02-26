@@ -67,7 +67,7 @@ public class AttendanceService {
 			if (e.isPresent()) {
 				Employee employee = e.get();
 				Attendance attendance = new Attendance();
-				attendance.setEmpid(employee);
+				attendance.setEmpid(employee.getEmpId());
 				attendance.setDate(date);
 				attendance.setPresent(true);
 				attendanceRepo.save(attendance);

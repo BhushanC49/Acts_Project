@@ -47,7 +47,7 @@ const routes = [
     path: '/onduty/onduty-list',
     name: 'Onduty Approval',
     element: onDutyList,
-    allowedRoles: ['employee', 'manager', 'hr'],
+    allowedRoles: ['manager', 'hr'],
   },
   {
     path: '/leave/leave-approval',
@@ -156,7 +156,7 @@ const routes = [
     path: '/view-employee/:empId',
     name: 'view-employee',
     element: viewEmployee,
-    allowedRoles: ['manager', 'hr', 'admin'],
+    allowedRoles: ['employee', 'manager', 'hr', 'admin'],
   },
   {
     path: '/Payslip',

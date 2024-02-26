@@ -15,8 +15,8 @@ public class Attendance {
 	@Id
 	private String attendanceId;
 
-	@DBRef
-	private Employee empid;
+//	@DBRef
+	private String empid;
 
 	private LocalDate date;
 	
