@@ -6,6 +6,7 @@ import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
 export default function AttendanceForm() {
   const [currentDate, setCurrentDate] = useState('')
   const [presentDays, setPresentDays] = useState([])
+  const [attendanceMarked, setAttendanceMarked] = useState(false)
   const [toast, addToast] = useState(0)
   const toaster = useRef()
 
@@ -25,20 +26,36 @@ export default function AttendanceForm() {
       <CToastBody>Error in Submitting attendance.</CToastBody>
     </CToast>
   )
+  const alreadyMarkedToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <div className="text-center fw-bold me-auto text-danger fs-4">Error</div>
+      </CToastHeader>
+      <CToastBody>Attendance for the day is already marked.</CToastBody>
+    </CToast>
+  )
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Send data to backend
-    AttendanceService.markAttendance(data)
-      .then((res) => {
-        // alert(`Your Attendance Is marked Successfully!`)
-        addToast(successToast)
-      })
-      .catch((err) => {
-        addToast(invalidToast)
-        alert(`An error occurred while submitting your request: ${err}`)
-      })
-    console.log('Form submitted:')
+
+    if (attendanceMarked === true) {
+      addToast(alreadyMarkedToast)
+      return
+    } else {
+      // Send data to backend
+      AttendanceService.markAttendance(currentDate)
+        .then((res) => {
+          // alert(`Your Attendance Is marked Successfully!`)
+          setAttendanceMarked(true)
+          fetchPresentDays()
+          addToast(successToast)
+        })
+        .catch((err) => {
+          addToast(invalidToast)
+          alert(`An error occurred while submitting your request: ${err}`)
+        })
+      console.log('Form submitted:')
+    }
   }
 
   // Function to get current date in 'YYYY-MM-DD' format
