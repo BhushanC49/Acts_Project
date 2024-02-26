@@ -4,6 +4,7 @@ import EmployeeApiService from '../../services/Employee.api'
 import { useNavigate } from 'react-router-dom'
 import '../../scss/employeelist.css'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
+import { AuthService } from '../../services/auth.service'
 import {
   CAvatar,
   CButton,
@@ -140,27 +141,53 @@ function EmployeeList(props) {
                         ) : (
                           <span>
                             <span>
-                              <CButton
-                                type="button"
-                                color="success"
-                                onClick={() => {
-                                  updateEmployee(employee.empId)
-                                }}
-                              >
-                                Update
-                              </CButton>
+                              {AuthService.getUsername() !== employee.email ? (
+                                <CButton
+                                  type="button"
+                                  color="success"
+                                  onClick={() => {
+                                    updateEmployee(employee.empId)
+                                  }}
+                                >
+                                  update
+                                </CButton>
+                              ) : (
+                                <CButton
+                                  type="button"
+                                  color="success"
+                                  disabled
+                                  onClick={() => {
+                                    updateEmployee(employee.empId)
+                                  }}
+                                >
+                                  update
+                                </CButton>
+                              )}
                             </span>
                             <span>&nbsp;&nbsp;</span>
                             <span>
-                              <CButton
-                                type="button"
-                                color="danger"
-                                onClick={() => {
-                                  deleteEmployee(employee.empId)
-                                }}
-                              >
-                                Delete
-                              </CButton>
+                              {AuthService.getUsername() !== employee.email ? (
+                                <CButton
+                                  type="button"
+                                  color="danger"
+                                  onClick={() => {
+                                    deleteEmployee(employee.empId)
+                                  }}
+                                >
+                                  Delete
+                                </CButton>
+                              ) : (
+                                <CButton
+                                  type="button"
+                                  color="danger"
+                                  disabled
+                                  onClick={() => {
+                                    deleteEmployee(employee.empId)
+                                  }}
+                                >
+                                  Delete
+                                </CButton>
+                              )}
                             </span>
                           </span>
                         )}
