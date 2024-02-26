@@ -28,7 +28,7 @@ function LeaveForm() {
   const successToast = (
     <CToast>
       <CToastHeader closeButton>
-        <div className="text-center fw-bold me-auto text-danger fs-4">Success !</div>
+        <div className="text-center fw-bold me-auto text-success fs-4">Success !</div>
       </CToastHeader>
       <CToastBody>Your form has been submitted successfully.</CToastBody>
     </CToast>

@@ -64,7 +64,9 @@ export default function AttendanceForm() {
     const formattedDate = date.toISOString().split('T')[0]
     setCurrentDate(formattedDate)
   }
-
+  const data = {
+    date: currentDate,
+  }
   // Fetch present days data when component mounts
   useEffect(() => {
     getCurrentDate()
