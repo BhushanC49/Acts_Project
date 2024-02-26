@@ -10,6 +10,5 @@ import com.hrms.app.model.Attendance;
 
 public interface IAttendanceRepository extends MongoRepository<Attendance, String> {
 
-	List<Optional<Attendance>> findByEmpidAndDateBetween(String empId, LocalDate startDate, LocalDate endDate);
-
+	List<Attendance> findByEmpidAndDateBetween(String empid, LocalDate startDate, LocalDate endDate);
 }

@@ -43,7 +43,10 @@ export default function AttendanceForm() {
       return
     } else {
       // Send data to backend
-      AttendanceService.markAttendance(currentDate)
+      const data = {
+        date: currentDate,
+      }
+      AttendanceService.markAttendance(data)
         .then((res) => {
           // alert(`Your Attendance Is marked Successfully!`)
           setAttendanceMarked(true)

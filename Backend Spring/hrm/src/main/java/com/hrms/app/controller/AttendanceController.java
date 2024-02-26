@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ import com.hrms.app.utils.AuthUtils;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/attendance/")
+@RequestMapping("/attendance")
 
 public class AttendanceController {
 
@@ -34,12 +35,12 @@ public class AttendanceController {
 	private AuthUtils authUtils;
 
 	@PostMapping("/mark-attendance")
-	public ResponseEntity<?> addAttendance(AttendanceRequest attendance) {
+	public ResponseEntity<?> addAttendance(@RequestBody AttendanceRequest attendance) {
 		try {
 			// calling LeaveService method for adding leave in db
 			System.out.println("attendance");
 			LocalDate dt = attendance.getDate(); 
-			
+			System.out.println(dt);
 			String username = authUtils.getUsername();
 			return new ResponseEntity<>(attendanceService.markAttendance(dt, username), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -54,7 +55,8 @@ public class AttendanceController {
 	public ResponseEntity<?> getAttendanceData() {
 		try { 
 			System.out.println("in get attendance");
-			LocalDate dt = LocalDate.now();
+			LocalDate dt = LocalDate.now(); 
+			System.out.println(dt);
 			String username = authUtils.getUsername();
 			List<AttendanceDto> attendanceList = attendanceService.getAttendanceDate(dt, username);
 			return new ResponseEntity<>(attendanceList, HttpStatus.OK);

@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.request.AttendanceRequest;
 import com.hrms.app.response.ApiResponse;
 import com.hrms.app.response.AttendanceDto;
+import com.hrms.app.response.EmployeeDto;
 
 @Service
 public class AttendanceService {
@@ -39,23 +41,33 @@ public class AttendanceService {
 				Employee emp = o.get();
 				String id = emp.getEmpId();
 				LocalDate startOfMonth = YearMonth.from(date).atDay(1);
-
+				System.out.println(id);
 				// Fetch attendance records for the user within the date range
-				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(id, startOfMonth,
-						date);
-
-				// Convert Attendance objects to AttendanceDto objects
-				List<AttendanceDto> attendanceDtoList = new ArrayList<>();
-				for (Optional<Attendance> attendance : attendanceList) {
-					attendance.ifPresent(a -> {
-						AttendanceDto attendanceDto = new AttendanceDto();
-						attendanceDto.setDate(a.getDate());
-						attendanceDtoList.add(attendanceDto);
-					});
-				}
-				return attendanceDtoList;
+//				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(id, startOfMonth,
+//						date);
+//				
+//				// Convert Attendance objects to AttendanceDto objects
+//				List<AttendanceDto> attendanceDtoList = new ArrayList<>();
+//				for (Optional<Attendance> attendance : attendanceList) {
+//					attendance.ifPresent(a -> {
+//						AttendanceDto attendanceDto = new AttendanceDto();
+//						attendanceDto.setDate(a.getDate());
+//						attendanceDtoList.add(attendanceDto);
+//					});
+//				} 
+				//System.out.println(attendanceDtoList + "attendance Dto list"); 
+				List<Attendance> attendanceList=attendanceRepo.findByEmpidAndDateBetween(id, startOfMonth,date); 
+				List<AttendanceDto> list= attendanceList.stream().map((Attendance attd) -> {
+					// Department dept=emp.getDept();
+					AttendanceDto attendance = mapper.map(attd, AttendanceDto.class); 
+					return attendance;
+				}).collect(Collectors.toList());  
+				System.out.println(list  + " Attedance list of employee");
+				return list;
 			}
-		} catch (Exception e) {
+		} catch (Exception e) { 
+			System.out.println("in catch of get attendance"+ e.getMessage()); 
+			e.printStackTrace();
 			throw new ApiException("Attendance Cannot be fetched ");
 		}
 		return new ArrayList<>(); // Return an empty list if something goes wrong
@@ -69,7 +81,8 @@ public class AttendanceService {
 				Attendance attendance = new Attendance();
 				attendance.setEmpid(employee.getEmpId());
 				attendance.setDate(date);
-				attendance.setPresent(true);
+				attendance.setPresent(true); 
+				System.out.println(attendance);
 				attendanceRepo.save(attendance);
 				return new ApiResponse("Attendance Marked");
 			} else {
