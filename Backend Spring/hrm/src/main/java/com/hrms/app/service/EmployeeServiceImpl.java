@@ -44,7 +44,10 @@ public class EmployeeServiceImpl {
 	private ModelMapper mapper;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder; 
+	
+	@Autowired
+	private SendGridEmailService emailService;
 
 	public EmployeeDto addEmployee(EmployeeRequest empReq) {
 		// validate password and confirm password
@@ -57,7 +60,8 @@ public class EmployeeServiceImpl {
 			Department dept = deptRepo.findById(empReq.getDept())
 					.orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 			// empReq.setPassword(encoder.encode(empReq.getPassword()));
-			Employee emp = mapper.map(empReq, Employee.class);
+			Employee emp = mapper.map(empReq, Employee.class); 
+			String password = emp.getPassword();
 			emp.setPassword(passwordEncoder.encode(emp.getPassword()));
 			emp.setDept(dept);
 			emp.setUserName(emp.getEmail());
@@ -67,8 +71,17 @@ public class EmployeeServiceImpl {
 			emp.setEmpStatus(true);
 			// save emp object in database
 			empRepo.save(emp);
-			System.out.println("Employee addes with id: " + emp.getEmpId());
+			System.out.println("Employee addes with id: " + emp.getEmpId()); 
+			String subject = "Account Registration Successful";
+			String content = "Dear " + emp.getFirstName() + " " + emp.getLastName() +
+			        ",\n\nThank you for registering! Your account has been successfully created.\n" +
+			        "\nYour login details are as follows:" +
+			        "\nUsername: " + emp.getUserName() +
+			        "\nPlease note that for security reasons, we do not include your password in this email." +
+			        "\nYou can set or reset your password by visiting our secure password recovery page." +
+			        "\n\nThank you for choosing our service!\n\nBest regards,\nThe CDAC Pune Team";
 
+			emailService.sendEmail("amar.d.phadatare@gmail.com",emp.getEmail(), subject, content);
 			return mapper.map(emp, EmployeeDto.class);
 		} else {
 			throw new ApiException("password doesnot match please re-enter password");

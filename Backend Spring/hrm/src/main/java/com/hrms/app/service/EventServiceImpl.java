@@ -3,6 +3,7 @@ package com.hrms.app.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,9 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hrms.app.model.Employee;
 import com.hrms.app.model.Event;
+import com.hrms.app.repo.IEmployeeRepository;
 import com.hrms.app.repo.IEventRepository;
 import com.hrms.app.request.EventRequest;
 import com.hrms.app.response.EventDto;
@@ -29,8 +32,12 @@ public class EventServiceImpl {
 
     @Autowired
     private GridFsTemplate gridFsTemplate;
-
-  
+    
+    @Autowired
+    private IEmployeeRepository empRepo; 
+    
+    @Autowired 
+    private SendGridEmailService emailService;
 
     public EventDto addEvent(EventRequest eventRequest, MultipartFile bannerFile) throws IOException {
         Event event = modelMapper.map(eventRequest, Event.class);
@@ -40,7 +47,29 @@ public class EventServiceImpl {
             event.setBannerId(fileId);
         }
 
-        event = eventRepository.save(event);
+        eventRepository.save(event); 
+        String subject = "Upcoming Event: " + event.getTitle();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a"); 
+        
+        List<Employee> emplist=empRepo.findAll(); 
+        emplist.forEach((emp) -> {
+        	String content = "Dear " + emp.getFirstName() + " " + emp.getLastName() +
+                    ",\n\nWe are excited to announce an upcoming event at [Your Company Name]!" +
+                    "\n\nEvent Details:" +
+                    "\nTitle: " + event.getTitle() +
+                    "\nDescription: " + event.getDescription() +
+                    "\nDate: " + event.getStartDate().format(dateFormatter) +
+                    (event.getEndDate() != null ? " to " + event.getEndDate().format(dateFormatter) : "") +
+                    "\nTime: " + event.getTime().format(timeFormatter) +
+                    "\nVenue: " + event.getVenue() +
+                    "\nCategory: " + event.getCategory() +
+                    "\n\nSave the date and join us for a wonderful time!" +
+                    "\n\nBest regards,\nThe CDAC Pune Team"; 
+        	emailService.sendEmail("amar.d.phadatare@gmail.com",emp.getEmail(), subject, content);
+        });
+        
+
         return modelMapper.map(event, EventDto.class);
     }
 
