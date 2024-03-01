@@ -72,16 +72,16 @@ public class OnDutyServiceImpl {
 				OnDuty o = onDuty.get();
 				o.setAccepted(true);
 				onDutyRepo.save(o);// check if it updates only the accepted true value
-				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(o.getEmpId(),
-						o.getFromDate(), o.getToDate());
-
-				for (Optional<Attendance> attendanceOpt : attendanceList) {// iterate through optional list
-					attendanceOpt.ifPresent(attendance -> {
-						attendance.setPresent(true); // Set isPresent to true
-						attendanceRepo.save(attendance); // Save the updated Attendance object
-
-					});
-				}
+//				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(o.getEmpId(),
+//						o.getFromDate(), o.getToDate());
+//
+//				for (Optional<Attendance> attendanceOpt : attendanceList) {// iterate through optional list
+//					attendanceOpt.ifPresent(attendance -> {
+//						attendance.setPresent(true); // Set isPresent to true
+//						attendanceRepo.save(attendance); // Save the updated Attendance object
+//
+//					});
+//				}
 
 			}
 

@@ -1,6 +1,8 @@
 package com.hrms.app.security;
 
 import org.springframework.context.annotation.Bean;
+import com.sendgrid.SendGrid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,5 +26,13 @@ public class BeanConfig {
 	@Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    } 
+	
+	@Value("${sendgrid.api.key}")
+    private String sendGridApiKey;
+
+    @Bean
+    public SendGrid sendGrid() {
+        return new SendGrid(sendGridApiKey);
     }
 }
