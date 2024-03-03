@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
+import 'react-calendar/dist/Calendar.css' // Import calendar styles
 import '../../scss/attendanceform.css'
 import AttendanceService from 'src/services/attendance.api'
 import { CToast, CToastBody, CToastHeader, CToaster } from '@coreui/react'
+import Calendar from 'react-calendar' // Import react-calendar component
 
 export default function AttendanceForm() {
-  const [currentDate, setCurrentDate] = useState('')
+  const [currentDate, setCurrentDate] = useState(new Date()) // Initialize currentDate with today's date
   const [presentDays, setPresentDays] = useState([])
   const [attendanceMarked, setAttendanceMarked] = useState(false)
   const [toast, addToast] = useState(0)
@@ -38,7 +40,10 @@ export default function AttendanceForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (attendanceMarked === true) {
+    const currentDateStr = `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`
+    if (presentDays.some((item) => item.date === currentDateStr)) {
       addToast(alreadyMarkedToast)
       return
     } else {
@@ -48,7 +53,6 @@ export default function AttendanceForm() {
       }
       AttendanceService.markAttendance(data)
         .then((res) => {
-          // alert(`Your Attendance Is marked Successfully!`)
           setAttendanceMarked(true)
           fetchPresentDays()
           addToast(successToast)
@@ -57,22 +61,11 @@ export default function AttendanceForm() {
           addToast(invalidToast)
           alert(`An error occurred while submitting your request: ${err}`)
         })
-      console.log('Form submitted:')
     }
   }
 
-  // Function to get current date in 'YYYY-MM-DD' format
-  const getCurrentDate = () => {
-    const date = new Date()
-    const formattedDate = date.toISOString().split('T')[0]
-    setCurrentDate(formattedDate)
-  }
-  const data = {
-    date: currentDate,
-  }
   // Fetch present days data when component mounts
   useEffect(() => {
-    getCurrentDate()
     fetchPresentDays()
   }, [])
 
@@ -88,40 +81,23 @@ export default function AttendanceForm() {
       })
   }
 
-  const renderCalendar = () => {
-    const currentDateObj = new Date(currentDate)
-    const daysInMonth = new Date(
-      currentDateObj.getFullYear(),
-      currentDateObj.getMonth() + 1,
-      0,
-    ).getDate()
-
-    const calendarDays = []
-    for (let i = 1; i <= daysInMonth; i++) {
-      const date = new Date(currentDateObj.getFullYear(), currentDateObj.getMonth(), i)
+  const renderTileContent = ({ date, view }) => {
+    // Function to render content in calendar tiles based on presentDays data
+    if (view === 'month') {
+      const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      const isPresent = presentDays.some((item) => item.date === dateString)
       const dayOfWeek = date.getDay()
-      const dateString = `${currentDateObj.getFullYear()}-${currentDateObj.getMonth() + 1}-${i}`
-      const isPresent = presentDays.includes(dateString)
-
-      let attendanceStatus = ''
+      let content = null
 
       // Check if it's a weekend (Saturday or Sunday)
       if (dayOfWeek === 0 || dayOfWeek === 6) {
-        attendanceStatus = 'H' // Mark weekends as holidays
-      } else if (isPresent) {
-        attendanceStatus = 'P' // Present days
-      } else if (date <= currentDateObj) {
-        attendanceStatus = 'A' // Mark previous days till current date as absent
+        content = <span className="holiday"></span>
+      } else {
+        content = <span className={`attendance-status ${isPresent ? 'present' : 'absent'}`}></span>
       }
 
-      calendarDays.push(
-        <div key={i} className={`calendar-day ${attendanceStatus}`}>
-          <span className="day-number">{i}</span>
-          <span className="attendance-status">{attendanceStatus}</span>
-        </div>,
-      )
+      return content
     }
-    return calendarDays
   }
 
   return (
@@ -129,9 +105,29 @@ export default function AttendanceForm() {
       <div className="attendance-form-container">
         <h1 className="form-title">Mark Attendance</h1>
         <div className="form-content">
-          <p className="current-date">Today&rsquo;s Date: {currentDate}</p>
           <form onSubmit={handleSubmit}>
-            <div className="calendar-container">{renderCalendar()}</div>
+            <div className="calendar-legend-container">
+              <div className="calendar-container">
+                <Calendar
+                  value={currentDate}
+                  onChange={setCurrentDate}
+                  tileContent={renderTileContent}
+                />
+              </div>
+              <div className="legend-container">
+                <div className="legend">
+                  <div className="legend-item">
+                    <span className="legend-color present"></span> Present
+                  </div>
+                  <div className="legend-item">
+                    <span className="legend-color absent"></span> Absent
+                  </div>
+                  <div className="legend-item">
+                    <span className="legend-color holiday"></span> Holiday
+                  </div>
+                </div>
+              </div>
+            </div>
             <br />
             <button type="submit" className="submit-button">
               Punch In
