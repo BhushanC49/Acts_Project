@@ -3,6 +3,7 @@ package com.hrms.app.service;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +42,14 @@ public class AttendanceService {
 				Employee emp = o.get();
 				String id = emp.getEmpId();
 				LocalDate startOfMonth = YearMonth.from(date).atDay(1);
+				LocalDate currentDate = LocalDate.now();
+		        YearMonth currentYearMonth = YearMonth.from(currentDate);
+
+		        LocalDate firstDayOfMonth = currentYearMonth.atDay(1);
+		        LocalDate lastDayOfMonth = currentYearMonth.atEndOfMonth();
+
+		        Date startDate = java.sql.Date.valueOf(firstDayOfMonth);
+		        Date endDate = java.sql.Date.valueOf(lastDayOfMonth.plusDays(1));
 				System.out.println(id);
 				// Fetch attendance records for the user within the date range
 //				List<Optional<Attendance>> attendanceList = attendanceRepo.findByEmpidAndDateBetween(id, startOfMonth,
@@ -56,7 +65,7 @@ public class AttendanceService {
 //					});
 //				} 
 				//System.out.println(attendanceDtoList + "attendance Dto list"); 
-				List<Attendance> attendanceList=attendanceRepo.findByEmpidAndDateBetween(id, startOfMonth,date); 
+				List<Attendance> attendanceList=attendanceRepo.findByEmpidAndDateBetween(id, startDate,endDate); 
 				List<AttendanceDto> list= attendanceList.stream().map((Attendance attd) -> {
 					// Department dept=emp.getDept();
 					AttendanceDto attendance = mapper.map(attd, AttendanceDto.class); 
