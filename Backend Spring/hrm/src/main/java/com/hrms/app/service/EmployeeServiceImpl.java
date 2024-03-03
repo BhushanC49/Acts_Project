@@ -114,6 +114,8 @@ public class EmployeeServiceImpl {
 	public EmployeeDto updateEmployee(UpdateEmpRequest empReq) {
 		// convert the empReq to employee
 		System.out.println(empReq);
+		Employee emp1=empRepo.findById(empReq.getEmpId())
+				.orElseThrow(() -> new ResourceNotFoundException("invalid employee id"));
 		Department dept = deptRepo.findById(empReq.getDept())
 				.orElseThrow(() -> new ResourceNotFoundException("invalid department"));
 		Employee emp = mapper.map(empReq, Employee.class);
@@ -124,7 +126,8 @@ public class EmployeeServiceImpl {
 		emp.setProjects(projectList);
 		emp.setUserName(emp.getEmail());
 		emp.setUpdatedOn(LocalDateTime.now());
-		emp.setLeaveBalance(24);
+		emp.setLeaveBalance(24); 
+		emp.setPassword(emp1.getPassword());
 		emp.setEmpStatus(true);
 		// update the emp using save method
 		System.out.println(emp);

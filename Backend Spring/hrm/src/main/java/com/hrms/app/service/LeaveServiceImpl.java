@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,20 @@ public class LeaveServiceImpl {
 			if (leave.isPresent()) {
 				Leave l = leave.get();
 				l.setLeaveStatus(true);
-				leaveRepository.save(l);
+				leaveRepository.save(l); 
+				Employee emp1=l.getEmpId();   
+				LocalDate date1=l.getLeaveStartOn(); 
+				LocalDate date2=l.getLeaveEndOn();
+				int daysDifference = (int)ChronoUnit.DAYS.between(date1, date2);  
+				System.out.println(daysDifference);
+				int lbalance=emp1.getLeaveBalance()-(daysDifference+1); 
+				System.out.println(lbalance);
+				emp1.setLeaveBalance(lbalance);  
+				System.out.println(emp1);
+				empRepo.save(emp1); 
+				Employee emp2=empRepo.findById(emp1.getEmpId())
+						.orElseThrow(() -> new ResourceNotFoundException("invalid employee id")); 
+				System.out.println(emp2);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
