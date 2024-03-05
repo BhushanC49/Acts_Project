@@ -104,6 +104,20 @@ export default function AttendanceForm() {
     <>
       <div className="attendance-form-container">
         <h1 className="form-title">Mark Attendance</h1>
+        <div className="legend-container">
+          <div className="legend">
+            <div className="legend-item">
+              <span className="legend-color present"></span> Present
+            </div>
+            <div className="legend-item">
+              <span className="legend-color absent"></span> Absent
+            </div>
+            <div className="legend-item">
+              <span className="legend-color holiday"></span> Holiday
+            </div>
+          </div>
+        </div>
+        <br></br>
         <div className="form-content">
           <form onSubmit={handleSubmit}>
             <div className="calendar-legend-container">
@@ -114,7 +128,7 @@ export default function AttendanceForm() {
                   tileContent={renderTileContent}
                 />
               </div>
-              <div className="legend-container">
+              {/* <div className="legend-container">
                 <div className="legend">
                   <div className="legend-item">
                     <span className="legend-color present"></span> Present
@@ -126,7 +140,7 @@ export default function AttendanceForm() {
                     <span className="legend-color holiday"></span> Holiday
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <br />
             <button type="submit" className="submit-button">
