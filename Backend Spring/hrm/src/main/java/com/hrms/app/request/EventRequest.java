@@ -18,7 +18,7 @@ public class EventRequest {
     private LocalDate endDate;
     private String eventTime;
     private String venue;
-    private MultipartFile bannerFile;
+    private byte[] bannerData;
     private String category;
     private boolean recordStatus;
 }

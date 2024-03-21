@@ -21,4 +21,5 @@ public class Event {
     private String venue;
     private String category;
     private String bannerId; // Field to store the ID of the associated image in GridFS
+    private byte[] bannerData;
 }

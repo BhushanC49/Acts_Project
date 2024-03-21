@@ -17,5 +17,5 @@ public class EventDto {
     private LocalTime time;
     private String venue;
     private String category;
-    private String bannerId;
+    private byte[] bannerData;
 }

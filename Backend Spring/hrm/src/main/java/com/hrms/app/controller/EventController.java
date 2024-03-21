@@ -27,27 +27,46 @@ public class EventController {
 
 	@Autowired
     private EventServiceImpl eventService;
+	
+	 @PostMapping("/add")
+	    public ResponseEntity<?> addEvent(@ModelAttribute EventRequest eventRequest,
+	                                      @RequestParam("bannerFile") MultipartFile bannerFile) {
+	        try {
+	            byte[] bannerData = bannerFile.getBytes(); // Convert MultipartFile to byte array
+	            EventDto eventDto = eventService.addEvent(eventRequest, bannerData); // Pass byte array to service
+	            return new ResponseEntity<>(eventDto, HttpStatus.CREATED);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return new ResponseEntity<>("Failed to add event: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+	    }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addEvent(@ModelAttribute EventRequest eventRequest,
-                                      @RequestParam("bannerFile") MultipartFile bannerFile) {
-        try {
-            EventDto eventDto = eventService.addEvent(eventRequest, bannerFile);
-            return new ResponseEntity<>(eventDto, HttpStatus.CREATED);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Failed to add event: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<?> addEvent(@ModelAttribute EventRequest eventRequest,
+//                                      @RequestParam("bannerFile") MultipartFile bannerFile) {
+//        try {
+//            EventDto eventDto = eventService.addEvent(eventRequest, bannerFile);
+//            return new ResponseEntity<>(eventDto, HttpStatus.CREATED);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>("Failed to add event: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+	 
+	 
     @GetMapping("/all")
     public ResponseEntity<?> getAllEvents() {
         List<EventDto> eventDtoList = eventService.getAllEvents();
         return eventDtoList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(eventDtoList);
     }
+    
+    
+    
     @DeleteMapping("/{eventId}")
     public ResponseEntity<?> deleteEvent(@PathVariable String eventId) {
         eventService.deleteEvent(eventId);
        return ResponseEntity.noContent().build();
+      
     }
     
  

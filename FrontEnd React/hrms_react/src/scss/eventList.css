@@ -1,38 +1,10 @@
-
 .event-list-page {
   padding: 20px;
 }
 
 .calendar-container {
-  max-width: 800px; /* Adjust the max width of the calendar container */
-  margin: 0 auto; /* Center the calendar container */
-}
-.event-item {
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  padding: 40px; /* Increase padding */
-  margin-bottom: 40px; /* Increase margin */
-  display: flex;
-  align-items: center;
-}
-
-.event-item h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-}
-
-.event-item p {
-  margin-bottom: 10px;
-}
-
-.event-item .event-details {
-  flex: 1;
-}
-
-.event-item .event-image {
-  width: 180px;
-  border-radius: 12px;
-  margin-left: 20px; /* Adjust image margin */
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .modal {
@@ -52,14 +24,14 @@
   padding: 30px;
   border: 2px solid #888;
   width: 90%;
-  max-width: 600px;
-  background-color: #fff; /* Add background color to modal content */
+  max-width: 800px;
+  background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  position: relative; /* Adjust position to allow absolute positioning of close button */
-  display: flex; /* Use Flexbox */
-  flex-direction: row; /* Arrange content in row */
-  align-items: center; /* Center children vertically */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .close {
@@ -76,4 +48,15 @@
 .close:focus {
   color: black;
   text-decoration: none;
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-image img {
+  max-width: 500px;
+  max-height: 200px;
+  border-radius: 12px;
+  margin-right: 40px;
 }

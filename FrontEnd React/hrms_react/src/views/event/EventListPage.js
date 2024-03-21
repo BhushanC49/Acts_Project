@@ -26,37 +26,39 @@ const EventListPage = () => {
       if (eventsData.data.length === 0) {
         setError('No events found')
       } else {
-        setEvents(eventsData.data)
+        const eventsWithImages = eventsData.data.map((event) => {
+          if (event.bannerData) {
+            return {
+              ...event,
+              bannerData: `data:image/png;base64,${event.bannerData}`,
+            }
+          } else {
+            return { ...event, bannerData: null }
+          }
+        })
+        console.log('Events with images:', eventsWithImages)
+        setEvents(eventsWithImages)
       }
     } catch (error) {
       console.error('Error fetching events:', error)
       setError('Error fetching events')
     }
   }
-
-  const getBannerFromLocalStorage = (event) => {
-    // Retrieve image data from localStorage using the unique key
-    const matchingKey = `event_${event.title}_${event.startDate}`
-    const storedImage = localStorage.getItem(matchingKey)
-    return storedImage ? storedImage : null
-  }
-
   const eventArray = events.map((event) => ({
     title: event.title,
     start: event.startDate,
     end: event.endDate,
     venue: event.venue,
     category: event.category,
-    banner: event.bannerId ? getBannerFromLocalStorage(event) : null,
-    ...event, // Add the rest of the event properties to access in the modal
+    ...event,
   }))
 
   const handleEventClick = (eventClickInfo) => {
-    setSelectedEvent(eventClickInfo.event) // Set the selected event
+    setSelectedEvent(eventClickInfo.event)
   }
 
   const closeModal = () => {
-    setSelectedEvent(null) // Close the modal
+    setSelectedEvent(null)
   }
 
   return (
@@ -102,11 +104,11 @@ const EventListPage = () => {
                         <p>Category: {selectedEvent.extendedProps.category}</p>
                       </div>
                       <div className="event-image">
-                        {selectedEvent.extendedProps.banner && (
+                        {selectedEvent.extendedProps.bannerData && (
                           <img
-                            src={selectedEvent.extendedProps.banner}
-                            alt={selectedEvent.extendedProps.title}
-                            style={{ maxWidth: '300px' }}
+                            src={selectedEvent.extendedProps.bannerData}
+                            alt="Event Banner"
+                            className="event-banner-image"
                           />
                         )}
                       </div>
@@ -122,5 +124,4 @@ const EventListPage = () => {
     </div>
   )
 }
-
 export default EventListPage

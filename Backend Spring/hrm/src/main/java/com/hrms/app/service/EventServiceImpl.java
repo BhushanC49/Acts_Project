@@ -30,8 +30,8 @@ public class EventServiceImpl {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private GridFsTemplate gridFsTemplate;
+//    @Autowired
+//    private GridFsTemplate gridFsTemplate;
     
     @Autowired
     private IEmployeeRepository empRepo; 
@@ -39,14 +39,14 @@ public class EventServiceImpl {
     @Autowired 
     private SendGridEmailService emailService;
 
-    public EventDto addEvent(EventRequest eventRequest, MultipartFile bannerFile) throws IOException {
+    public EventDto addEvent(EventRequest eventRequest, byte[] bannerData) throws IOException {
         Event event = modelMapper.map(eventRequest, Event.class);
         event.setTime(LocalTime.parse(eventRequest.getEventTime()));
-        if (bannerFile != null && !bannerFile.isEmpty()) {
-            String fileId = saveBannerFile(bannerFile);
-            event.setBannerId(fileId);
-        }
-
+        event.setBannerData(bannerData);
+//        if (bannerFile != null && !bannerFile.isEmpty()) {
+//            String fileId = saveBannerFile(bannerFile);
+//            event.setBannerId(fileId);
+//        }
         eventRepository.save(event); 
         String subject = "Upcoming Event: " + event.getTitle();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
@@ -73,13 +73,13 @@ public class EventServiceImpl {
         return modelMapper.map(event, EventDto.class);
     }
 
-    private String saveBannerFile(MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
-        String fileName = file.getOriginalFilename();
-        String contentType = file.getContentType();
-
-        return gridFsTemplate.store(inputStream, fileName, contentType).toString();
-    }
+//    private String saveBannerFile(MultipartFile file) throws IOException {
+//        InputStream inputStream = file.getInputStream();
+//        String fileName = file.getOriginalFilename();
+//        String contentType = file.getContentType();
+//
+//        return gridFsTemplate.store(inputStream, fileName, contentType).toString();
+//    }
 
 	    
     public List<EventDto> getAllEvents() {
